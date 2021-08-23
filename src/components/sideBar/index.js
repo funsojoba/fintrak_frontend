@@ -1,74 +1,7 @@
-import styled from "styled-components";
-
 import Img from "../img/img";
 
-
-const SideBarDiv = styled.div`
-    width:250px;
-    background: #1C246D;
-    border-radius: 30px;
-    height: 100vh;
-    padding:40px;
-    color:#fff;
-    box-sizing: border-box;
-    @media only screen and (max-width:750px){
-        width:70px;
-        padding:5px;
-        border-radius:15px;
-    }
-`
-
-const SideLogo = styled.div`
-    width:100%;
-    margin-bottom: 60px;
-    @media only screen and (max-width:750px){
-        display:none;
-    }
-    `
-
-const SideLogoSm = styled.div`
-    display: none;
-    width:30px;
-    margin:30px auto 60px;
-    @media only screen and (max-width:750px){
-        display:block;
-    }
-
-`
-
-const SideLinkContainer = styled.div`
-    @media only screen and (max-width:750px){
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-`
-
-
-const SideLinkDiv = styled.a`
-    display: flex;
-    color:#fff;
-    align-items: center;
-    text-decoration:none;
-`
-const SideIcon = styled.div`
-    padding:5px;
-    
-    @media only screen and (max-width:750px){
-        margin-bottom: 20px;
-        .fas{
-            font-size: 1.5em;
-        }
-    }
-`
-const SideLink = styled.div`
-    padding: 5px;
-
-    @media only screen and (max-width:750px){
-        display:none;
-    }
-
-`
+import {
+    SideBarDiv, SideLogo, SideLogoSm, SideLinkContainer, SideLinkDiv, SideIcon, SideLink} from './style'
 
 const SideBar = () => {
     return <SideBarDiv>
