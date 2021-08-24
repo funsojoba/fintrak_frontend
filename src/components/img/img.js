@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 const ImgDiv = styled.img`
-    width:100%
+    width:100%;
 `
 
 const Img = ({alt, src})=>{

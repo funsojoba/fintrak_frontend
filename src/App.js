@@ -1,16 +1,10 @@
 import './App.css';
-import SideBar from './components/sideBar';
-import Input from './components/input';
-import Box from './components/box';
-
+import Register from './pages/register';
+import LogIn from './pages/login';
 function App() {
   return (
     <div className="App">
-      <SideBar />
-
-      <Box width="500px">
-        <Input width="100%" placeholder="search" type="password"/>
-      </Box>
+      <LogIn />
 
     </div>
   );

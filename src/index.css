@@ -6,15 +6,11 @@
 }
 
 body {
-  padding:30px;
   background: #F5F5F5;
+  box-sizing: border-box;
 }
 
-@media only screen and (max-width:800px){
-  body{
-    padding:10px;
-  }
-}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

@@ -8,4 +8,5 @@ export const InputDiv = styled.input`
     border-radius: 10px;
     width: ${props => props.width ? props.width : 'auto'};
     outline: none;
+    margin-bottom: ${props => props.mb ? props.mb : '0'};
 `

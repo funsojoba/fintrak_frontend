@@ -1,7 +1,7 @@
 import { InputDiv } from "./style";
 
 
-const Input = ({onChange, type, name, value, placeholder, onBlur, width})=>{
+const Input = ({onChange, type, name, value, placeholder, onBlur, width, mb})=>{
     return <InputDiv 
             onChange={onChange}
             type={type}
@@ -9,7 +9,8 @@ const Input = ({onChange, type, name, value, placeholder, onBlur, width})=>{
             value={value}
             placeholder={placeholder}
             onBlur={onBlur}
-            width={width}>
+            width={width}
+            mb={mb}>
 
     </InputDiv>
 }
