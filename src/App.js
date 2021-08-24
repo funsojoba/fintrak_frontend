@@ -1,12 +1,17 @@
 import './App.css';
 import SideBar from './components/sideBar';
-import Button from './components/button';
+import Input from './components/input';
+import Box from './components/box';
 
 function App() {
   return (
     <div className="App">
       <SideBar />
-      <Button width="100px">Testing</Button>
+
+      <Box width="500px">
+        <Input width="100%" placeholder="search" type="password"/>
+      </Box>
+
     </div>
   );
 }

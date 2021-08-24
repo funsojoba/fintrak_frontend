@@ -48,7 +48,8 @@ export const SideLinkDiv = styled.a`
     align-items: center;
     text-decoration:none;
     position:relative;
-    transition: all 300ms ease-in;
+    transition: all 200ms ease-in;
+    margin-bottom: 20px;
     
     &:hover{
         transform: translateX(10px);
@@ -67,14 +68,13 @@ export const SideLinkDiv = styled.a`
         height: 10px;
         background:rgb(154, 42, 243);
         border-radius: 50%;
-        transition: all 400ms ease-in;
+        transition: all 300ms ease-in;
     }
 `
 export const SideIcon = styled.div`
     padding:5px;
     
     @media only screen and (max-width:750px){
-        margin-bottom: 20px;
         .fas{
             font-size: 1.5em;
         }
