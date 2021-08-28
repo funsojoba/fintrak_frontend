@@ -11,11 +11,11 @@ import { Link } from "react-router-dom";
 
 import {Container, ContainerContent, FormDiv, Label} from './style'
 
-const LogIn = () => {
+const ForgotPassword = () => {
     return <Container>
         <ContainerContent
             smDisplay="none"
-            background='https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629801805/fintrak/login_cpuikt.png'
+            background='https://res.cloudinary.com/ddl2pf4qh/image/upload/v1630146439/fintrak/Fogot_password_hjwad3.png'
         >
             <ImageBox width='100px'>
                 <Img alt="fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
@@ -24,23 +24,16 @@ const LogIn = () => {
 
         <ContainerContent>
             <Box>
-                <H3 align="center">Log in to your account</H3>
+                <H3 align="center">Enter email to reset password</H3>
                 <FormDiv>
-                 
                     <div>
                         <Label htmlFor="email">Email</Label>
                         <Input width="100%" placeholder='johndoe@email.com' type='email' name='email' mb="20px" />
                     </div>
                     <div>
-                        <Label htmlFor="password">Pasword</Label>
-                        <Input width="100%" placeholder='**********' type='password' name='password' mb="20px" />
+                        <Button width="100%" >Send</Button>
                     </div>
-                    
-                    <Small mb="10px"> <Link to="/forgot-password" >Forgot Password?</Link> </Small>
-                    <div>
-                        <Button width="100%" >Log in</Button>
-                    </div>
-                    <Small align="center" color="#666" >Don't have an account? <Link to="/register">Register</Link></Small>
+                    <Small align="center" color="#666" >Don't have an account? <Link to="/register">Register</Link> </Small>
                 </FormDiv>
             </Box>
         </ContainerContent>
@@ -48,4 +41,4 @@ const LogIn = () => {
     </Container>
 }
 
-export default LogIn
+export default ForgotPassword

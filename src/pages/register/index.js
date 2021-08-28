@@ -7,6 +7,8 @@ import Input from "../../components/input";
 import Button from "../../components/button";
 import Small from "../../components/typography/small";
 
+import { Link } from "react-router-dom";
+
 import {Container, ContainerContent, FormDiv, Label} from './style'
 
 const Register = () => {
@@ -48,7 +50,7 @@ const Register = () => {
                     <div>
                         <Button width="100%" >Register</Button>
                     </div>
-                    <Small align="center" color="#666" >Already have an account? <a href="google.com">Login</a></Small>
+                    <Small align="center" color="#666" >Already have an account? <Link to='/login'>Log In</Link></Small>
                 </FormDiv>
             </Box>
         </ContainerContent>
