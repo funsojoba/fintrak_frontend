@@ -1,11 +1,12 @@
 import { MyLinkDiv } from "./style";
+import { Link } from "react-router-dom";
 
 
 const MyLink = ({ to, children}) => {
     return <MyLinkDiv>
-        <a href={to}>
+        <Link to={to}>
             {children}
-        </a>
+        </Link>
     </MyLinkDiv>
 }
 

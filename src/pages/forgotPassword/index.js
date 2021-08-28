@@ -18,7 +18,9 @@ const ForgotPassword = () => {
             background='https://res.cloudinary.com/ddl2pf4qh/image/upload/v1630146439/fintrak/Fogot_password_hjwad3.png'
         >
             <ImageBox width='100px'>
-                <Img alt="fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
+                <Link to="/">
+                    <Img alt="fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
+                </Link>
             </ImageBox>
         </ContainerContent>
 

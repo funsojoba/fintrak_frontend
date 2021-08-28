@@ -18,8 +18,9 @@ const Register = () => {
             background='https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629801807/fintrak/register_mknghq.png'
         >
             <ImageBox width='100px'>
-                <Img alt="fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
-            </ImageBox>
+                <Link to="/">
+                    <Img alt="fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
+                </Link></ImageBox>
         </ContainerContent>
 
         <ContainerContent>

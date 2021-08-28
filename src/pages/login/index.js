@@ -18,7 +18,9 @@ const LogIn = () => {
             background='https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629801805/fintrak/login_cpuikt.png'
         >
             <ImageBox width='100px'>
-                <Img alt="fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
+                <Link to="/">
+                    <Img alt="fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
+                </Link>
             </ImageBox>
         </ContainerContent>
 
