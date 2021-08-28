@@ -6,6 +6,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Register from './pages/register';
 import LogIn from './pages/login';
 import Home from './pages/home';
+import Dashboard from './pages/dashboard';
+
+
+
 function App() {
   return (
     <div className="App">
@@ -27,6 +31,9 @@ function App() {
           <Home />
         </Route>
 
+        <Route path="/dashboard" exact>
+          <Dashboard />
+        </Route>
 
       </Switch>
     </Router>

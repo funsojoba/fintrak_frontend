@@ -10,7 +10,6 @@ export const SectionOne = styled.div`
     background:#fff;
     padding:30px;
     display: flex;
-    justify-content: space-around;
     height: 70vh;
     position:relative;
     overflow: hidden;

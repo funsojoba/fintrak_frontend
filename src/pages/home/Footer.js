@@ -48,10 +48,10 @@ const Footer = ()=>{
         </FooterFlex>
 
         <FooterFlex>
-            <A href="facebook.com"><i className="fab fa-facebook-f"></i></A>
-            <A href="twitter.com"><i className="fab fa-twitter"></i></A>
-            <A href="linkedin.com"><i className="fab fa-linkedin-in"></i></A>
-            <A href="instagram.com"><i className="fab fa-instagram"></i></A>
+            <A href="https://facebook.com"><i className="fab fa-facebook-f"></i></A>
+            <A href="https://twitter.com"><i className="fab fa-twitter"></i></A>
+            <A href="https://linkedin.com"><i className="fab fa-linkedin-in"></i></A>
+            <A href="https://instagram.com"><i className="fab fa-instagram"></i></A>
 
         </FooterFlex>
     </FooterDiv>

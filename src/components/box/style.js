@@ -6,6 +6,8 @@ export const BoxDiv = styled.div`
     padding:30px;
     width: ${props => props.width ? props.width : 'auto'};
     flex: ${props => props.flex ? props.flex : 'auto'};
+    position: relative;
+    margin: ${props => props.margin ? props.margin : "auto"};
 
     @media only screen and (max-width:750px){
         padding:20px;

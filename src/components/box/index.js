@@ -1,8 +1,11 @@
 import { BoxDiv } from "./style";
 
 
-const Box = ({children, width, flex})=>{
-    return <BoxDiv width={width} flex={flex}>
+const Box = ({children, width, flex, margin})=>{
+    return <BoxDiv 
+            width={width} 
+            flex={flex}
+            margin={margin}>
         {children}
     </BoxDiv>
 }
