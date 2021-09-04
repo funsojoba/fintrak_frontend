@@ -17,5 +17,6 @@ export const ButtonDiv = styled.button`
     &[disabled]{
     background-color: #EAEAEA;
     color: #666666;
+    cursor: not-allowed;
     }
 `

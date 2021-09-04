@@ -23,6 +23,11 @@ export const BoxDiv = styled.div`
     ${({ flexOnly }) => flexOnly && css`
         display:flex;
     `};
+    ${({ flexBetween }) => flexBetween && css`
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    `};
 
 
     @media only screen and (max-width:750px){

@@ -5,9 +5,8 @@ import Box from "../../components/box";
 import Small from "../../components/typography/small";
 import Paragraph from "../../components/typography/p";
 import Input from "../../components/input";
-import Button from "../../components/button";
-import { Table, Thead, Tr, Td } from "../../components/table";
 import MyLink from "../../components/myLink/myLink";
+import { Table, Thead, Tr, Td } from "../../components/table";
 import { Container, Content, FlexDiv, Badge, BadgeWrapper, TopNav } from "./style";
 
 import { Pie } from 'react-chartjs-2';
@@ -66,7 +65,7 @@ const BudgetPage = ()=>{
                 <Box>
                     <TopNav>
                         <Input type="search" placeholder="Search" />
-                        <Button><i className="fas fa-plus"></i> Add</Button>
+                        <MyLink to="/add-budget"><i className="fas fa-plus"></i> Add</MyLink>
                     </TopNav>
                     <Table>
                         <Thead>
