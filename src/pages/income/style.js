@@ -15,3 +15,8 @@ export const Content = styled.div`
     overflow: scroll;
     padding:20px;
 `
+
+export const TopNav = styled.div`
+    display:flex;
+    justify-content: space-between;
+`
