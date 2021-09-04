@@ -20,3 +20,8 @@ export const TopNav = styled.div`
     display:flex;
     justify-content: space-between;
 `
+
+export const FormContent = styled.div`
+    padding:15px;
+    margin-bottom: 7.5px;;
+`
