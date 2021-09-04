@@ -4,10 +4,11 @@ export const SideBarDiv = styled.div`
     width:250px;
     background: #1C246D;
     border-radius: 30px;
-    height: 100vh;
+    height: 90vh;
     padding:40px;
     color:#fff;
     box-sizing: border-box;
+    position:relative;
     @media only screen and (max-width:750px){
         width:70px;
         padding:5px;
@@ -88,4 +89,31 @@ export const SideLink = styled.div`
         display:none;
     }
 
+`
+export const LogoutDiv = styled.div`
+    position: absolute;
+    bottom: 20px;
+    width:60%;
+    margin:auto;
+    left:50%;
+    transform: translateX(-50%);
+    
+    @media only screen and (max-width:750px){
+        display:none
+    }
+    `
+export const LogoutDivSmall = styled.div`
+    position: absolute;
+    bottom: 20px;
+    left:50%;
+    transform: translateX(-50%);
+    /* width:30px; */
+    /* height: 30px; */
+    display:none;
+    
+    @media only screen and (max-width:750px){
+        display:flex;
+        align-items: center;
+        justify-content:center;
+    }
 `

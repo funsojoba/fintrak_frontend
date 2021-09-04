@@ -11,6 +11,8 @@ import IncomePage from './pages/income';
 import ExpensePage from './pages/expense';
 import EditIncome from './pages/editIncome';
 import EditExpense from './pages/editExpense';
+import SettingsPage from './pages/settings';
+import BudgetPage from './pages/budget';
 
 
 function App() {
@@ -53,6 +55,14 @@ function App() {
         
         <Route path="/edit-expense" exact>
           <EditExpense />
+        </Route>
+        
+        <Route path="/settings" exact>
+          <SettingsPage />
+        </Route>
+        
+        <Route path="/budget" exact>
+          <BudgetPage />
         </Route>
 
       </Switch>

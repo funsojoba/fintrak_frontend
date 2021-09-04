@@ -14,6 +14,16 @@ export const BoxDiv = styled.div`
         justify-content:center;
         align-items:center;
     `};
+    
+    ${({ flexStart }) => flexStart && css`
+        display:flex;
+        justify-content:flex-start;
+        align-items:flex-start;
+    `};
+    ${({ flexOnly }) => flexOnly && css`
+        display:flex;
+    `};
+
 
     @media only screen and (max-width:750px){
         padding:20px;

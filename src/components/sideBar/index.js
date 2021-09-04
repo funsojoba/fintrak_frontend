@@ -1,9 +1,15 @@
 import Img from "../img/img";
 
 import { Link } from "react-router-dom";
+import Button from "../button";
 
 import {
-    SideBarDiv, SideLogo, SideLogoSm, SideLinkContainer, SideIcon, SideLink} from './style'
+    SideBarDiv, 
+    SideLogo, 
+    SideLogoSm, 
+    SideLinkContainer, 
+    SideIcon, SideLink, LogoutDiv,
+    LogoutDivSmall} from './style'
 
 const SideBar = () => {
     return <SideBarDiv>
@@ -61,6 +67,22 @@ const SideBar = () => {
             </Link>
 
         </SideLinkContainer>
+        <LogoutDivSmall>
+            <Button
+                background="rgb(142, 42, 243)"
+                color="#fff"
+                padding="15px"
+                border="solid 1px #fff"
+            ><i className="fas fa-power-off"></i></Button>
+        </LogoutDivSmall>
+        <LogoutDiv>
+            <Button
+                background="rgb(142, 42, 243)"
+                width="100%"
+                color="#fff"
+                border="solid 1px #fff"
+            ><i className="fas fa-power-off"></i> &nbsp; Log Out</Button>
+        </LogoutDiv>
     </SideBarDiv>
 }
 

@@ -4,7 +4,7 @@ import H1 from "../../components/typography/h1";
 import Paragraph from "../../components/typography/p";
 
 import { Bar } from 'react-chartjs-2';
-import { Container,TopDiv, Content, TopNav } from "./style";
+import { Container,TopDiv, Content, TopNav, FormContent } from "./style";
 import DashNav from "../../components/dashNav";
 import DashImage from "../../components/dashNav/dashImage";
 import { Table, Tr, Td, Thead } from "../../components/table";
@@ -12,8 +12,24 @@ import Input from "../../components/input";
 import Select from "../../components/input/select";
 import Button from "../../components/button";
 import MyLink from "../../components/myLink/myLink";
+import Modal from "../../components/modal";
+import Label from "../../components/typography/label";
+
+import { useState } from "react";
+
 
 const IncomePage = ()=>{
+
+    const [modalState, setmodalState] = useState(false)
+
+    const closeModal = () => {
+        setmodalState(false)
+    }
+
+    const openModal = () => {
+        setmodalState(true)
+    }
+
     const data = {
         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
         datasets: [
@@ -50,6 +66,29 @@ const IncomePage = ()=>{
 
     }
     return <Container>
+        <Modal
+            title="Add income"
+            display={modalState ? "flex" : "none"}
+            close={closeModal}>
+            <FormContent>
+                <Label>Amount</Label>
+                <Input placeholder="amount" type="number" name="amount" width="100%" />
+            </FormContent>
+            <FormContent>
+                <Label>Source</Label>
+                <Input placeholder="Salary" type="text" name="category" width="100%" />
+            </FormContent>
+            <FormContent>
+                <Label>Description</Label>
+                <Input placeholder="Salary for the month of July" type="text" name="description" width="100%" />
+            </FormContent>
+            <FormContent>
+                <Label>Date</Label>
+                <Input type="date" name="expense_date" width="100%" />
+            </FormContent>
+
+            <Button>Submit</Button>
+        </Modal>
         <SideBar />
 
         <Content>
@@ -91,7 +130,7 @@ const IncomePage = ()=>{
                 <Box>
                     <TopNav> 
                         <Input type="search" placeholder="Search" />
-                        <Button><i className="fas fa-plus"></i> Add</Button>
+                        <Button onClick={openModal}><i className="fas fa-plus"></i> Add</Button>
                     </TopNav>
                     <Table>
                         <Thead>
