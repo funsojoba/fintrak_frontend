@@ -1,8 +1,8 @@
 import SideBar from '../../components/sideBar/'
 
 import { Container, Content, DashDiv, DashBoxDiv, Select, TransactionCard } from './style'
-import DashNav from './dashNav'
-import DashImage from './dashImage'
+import DashNav from '../../components/dashNav'
+import DashImage from '../../components/dashNav/dashImage'
 import InfoCard from '../../components/infoCard'
 import Box from '../../components/box'
 import Paragraph from '../../components/typography/p'

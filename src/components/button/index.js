@@ -1,13 +1,14 @@
 import { ButtonDiv } from "./style";
 
 
-const Button = ({children, onClick, background, color, width, type})=>{
+const Button = ({children, onClick, background, color, width, type, padding})=>{
     return <ButtonDiv 
             background={background} 
             color={color} 
             onClick={onClick}
             width={width}
-            type={type}>
+            type={type}
+            padding={padding}>
         {children}
     </ButtonDiv>
 }

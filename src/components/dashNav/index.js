@@ -10,7 +10,7 @@ const DashNavDIv = styled.div`
 `
 
 
-const DashNav = ({children})=>{
+const DashNav = ({ children }) => {
     return <DashNavDIv>
         {children}
     </DashNavDIv>

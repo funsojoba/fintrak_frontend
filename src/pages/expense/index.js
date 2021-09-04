@@ -13,24 +13,18 @@ import Select from "../../components/input/select";
 import Button from "../../components/button";
 import MyLink from "../../components/myLink/myLink";
 
-const IncomePage = ()=>{
+const ExpensePage = ()=>{
     const data = {
         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
         datasets: [
             {
-                label: 'Income',
+                label: 'Expenses',
                 data: [12, 19, 3, 5],
                 backgroundColor: [
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 156, 156, 0.2)',
+                    'rgba(255, 156, 156, 0.2)',
+                    'rgba(255, 156, 156, 0.2)',
+                    'rgba(255, 156, 156, 0.2)',
                 ],
                 borderWidth: 0,
             },
@@ -54,7 +48,7 @@ const IncomePage = ()=>{
 
         <Content>
             <DashNav>
-                <div>Income</div>
+                <div>Expenses</div>
                 <TopDiv>
                     <Button
                         padding="10px 20px"
@@ -81,8 +75,8 @@ const IncomePage = ()=>{
                 </Box>
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
-                    <Paragraph>Total Revenue</Paragraph>
-                    <H1>$12 122 133</H1>
+                    <Paragraph>Total Expenses</Paragraph>
+                    <H1>$12 000</H1>
                     </div>
                 </Box>
             </TopDiv>
@@ -96,7 +90,7 @@ const IncomePage = ()=>{
                     <Table>
                         <Thead>
                             <Td>Amount</Td>
-                            <Td>Source</Td>
+                            <Td>Category</Td>
                             <Td>Description</Td>
                             <Td>Date</Td>
                             <Td>Action</Td>
@@ -137,4 +131,4 @@ const IncomePage = ()=>{
     </Container>
 }
 
-export default IncomePage
+export default ExpensePage

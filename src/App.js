@@ -8,6 +8,7 @@ import LogIn from './pages/login';
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import IncomePage from './pages/income';
+import ExpensePage from './pages/expense';
 
 
 function App() {
@@ -39,6 +40,9 @@ function App() {
           <IncomePage />
         </Route>
 
+        <Route path="/expense" exact>
+          <ExpensePage />
+        </Route>
       </Switch>
     </Router>
 
