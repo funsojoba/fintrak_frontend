@@ -9,6 +9,8 @@ import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import IncomePage from './pages/income';
 import ExpensePage from './pages/expense';
+import EditIncome from './pages/editIncome';
+import EditExpense from './pages/editExpense';
 
 
 function App() {
@@ -43,6 +45,16 @@ function App() {
         <Route path="/expense" exact>
           <ExpensePage />
         </Route>
+
+        {/* Add parameters later */}
+        <Route path="/edit-income" exact>
+          <EditIncome />
+        </Route>
+        
+        <Route path="/edit-expense" exact>
+          <EditExpense />
+        </Route>
+
       </Switch>
     </Router>
 

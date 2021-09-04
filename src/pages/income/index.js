@@ -82,7 +82,7 @@ const IncomePage = ()=>{
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
                     <Paragraph>Total Revenue</Paragraph>
-                    <H1>$12 122 133</H1>
+                    <H1>$23 000</H1>
                     </div>
                 </Box>
             </TopDiv>
@@ -108,7 +108,7 @@ const IncomePage = ()=>{
                             <Td>07/01/2020</Td>
                             <Td>
                                 <MyLink 
-                                    to="/"
+                                    to="/edit-income"
                                     background="#62B161"
                                     color="#fff"
                                     padding="5px 20px" >Edit</MyLink>
@@ -122,7 +122,7 @@ const IncomePage = ()=>{
                             <Td>07/01/2020</Td>
                             <Td>
                                 <MyLink 
-                                    to="/"
+                                    to="/edit-income"
                                     background="#62B161"
                                     color="#fff"
                                     padding="5px 20px" >Edit</MyLink>

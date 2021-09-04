@@ -1,7 +1,7 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 export const BoxDiv = styled.div`
-    background:#fff;
+    background: ${props => props.background ? props.background : "#fff"};
     border-radius:20px;
     padding:30px;
     width: ${props => props.width ? props.width : 'auto'};
@@ -9,7 +9,7 @@ export const BoxDiv = styled.div`
     position: relative;
     margin: ${props => props.margin ? props.margin : "auto"};
 
-    ${({displayFlex})=> displayFlex && css `
+    ${({ displayFlex }) => displayFlex && css`
         display:flex;
         justify-content:center;
         align-items:center;

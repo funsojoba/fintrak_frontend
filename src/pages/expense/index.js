@@ -76,7 +76,7 @@ const ExpensePage = ()=>{
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
                     <Paragraph>Total Expenses</Paragraph>
-                    <H1>$12 000</H1>
+                    <H1>$13 000</H1>
                     </div>
                 </Box>
             </TopDiv>
@@ -102,7 +102,7 @@ const ExpensePage = ()=>{
                             <Td>07/01/2020</Td>
                             <Td>
                                 <MyLink 
-                                    to="/"
+                                    to="/edit-expense"
                                     background="#62B161"
                                     color="#fff"
                                     padding="5px 20px" >Edit</MyLink>
@@ -116,7 +116,7 @@ const ExpensePage = ()=>{
                             <Td>07/01/2020</Td>
                             <Td>
                                 <MyLink 
-                                    to="/"
+                                    to="/edit-expense"
                                     background="#62B161"
                                     color="#fff"
                                     padding="5px 20px" >Edit</MyLink>
