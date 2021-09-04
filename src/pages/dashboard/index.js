@@ -24,7 +24,7 @@ const Dashboard = () => {
             },
             {
                 label: 'Expenditure',
-                data: [11, 20, 10, 7, 2, 12],
+                data: [11, 20, 10, 7, 13, 6],
                 fill: false,
                 backgroundColor: 'rgb(238, 132, 132)',
                 borderColor: 'rgba(238, 132, 132, 0.2)',
@@ -103,7 +103,7 @@ const Dashboard = () => {
 
                 <InfoCard
                     title="Avaialable Balance"
-                    amount="$1 000"
+                    amount="$10 000"
                     icon={<i class="fas fa-balance-scale-right fa-lg"></i>}
                     background="#EFDADA"
                 />

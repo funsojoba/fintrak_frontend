@@ -39,27 +39,25 @@ export const SideLinkContainer = styled.div`
         flex-direction: column;
         align-items: center;
     }
-`
 
-
-export const SideLinkDiv = styled.a`
-    display: flex;
+    a{
+        display: flex;
     color:#fff;
     align-items: center;
     text-decoration:none;
     position:relative;
     transition: all 200ms ease-in;
     margin-bottom: 20px;
-    
+
     &:hover{
         transform: translateX(10px);
     }
-    
+
     &:hover::after{
         opacity:1;
         transform: translateX(-10px);
     }
-    
+
     &::after{
         opacity:0;
         content:"";
@@ -70,7 +68,10 @@ export const SideLinkDiv = styled.a`
         border-radius: 50%;
         transition: all 300ms ease-in;
     }
+    }
 `
+
+
 export const SideIcon = styled.div`
     padding:5px;
     

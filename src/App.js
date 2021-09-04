@@ -7,7 +7,7 @@ import Register from './pages/register';
 import LogIn from './pages/login';
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
-
+import IncomePage from './pages/income';
 
 
 function App() {
@@ -33,6 +33,10 @@ function App() {
 
         <Route path="/dashboard" exact>
           <Dashboard />
+        </Route>
+        
+        <Route path="/income" exact>
+          <IncomePage />
         </Route>
 
       </Switch>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 export const BoxDiv = styled.div`
     background:#fff;
@@ -8,6 +8,12 @@ export const BoxDiv = styled.div`
     flex: ${props => props.flex ? props.flex : 'auto'};
     position: relative;
     margin: ${props => props.margin ? props.margin : "auto"};
+
+    ${({displayFlex})=> displayFlex && css `
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    `};
 
     @media only screen and (max-width:750px){
         padding:20px;
