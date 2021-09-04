@@ -82,7 +82,7 @@ const BudgetPage = ()=>{
                             <Td>$ 18 000</Td>
                             <Td>
                                 <MyLink
-                                    to="/edit-income"
+                                    to="/edit-budget"
                                     background="#62B161"
                                     color="#fff"
                                     padding="5px 20px" >Edit</MyLink>
@@ -96,7 +96,7 @@ const BudgetPage = ()=>{
                             <Td>$ 28 000</Td>
                             <Td>
                                 <MyLink
-                                    to="/edit-income"
+                                    to="/edit-budget"
                                     background="#62B161"
                                     color="#fff"
                                     padding="5px 20px" >Edit</MyLink>

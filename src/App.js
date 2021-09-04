@@ -14,6 +14,7 @@ import EditExpense from './pages/editExpense';
 import SettingsPage from './pages/settings';
 import BudgetPage from './pages/budget';
 import AddBudget from './pages/addBudget';
+import EditBudget from './pages/editBudget';
 
 
 function App() {
@@ -68,6 +69,9 @@ function App() {
         
         <Route path="/add-budget" exact>
           <AddBudget />
+        </Route>
+        <Route path="/edit-budget" exact>
+          <EditBudget />
         </Route>
 
       </Switch>

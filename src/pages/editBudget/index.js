@@ -7,18 +7,19 @@ import Box from "../../components/box";
 import Small from "../../components/typography/small";
 import Label from "../../components/typography/label";
 import InfoCard from "../../components/infoCard";
+import MyLink from "../../components/myLink/myLink";
 
 import { Container, Content, FlexDiv, FormContent, ListDiv } from "./style";
 import Paragraph from "../../components/typography/p";
 
 
-const AddBudget = ()=>{
+const EditBudget = ()=>{
     return <Container>
         <SideBar />
 
         <Content>
             <DashNav>
-                Add March budget
+                Edit March budget
                 <DashImage />
             </DashNav>
             <FlexDiv>            
@@ -74,7 +75,7 @@ const AddBudget = ()=>{
                             <Label>Short Description</Label>
                             <Input width="100%" type="text" name="description" />
                         </FormContent>
-                        <Button disabled>Add Expense</Button>
+                        <Button>Add Expense</Button>
                     </form>
                 </Box>
             </FlexDiv>
@@ -84,14 +85,23 @@ const AddBudget = ()=>{
                     <ListDiv>
                         <Small>Some Description</Small>
                         <Paragraph>$1 200</Paragraph>
+                        <MyLink padding="5px 15px" background="#DB0069" color="#fff"> 
+                            <i className="fas fa-trash"></i>
+                        </MyLink>
                     </ListDiv>
                     <ListDiv>
                         <Small>Some Description</Small>
                         <Paragraph>$1 200</Paragraph>
+                        <MyLink padding="5px 15px" background="#DB0069" color="#fff">
+                            <i className="fas fa-trash"></i>
+                        </MyLink>
                     </ListDiv>
                     <ListDiv>
                         <Small>Some Description</Small>
                         <Paragraph>$1 200</Paragraph>
+                        <MyLink padding="5px 15px" background="#DB0069" color="#fff">
+                            <i className="fas fa-trash"></i>
+                        </MyLink>
                     </ListDiv>
                 </Box>
                 <Box flex="1" margin="10px">
@@ -99,6 +109,9 @@ const AddBudget = ()=>{
                     <ListDiv>
                         <Small>Some Description</Small>
                         <Paragraph>$1 200</Paragraph>
+                        <MyLink padding="5px 15px" background="#DB0069" color="#fff">
+                            <i className="fas fa-trash"></i>
+                        </MyLink>
                     </ListDiv>
                 </Box>
             </FlexDiv>
@@ -106,4 +119,4 @@ const AddBudget = ()=>{
     </Container>
 }
 
-export default AddBudget
+export default EditBudget

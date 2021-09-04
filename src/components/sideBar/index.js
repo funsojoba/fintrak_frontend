@@ -13,12 +13,16 @@ import {
 
 const SideBar = () => {
     return <SideBarDiv>
-        <SideLogoSm>
-            <Img alt="Fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
-        </SideLogoSm>
-        <SideLogo>
-            <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629750175/fintrak/FinTrackWhite_kilzmt.png" alt="Fintrak" />
-        </SideLogo>
+        <Link to="/">
+            <SideLogoSm>
+                <Img alt="Fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
+            </SideLogoSm>
+        </Link>
+        <Link to="/">
+            <SideLogo>
+                <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629750175/fintrak/FinTrackWhite_kilzmt.png" alt="Fintrak" />
+            </SideLogo>
+        </Link>
        
         <SideLinkContainer>
             <Link to="/dashboard" >
@@ -72,7 +76,6 @@ const SideBar = () => {
                 background="rgb(142, 42, 243)"
                 color="#fff"
                 padding="15px"
-                border="solid 1px #fff"
             ><i className="fas fa-power-off"></i></Button>
         </LogoutDivSmall>
         <LogoutDiv>
@@ -80,7 +83,6 @@ const SideBar = () => {
                 background="rgb(142, 42, 243)"
                 width="100%"
                 color="#fff"
-                border="solid 1px #fff"
             ><i className="fas fa-power-off"></i> &nbsp; Log Out</Button>
         </LogoutDiv>
     </SideBarDiv>
