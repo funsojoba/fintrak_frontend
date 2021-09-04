@@ -13,4 +13,9 @@ export const ButtonDiv = styled.button`
     &:hover{
         transform: translateX(5px);
     }
+    &:disabled,
+    &[disabled]{
+    background-color: #EAEAEA;
+    color: #666666;
+    }
 `
