@@ -5,6 +5,7 @@ import Paragraph from "../../components/typography/p";
 import Img from "../../components/img/img";
 import ImageBox from "../../components/imageBox";
 
+import { connect } from "react-redux";
 
 export const SectionOne = styled.div`
     background:#fff;
@@ -50,7 +51,7 @@ export const SecOneText = styled.div`
 `
 
 
-const SecOne = ()=>{
+const SecOne = ({ loginData})=>{
     return <SectionOne>
         <SecOneFlex>
             <SecOneText>
@@ -59,7 +60,7 @@ const SecOne = ()=>{
                     of your income and expenditure
                     to make better financial decisions</Paragraph>
                 <br></br>
-                <MyLink to="/register" >Sign Up</MyLink>
+                {loginData.token ? <MyLink to="/dashboard" >Dashboard</MyLink> : <MyLink to="/register" >Sign Up</MyLink>}
             </SecOneText>
         </SecOneFlex>
 
@@ -74,4 +75,8 @@ const SecOne = ()=>{
     </SectionOne>
 }
 
-export default SecOne
+const mapStateToProps =(store)=>({
+    loginData:store.loginReducer
+})
+
+export default connect(mapStateToProps)(SecOne)

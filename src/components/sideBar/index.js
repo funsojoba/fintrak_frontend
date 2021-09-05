@@ -2,6 +2,7 @@ import Img from "../img/img";
 
 import { Link } from "react-router-dom";
 import Button from "../button";
+// import { Redirect } from "react-router-dom";
 
 import {
     SideBarDiv, 
@@ -12,6 +13,12 @@ import {
     LogoutDivSmall} from './style'
 
 const SideBar = () => {
+    
+    const logOut = () => {
+        localStorage.clear()
+        console.log('loggin out...')
+        window.location = "/";
+    }
     return <SideBarDiv>
         <Link to="/">
             <SideLogoSm>
@@ -73,13 +80,16 @@ const SideBar = () => {
         </SideLinkContainer>
         <LogoutDivSmall>
             <Button
+                onClick={logOut}
                 background="rgb(142, 42, 243)"
                 color="#fff"
                 padding="15px"
             ><i className="fas fa-power-off"></i></Button>
         </LogoutDivSmall>
+        
         <LogoutDiv>
             <Button
+                onClick={logOut}
                 background="rgb(142, 42, 243)"
                 width="100%"
                 color="#fff"

@@ -15,69 +15,60 @@ import SettingsPage from './pages/settings';
 import BudgetPage from './pages/budget';
 import AddBudget from './pages/addBudget';
 import EditBudget from './pages/editBudget';
+import Loader from 'react-loader-spinner'
+import ProtectedRoute from './protectedRoute';
+
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react';
+
+import getStore from './redux/store'
+
+export const { store, persistor } = getStore()
 
 
 function App() {
   return (
-    <div className="App">
-    <Router>
-      <Switch>
-        <Route path="/login" exact>
-          <LogIn />
-        </Route>
+    <Provider store={store} >
 
-        <Route path="/forgot-password" exact>
-          <ForgotPassword />
-        </Route>
-        
-        <Route path="/register" exact>
-          <Register />
-        </Route>
+      <div className="App">
+        <Router>
+      <PersistGate loading={<Loader type="Puff"
+            color="#00BFFF"
+            height={100}
+            width={100}
+            timeout={3000} />} persistor={persistor}>
+          <Switch>
+            <Route path="/login" exact>
+              <LogIn />
+            </Route>
 
-        <Route path="/" exact>
-          <Home />
-        </Route>
+            <Route path="/forgot-password" exact>
+              <ForgotPassword />
+            </Route>
+            
+            <Route path="/register" exact>
+              <Register />
+            </Route>
 
-        <Route path="/dashboard" exact>
-          <Dashboard />
-        </Route>
-        
-        <Route path="/income" exact>
-          <IncomePage />
-        </Route>
+            <Route path="/" exact>
+              <Home />
+            </Route>
 
-        <Route path="/expense" exact>
-          <ExpensePage />
-        </Route>
+            <ProtectedRoute path="/dashboard" exact component={Dashboard} />
+            <ProtectedRoute path="/income" exact component={IncomePage} />
+            <ProtectedRoute path="/expense" exact component={ExpensePage} />
+            <ProtectedRoute path="/settings" exact component={SettingsPage} />
+            <ProtectedRoute path="/budget" exact component={BudgetPage} />
+            <ProtectedRoute path="/add-budget" exact component={AddBudget} />
+            <ProtectedRoute path="/edit-budget/:id" exact component={EditBudget} />
+            <ProtectedRoute path="/edit-income/:id" exact component={EditIncome} />
+            <ProtectedRoute path="/edit-expense/:id" exact component={EditExpense} />
+          </Switch>
+      </PersistGate>
+      </Router>
 
-        {/* Add parameters later */}
-        <Route path="/edit-income" exact>
-          <EditIncome />
-        </Route>
-        
-        <Route path="/edit-expense" exact>
-          <EditExpense />
-        </Route>
-        
-        <Route path="/settings" exact>
-          <SettingsPage />
-        </Route>
-        
-        <Route path="/budget" exact>
-          <BudgetPage />
-        </Route>
-        
-        <Route path="/add-budget" exact>
-          <AddBudget />
-        </Route>
-        <Route path="/edit-budget" exact>
-          <EditBudget />
-        </Route>
-
-      </Switch>
-    </Router>
-
-    </div>
+      </div>
+    </Provider>
   );
 }
 

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import Img from "../../components/img/img";
 import MyLink from "../../components/myLink/myLink"
+import Button from "../../components/button";
+
+import { connect } from "react-redux";
 
 const NavDiv = styled.nav`
     display: flex;
@@ -14,16 +17,25 @@ const NavImg = styled.div`
 `
 
 
-const Nav = ()=>{
+const Nav = ({loginData})=>{
+    const logOut = () => {
+        localStorage.clear()
+        console.log('loggin out...')
+        window.location = "/";
+    }
     return <NavDiv>
         <NavImg>
             <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1630147720/fintrak/FinTrakPL_fuiegf.png" alt="FinTrak" />
         </NavImg>
 
         <div>
-            <MyLink to="/login">Login</MyLink>
+            {loginData.token ? <Button onClick={logOut}>Log out</Button> : <MyLink to="/login">Login</MyLink>}
         </div>
     </NavDiv>
 }
 
-export default Nav
+const mapStateToProps = (store)=>({
+    loginData:store.loginReducer
+})
+
+export default connect(mapStateToProps)(Nav)

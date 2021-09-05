@@ -35,3 +35,7 @@ export const Label = styled.label`
     text-align:left;
     color:#666;
 `
+
+export const FormContent = styled.div`
+    margin-bottom: 20px;
+`
