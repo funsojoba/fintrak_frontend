@@ -1,0 +1,40 @@
+import axios from "axios";
+import BASEURL from "../../baseURL";
+
+import { REGISTER, REGISTER_FAILED, REGISTER_SUCCESS } from "../types";
+import { toast } from "react-toastify";
+
+
+const registerStart = ()=>({
+    type:REGISTER
+})
+
+const registerFailed = payload =>({
+    type:REGISTER_FAILED,
+    payload
+})
+
+const registerSuccess = payload =>({
+    type:REGISTER_SUCCESS,
+    payload
+})
+
+const register = payload =>{
+    return function(dispatch){
+        dispatch(registerStart())
+        axios.post(BASEURL + 'auth/register', payload)
+        .then(res =>{
+            toast.success('Success! Please check mail to confirm account')
+            dispatch(registerSuccess(res))
+            setTimeout(()=>{
+                window.location ="/login"
+            }, 1500)
+        }).catch(err =>{
+            const error = Object.values(err.response.data.error)[0]
+            toast.error(error[0])
+            dispatch(registerFailed(err))
+        })
+    }
+}
+
+export default register

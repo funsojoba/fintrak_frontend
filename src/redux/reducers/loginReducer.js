@@ -3,7 +3,7 @@ import { LOGIN_FAILED, LOGIN_SUCCESS, LOGIN } from "../action/types"
 const initialState = {
     token : localStorage.getItem('token'),
     data:'',
-    loading: '',
+    loading: false,
     error: '',
     message: ''
 }
