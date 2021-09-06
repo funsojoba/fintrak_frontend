@@ -1,7 +1,7 @@
 import { ButtonDiv } from "./style";
 
 
-const Button = ({children, onClick, background, color, width, type, padding, border, disabled})=>{
+const Button = ({children, onClick, background, color, width, type, padding, border, disabled, sm})=>{
     return <ButtonDiv 
             background={background} 
             color={color} 
@@ -10,7 +10,8 @@ const Button = ({children, onClick, background, color, width, type, padding, bor
             type={type}
             padding={padding}
             border={border}
-            disabled={disabled}>
+            disabled={disabled}
+            sm={sm}>
         {children}
     </ButtonDiv>
 }

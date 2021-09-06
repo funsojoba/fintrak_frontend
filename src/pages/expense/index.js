@@ -4,7 +4,7 @@ import H1 from "../../components/typography/h1";
 import Paragraph from "../../components/typography/p";
 
 import { Bar } from 'react-chartjs-2';
-import { Container, TopDiv, Content, TopNav, FormContent } from "./style";
+import { Container, TopDiv, Content, TopNav, FormContent, Div } from "./style";
 import DashNav from "../../components/dashNav";
 import DashImage from "../../components/dashNav/dashImage";
 import { Table, Tr, Td, Thead } from "../../components/table";
@@ -91,11 +91,12 @@ const ExpensePage = ()=>{
                     <Button
                         padding="10px 20px"
                         background="#62B161"
-                        color="#fff"><i className="fas fa-cloud-download-alt"></i> Report</Button> &nbsp; &nbsp;
+                        color="#fff"><i className="fas fa-cloud-download-alt"></i></Button> &nbsp; &nbsp;
                     <DashImage />
                 </TopDiv>
             </DashNav>
-            <TopDiv>
+
+            <Div>
                 <Box flex="2" margin="3px">
                     <TopNav>
                         <Select>
@@ -117,12 +118,12 @@ const ExpensePage = ()=>{
                     <H1>$13 000</H1>
                     </div>
                 </Box>
-            </TopDiv>
+            </Div>
 
-            <TopDiv>
+            <Div>
                 <Box>
                     <TopNav> 
-                        <Input type="search" placeholder="Search" />
+                        <Input type="search" placeholder="Search" /> <br />
                         <Button onClick={openModal} ><i className="fas fa-plus"></i> Add</Button>
                     </TopNav>
                     <Table>
@@ -163,7 +164,7 @@ const ExpensePage = ()=>{
                         </Tr>
                     </Table>
                 </Box>
-            </TopDiv>
+            </Div>
         </Content>
 
     </Container>

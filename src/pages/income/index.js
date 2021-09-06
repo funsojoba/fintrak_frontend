@@ -132,7 +132,7 @@ const IncomePage = ()=>{
                 <Box>
                     <TopNav> 
                         <Input type="search" placeholder="Search" /> <br />
-                        <Button onClick={openModal}><i className="fas fa-plus"></i> Add</Button>
+                        <Button sm onClick={openModal}><i className="fas fa-plus"></i> Add</Button>
                     </TopNav>
                     <Table>
                         <Thead>

@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
     padding:30px;
     display:flex;
+    @media only screen and (max-width:850px){
+        padding:10px
+    }
 `
 
 export const Content = styled.div`
@@ -10,10 +13,15 @@ export const Content = styled.div`
     height: 100vh;
     overflow: scroll;
     padding:20px;
+    scrollbar-width: none;
 `
 
 export const BodyDiv = styled.div`
     display:flex;
+
+    @media only screen and (max-width:850px){
+        flex-direction:column;
+    }
 `
 
 export const ProfileImage = styled.div`
@@ -29,6 +37,8 @@ export const ProfileImgContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items:center;
+
 `
 
 export const ProfileForm = styled.form`
@@ -40,4 +50,5 @@ export const FormContent = styled.div`
 
 export const ChildDiv = styled.div`
     flex:1;
+
 `

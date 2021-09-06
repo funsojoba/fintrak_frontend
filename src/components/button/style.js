@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 export const ButtonDiv = styled.button`
     border-radius: 10px;
@@ -19,4 +19,11 @@ export const ButtonDiv = styled.button`
     color: #666666;
     cursor: not-allowed;
     }
+
+
+    ${({ sm }) => sm && css`
+        @media only screen and (max-width:850px){
+            padding:10px 15px
+        }
+    `};
 `

@@ -67,7 +67,7 @@ const SettingsPage = ()=>{
 
             <BodyDiv>
                 <ChildDiv>
-                    <Box flexStart margin="10px">
+                    <Box  margin="10px">
                         <ProfileImgContainer>
                             <ProfileImage />
                             <Button
@@ -81,19 +81,19 @@ const SettingsPage = ()=>{
                         <ProfileForm>
                             <FormContent>
                                 <Label>First Name</Label>
-                                <Input placeholder="John" type="text"/>
+                                <Input placeholder="John" type="text" width="100%" />
                             </FormContent>
                             <FormContent>
                                 <Label>Last Name</Label>
-                                <Input placeholder="Doe" type="text"/>
+                                <Input placeholder="Doe" type="text" width="100%" />
                             </FormContent>
                             <FormContent>
                                 <Label>Email</Label>
-                                <Input placeholder="Johndoe@email.com" type="email"/>
+                                <Input placeholder="Johndoe@email.com" type="email" width="100%" />
                             </FormContent>
                             <FormContent>
                                 <Label>Phone</Label>
-                                <Input placeholder="+1 2334 123" type="tel"/>
+                                <Input placeholder="+1 2334 123" type="tel" width="100%"/>
                             </FormContent>
                             <FormContent>
                                 <Label>Date of birth</Label>
@@ -101,7 +101,7 @@ const SettingsPage = ()=>{
                             </FormContent>
                             <FormContent>
                                 <Label>Address</Label>
-                                <Input placeholder="7. Wisconson Street, Houston, Texas" type="text"/>
+                                <Input placeholder="7. Wisconson Street, Houston, Texas" type="text" width="100%" />
                             </FormContent>
                             <Button>Update</Button>
                         </ProfileForm>

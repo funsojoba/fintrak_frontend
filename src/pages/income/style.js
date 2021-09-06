@@ -30,6 +30,7 @@ export const Content = styled.div`
     height: 100vh;
     overflow: scroll;
     padding:20px;
+    scrollbar-width: none;
 `
 
 export const TopNav = styled.div`

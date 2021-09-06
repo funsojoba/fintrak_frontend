@@ -13,6 +13,7 @@ export const SideBarDiv = styled.div`
         width:70px;
         padding:5px;
         border-radius:15px;
+        height:97vh;
     }
 `
 

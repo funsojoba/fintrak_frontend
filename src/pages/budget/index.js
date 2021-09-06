@@ -43,15 +43,15 @@ const BudgetPage = ()=>{
                 <Box displayFlex flex="2" margin="10px">
                     <BadgeWrapper>
                         <Badge>
-                            <Small>Total Estimated Revenue</Small>
+                            <Small>Estimated Revenue</Small>
                             <Paragraph>$12 000</Paragraph>
                         </Badge>
                         <Badge background="#FFD6D6">
-                            <Small>Total Estimated Expenditure</Small>
+                            <Small>Estimated Expense</Small>
                             <Paragraph>$10 000</Paragraph>
                         </Badge>
                         <Badge background="#EFF1FF">
-                            <Small>Total Estimated Balance</Small>
+                            <Small>Estimated Balance</Small>
                             <Paragraph>$2 000</Paragraph>
                         </Badge>
                     </BadgeWrapper>
@@ -76,7 +76,7 @@ const BudgetPage = ()=>{
                             <Td>Action</Td>
                         </Thead>
                         <Tr>
-                            <Td>January</Td>
+                            <Td>Jan.</Td>
                             <Td>$ 30 000</Td>
                             <Td>$ 12 000</Td>
                             <Td>$ 18 000</Td>
@@ -90,7 +90,7 @@ const BudgetPage = ()=>{
 
                         </Tr>
                         <Tr>
-                            <Td>January</Td>
+                            <Td>Feb.</Td>
                             <Td>$ 50 000</Td>
                             <Td>$ 22 000</Td>
                             <Td>$ 28 000</Td>

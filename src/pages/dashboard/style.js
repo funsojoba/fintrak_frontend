@@ -3,12 +3,17 @@ import styled from "styled-components";
 export const Container = styled.div`
     padding:30px;
     display:flex;
+
+    @media only screen and (max-width:850px){
+        padding:10px
+    }
 `
 
 export const Content = styled.div`
     width: 100%;
     height: 100vh;
     overflow: scroll;
+    scrollbar-width: none;
 `
 
 export const DashDiv = styled.div`
@@ -21,6 +26,7 @@ export const DashDiv = styled.div`
 
     @media only screen and (max-width:750px){
         padding:20px;
+        flex-direction:column;
     }
 `
 
