@@ -31,8 +31,8 @@ export const CloseBtn = styled.div`
     border:solid 3px #fff;
     border-radius:50%;
     position:absolute;
-    top:-15px;
-    right:-10px;
+    top:10px;
+    right:10px;
     cursor: pointer;
     transition: all ease-in 200ms;
     display: flex;

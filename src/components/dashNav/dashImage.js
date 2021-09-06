@@ -2,9 +2,6 @@ import styled from "styled-components";
 import MyLink from "../myLink/myLink";
 import { useState } from "react";
 
-const DashImgWrapeer = styled.div`
-    position: relative;
-`
 
 const DasImgDiv = styled.div`
     a{

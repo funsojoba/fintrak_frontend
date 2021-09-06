@@ -17,6 +17,11 @@ export const DashDiv = styled.div`
     width:${props => props.width ? props.width : "auto"};
     padding:30px;
     justify-content: space-around;
+    flex-wrap: wrap;
+
+    @media only screen and (max-width:750px){
+        padding:20px;
+    }
 `
 
 export const DashBoxDiv = styled.div`

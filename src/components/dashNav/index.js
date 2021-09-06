@@ -7,6 +7,10 @@ const DashNavDIv = styled.div`
     padding:30px;
     align-items:center;
     width: 100%;
+
+    @media only screen and (max-width:750px){
+        padding:15px;
+    }
 `
 
 

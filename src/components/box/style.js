@@ -6,8 +6,10 @@ export const BoxDiv = styled.div`
     padding:30px;
     width: ${props => props.width ? props.width : 'auto'};
     flex: ${props => props.flex ? props.flex : 'auto'};
+    flex-wrap:wrap;
     position: relative;
     margin: ${props => props.margin ? props.margin : "auto"};
+    overflow:scroll;
 
     ${({ displayFlex }) => displayFlex && css`
         display:flex;
@@ -33,5 +35,13 @@ export const BoxDiv = styled.div`
     @media only screen and (max-width:750px){
         padding:20px;
         border-radius: 15px;
+        width:400px;
     }
+    @media only screen and (max-width:450px){
+        width:300px;
+        padding:10px;
+        margin-bottom: 15px;
+    }
+
+    
 `

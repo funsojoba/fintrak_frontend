@@ -41,8 +41,9 @@ export const TdDiv = styled.td`
     text-align:left;
     padding: 5px 10px;
     flex: 1;
-`
 
-export const ThDiv = styled.th`
-
+    @media only screen and (max-width:750px){
+        padding:5px;
+        font-size:.75em;
+    }
 `
