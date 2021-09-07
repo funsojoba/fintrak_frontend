@@ -51,8 +51,11 @@ function App() {
               <Register />
             </Route>
 
-            <Route path="/" exact>
+             <Route path="/" exact>
               <Home />
+            </Route>
+            <Route path="/verify" exact>
+              <VerifyAccount />
             </Route>
 
             <ProtectedRoute path="/dashboard" exact component={Dashboard} />
@@ -64,7 +67,6 @@ function App() {
             <ProtectedRoute path="/edit-budget/:id" exact component={EditBudget} />
             <ProtectedRoute path="/edit-income/:id" exact component={EditIncome} />
             <ProtectedRoute path="/edit-expense/:id" exact component={EditExpense} />
-            <ProtectedRoute path="/verify" exact component={VerifyAccount} />
           </Switch>
       </PersistGate>
       </Router>

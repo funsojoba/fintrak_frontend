@@ -116,7 +116,7 @@ const Register = ({register, registerData}) => {
                             </FormContent>
 
                             <FormContent>
-                                {registerData && registerData.loading ? <Button width="100%" ><Loader size="10px" color="#F4ECDD" /></Button> : <Button width="100%" >Register</Button>}
+                                {registerData && registerData.loading ? <Button width="100%" type="submit"><Loader size="10px" color="#F4ECDD" /></Button> : <Button width="100%" type="submit" >Register</Button>}
                             </FormContent>
                             <Small align="center" color="#666" >Already have an account? <Link to='/login'>Log In</Link></Small>
                         </FormDiv>
