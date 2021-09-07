@@ -6,6 +6,8 @@ import loginReducer from "./loginReducer";
 import registerReducer from "./registerReducer";
 import verifyAccountReducer from "./verifyAccountReducer";
 
+import dashboardReducer from "./dashboardReducer";
+
 const persistConfig = {
     key: 'root',
     storage
@@ -14,7 +16,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     loginReducer,
     registerReducer,
-    verifyAccountReducer
+    verifyAccountReducer,
+    dashboardReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

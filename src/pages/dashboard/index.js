@@ -9,13 +9,21 @@ import Paragraph from '../../components/typography/p'
 import { Line } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 
-const Dashboard = () => {
+import { connect } from 'react-redux'
+import { useEffect } from 'react'
+import fetchDashboard from '../../redux/action/dashboard'
+
+const Dashboard = ({ dashboardData, fetchDashboard }) => {
+    console.log('data____----```', dashboardData.data)
+    const dataFromDB = dashboardData.data
+    useEffect(() => { fetchDashboard() }, [fetchDashboard])
+
     const data = {
-        labels: ['1', '2', '3', '4', '5', '6'],
+        labels: dataFromDB.days_label,
         datasets: [
             {
                 label: 'Income',
-                data: [12, 19, 11, 10, 8, 13],
+                data: dataFromDB.income_graph_data,
                 fill: false,
                 backgroundColor: 'rgb(152, 216, 158)',
                 borderColor: 'rgba(152, 216, 158, 0.2)',
@@ -24,7 +32,7 @@ const Dashboard = () => {
             },
             {
                 label: 'Expenditure',
-                data: [11, 20, 10, 7, 13, 6],
+                data: dataFromDB.expense_graph_data,
                 fill: false,
                 backgroundColor: 'rgb(238, 132, 132)',
                 borderColor: 'rgba(238, 132, 132, 0.2)',
@@ -34,38 +42,16 @@ const Dashboard = () => {
         ],
     };
 
-    const options = {
-        scales: {
-            yAxes: [
-                {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    id: 'y-axis-1',
-                },
-                {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    id: 'y-axis-2',
-                    gridLines: {
-                        drawOnArea: false,
-                    },
-                },
-            ],
-        },
-    };
-
     const PieData = {
         labels: ['Income', 'Expenditure'],
         datasets: [
             {
                 label: '# of Votes',
-                data: [12, 19],
+                data: [dataFromDB.sum_of_income, dataFromDB.sum_of_expenses],
                 backgroundColor: [
                     'rgb(152, 216, 158)',
                     'rgba(237, 132, 132)',
- 
+
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 0)',
@@ -90,27 +76,27 @@ const Dashboard = () => {
             <DashDiv>
                 <InfoCard
                     title="Income"
-                    amount="$23 000"
+                    amount={`${dataFromDB.currency} ${dataFromDB.sum_of_income}`}
                     icon={<i class="fas fa-hand-holding-usd fa-lg"></i>}
                 />
 
                 <InfoCard
                     title="Expense"
-                    amount="$13 000"
+                    amount={`${dataFromDB.currency} ${dataFromDB.sum_of_expenses}`}
                     icon={<i class="fas fa-money-check-alt fa-lg"></i>}
                     background="#F4ECDD"
                 />
 
                 <InfoCard
                     title="Avaialable Balance"
-                    amount="$10 000"
+                    amount={`${dataFromDB.currency} ${dataFromDB.available_balance}`}
                     icon={<i class="fas fa-balance-scale-right fa-lg"></i>}
                     background="#EFDADA"
                 />
 
                 <InfoCard
                     title="Total Transaction"
-                    amount="65"
+                    amount={dataFromDB.total_transaction}
                     icon={<i class="fas fa-layer-group fa-lg"></i>}
                     background="#DEE0EF"
                 />
@@ -122,30 +108,30 @@ const Dashboard = () => {
                     <DashBoxDiv>
                         <div>Activities</div>
                         <div>
-                        <Select>
-                            <option>Aug. 2021</option>
-                            <option>July 2021</option>
-                            <option>June 2021</option>
-                            <option>May 2021</option>
-                            <option>Apr. 2021</option>
-                            <option>Mar. 2021</option>
-                            <option>Feb. 2021</option>
-                            <option>Jan. 2021</option>
-                        </Select>
+                            <Select>
+                                <option>Aug. 2021</option>
+                                <option>July 2021</option>
+                                <option>June 2021</option>
+                                <option>May 2021</option>
+                                <option>Apr. 2021</option>
+                                <option>Mar. 2021</option>
+                                <option>Feb. 2021</option>
+                                <option>Jan. 2021</option>
+                            </Select>
                         </div>
                     </DashBoxDiv>
 
                     <DashBoxDiv>
-                        <Line data={data} options={options} />
+                        <Line data={data} />
                     </DashBoxDiv>
-            
+
                 </Box>
             </DashDiv>
 
             <DashDiv>
                 <Box flex="1" margin="5px" >
                     <DashBoxDiv>
-                        <div> Expenditures  </div>
+                        <div> Income  </div>
                         <div>
                             <Select>
                                 <option>Aug. 2021</option>
@@ -159,23 +145,18 @@ const Dashboard = () => {
                             </Select>
                         </div>
                     </DashBoxDiv>
-                    <TransactionCard background="#FFF0F0">
-                        <Paragraph> Salary for the month </Paragraph>
-                        <small>$ 21 000  |  July 21</small>
-                    </TransactionCard>
-                    <TransactionCard background="#FFF0F0">
-                        <Paragraph> Salary for the month </Paragraph>
-                        <small>$ 21 000  |  July 21</small>
-                    </TransactionCard>
-                    <TransactionCard background="#FFF0F0">
-                        <Paragraph> Salary for the month </Paragraph>
-                        <small>$ 21 000  |  July 21</small>
-                    </TransactionCard>
+                    {dataFromDB && dataFromDB.top_income.map((income)=>{
+                        return(
+                            <TransactionCard background="#EEFFF0">
+                                <Paragraph> {income.description} </Paragraph>
+                            <small>{dataFromDB.currency + ' '+ income.amount} |  {income.income_date}</small>
+                        </TransactionCard>)
+                    })}
                 </Box>
 
                 <Box flex="1" margin="5px">
                     <DashBoxDiv>
-                        <div>Income</div>
+                        <div>Expenses</div>
                         <div>
                             <Select>
                                 <option>Aug. 2021</option>
@@ -189,20 +170,15 @@ const Dashboard = () => {
                             </Select>
                         </div>
                     </DashBoxDiv>
-                    <TransactionCard>
-                        <Paragraph> Salary for the month </Paragraph>
-                        <small>$ 21 000  |  July 21</small>
-                    </TransactionCard>
-                    <TransactionCard>
-                        <Paragraph> Salary for the month </Paragraph>
-                        <small>$ 21 000  |  July 21</small>
-                    </TransactionCard>
-                    <TransactionCard>
-                        <Paragraph> Salary for the month </Paragraph>
-                        <small>$ 21 000  |  July 21</small>
-                    </TransactionCard>
+                    {dataFromDB && dataFromDB.top_expense.map((expense) => {
+                        return (
+                            <TransactionCard background="#FFF0F0">
+                                <Paragraph> {expense.description} </Paragraph>
+                                <small>{dataFromDB.currency + ' ' + expense.amount}  |  {expense.expense_date}</small>
+                            </TransactionCard>)
+                    })}
                 </Box>
-                
+
                 <Box flex="1" margin="5px">
                     <DashBoxDiv>
                         <div> Transactions  </div>
@@ -228,4 +204,12 @@ const Dashboard = () => {
     </Container>
 }
 
-export default Dashboard
+const mapStateToProps = (store) => ({
+    dashboardData: store.dashboardReducer
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchDashboard: () => dispatch(fetchDashboard())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
