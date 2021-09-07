@@ -24,7 +24,7 @@ export const DashDiv = styled.div`
     justify-content: space-around;
     flex-wrap: wrap;
 
-    @media only screen and (max-width:750px){
+    @media only screen and (max-width:850px){
         padding:20px;
         flex-direction:column;
     }

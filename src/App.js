@@ -17,6 +17,7 @@ import AddBudget from './pages/addBudget';
 import EditBudget from './pages/editBudget';
 import Loader from 'react-loader-spinner'
 import ProtectedRoute from './protectedRoute';
+import VerifyAccount from './pages/verifyAccount';
 
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
@@ -63,6 +64,7 @@ function App() {
             <ProtectedRoute path="/edit-budget/:id" exact component={EditBudget} />
             <ProtectedRoute path="/edit-income/:id" exact component={EditIncome} />
             <ProtectedRoute path="/edit-expense/:id" exact component={EditExpense} />
+            <ProtectedRoute path="/verify" exact component={VerifyAccount} />
           </Switch>
       </PersistGate>
       </Router>

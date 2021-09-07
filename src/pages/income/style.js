@@ -4,7 +4,7 @@ export const Container = styled.div`
     padding:30px;
     display:flex;
     
-    @media only screen and (max-width:750px){
+    @media only screen and (max-width:850px){
         padding:5px
     }
 `
@@ -19,7 +19,7 @@ export const Div = styled.div`
     display:flex;
     flex-wrap: wrap;
 
-    @media only screen and (max-width:750px){
+    @media only screen and (max-width:850px){
         flex-direction:column
     }
 
@@ -37,7 +37,7 @@ export const TopNav = styled.div`
     display:flex;
     justify-content: space-between;
 
-    @media only screen and (max-width:750px){
+    @media only screen and (max-width:850px){
         flex-direction:column-reverse
     }
 `
