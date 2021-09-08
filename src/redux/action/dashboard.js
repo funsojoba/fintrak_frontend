@@ -19,10 +19,8 @@ const fetchDashboard = ()=>{
     return function(dispatch){
         axios.get(BASEURL +'dashboard', headers(token))
         .then(res =>{
-            
             dispatch(fetchDashboardSuccess(res.data.data))
         }).catch(err =>{
-            console.log('errr---', err)
             dispatch(fetchDashboardFailed(err))
         })
     }

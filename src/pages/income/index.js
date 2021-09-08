@@ -4,7 +4,7 @@ import H1 from "../../components/typography/h1";
 import Paragraph from "../../components/typography/p";
 
 import { Bar } from 'react-chartjs-2';
-import { Container,TopDiv, Content, TopNav, FormContent, Div } from "./style";
+import { Container, TopDiv, Content, TopNav, FormContent, Div } from "./style";
 import DashNav from "../../components/dashNav";
 import DashImage from "../../components/dashNav/dashImage";
 import { Table, Tr, Td, Thead } from "../../components/table";
@@ -15,11 +15,25 @@ import MyLink from "../../components/myLink/myLink";
 import Modal from "../../components/modal";
 import Label from "../../components/typography/label";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import fetchIncome from "../../redux/action/income/getIncome";
 
 
-const IncomePage = ()=>{
+const IncomePage = ({ fetchIncome, incomeData }) => {
+    const graphLabel = []
+    const graphInfo = []
+    const graphData = incomeData.data.income_per_source
 
+    for (let i = 0; i < graphData.length; i++){
+        graphLabel.push(graphData[i].source)
+    }
+    for (let i = 0; i < graphData.length; i++){
+        graphInfo.push(graphData[i].source_total)
+    }
+    
+
+    useEffect(() => { fetchIncome() }, [fetchIncome])
     const [modalState, setmodalState] = useState(false)
 
     const closeModal = () => {
@@ -31,11 +45,11 @@ const IncomePage = ()=>{
     }
 
     const data = {
-        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        labels: graphLabel,
         datasets: [
             {
                 label: 'Income',
-                data: [12, 19, 3, 5],
+                data: graphInfo,
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -122,15 +136,15 @@ const IncomePage = ()=>{
                 </Box>
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
-                    <Paragraph>Total Revenue</Paragraph>
-                    <H1>$23 000</H1>
+                        <Paragraph>Total Revenue</Paragraph>
+                        <H1>{incomeData.data.currency + ' '+ incomeData.data.total_income}</H1>
                     </div>
                 </Box>
             </Div>
 
             <Div>
                 <Box>
-                    <TopNav> 
+                    <TopNav>
                         <Input type="search" placeholder="Search" /> <br />
                         <Button sm onClick={openModal}><i className="fas fa-plus"></i> Add</Button>
                     </TopNav>
@@ -142,34 +156,24 @@ const IncomePage = ()=>{
                             <Td>Date</Td>
                             <Td>Action</Td>
                         </Thead>
-                        <Tr>
-                            <Td>$12 000</Td>
-                            <Td>Salary</Td>
-                            <Td>July salary</Td>
-                            <Td>07/01/2020</Td>
-                            <Td>
-                                <MyLink 
-                                    to="/edit-income"
-                                    background="#62B161"
-                                    color="#fff"
-                                    padding="5px 20px" >Edit</MyLink>
-                            </Td>
-                            
-                        </Tr>
-                        <Tr>
-                            <Td>$12 000</Td>
-                            <Td>Salary</Td>
-                            <Td>July salary</Td>
-                            <Td>07/01/2020</Td>
-                            <Td>
-                                <MyLink 
-                                    to="/edit-income"
-                                    background="#62B161"
-                                    color="#fff"
-                                    padding="5px 20px" >Edit</MyLink>
-                            </Td>
-                            
-                        </Tr>
+                        {incomeData.data.income_per_month.map((income)=>(
+
+                            <Tr>
+                                <Td>{incomeData.data.currency + ' '+ income.amount}</Td>
+                                <Td>{income.source}</Td>
+                                <Td>{income.description}</Td>
+                                <Td>{income.income_date}</Td>
+                                <Td>
+                                    <MyLink
+                                        to={`/edit-income/${income.id}`}
+                                        background="#62B161"
+                                        color="#fff"
+                                        padding="5px 20px" >Edit</MyLink>
+                                </Td>
+
+                            </Tr>
+                        ))}
+                        
                     </Table>
                 </Box>
             </Div>
@@ -178,4 +182,12 @@ const IncomePage = ()=>{
     </Container>
 }
 
-export default IncomePage
+const mapStateToProps = (store) => ({
+    incomeData: store.fetchIncomeReducer
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchIncome: () => { dispatch(fetchIncome()) }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(IncomePage)

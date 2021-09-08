@@ -14,7 +14,6 @@ import { useEffect } from 'react'
 import fetchDashboard from '../../redux/action/dashboard'
 
 const Dashboard = ({ dashboardData, fetchDashboard }) => {
-    console.log('data____----```', dashboardData.data)
     const dataFromDB = dashboardData.data
     useEffect(() => { fetchDashboard() }, [fetchDashboard])
 
