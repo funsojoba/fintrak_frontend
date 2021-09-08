@@ -28,7 +28,7 @@ const verifyAccount = payload =>{
             dispatch(verifySuccess(res))
             setTimeout(()=>{
                 window.location ="/login"
-            }, 1500)
+            }, 2500)
         }).catch(err =>{
             toast.error(err.response.data.error)
             dispatch(verifyFailed(err))

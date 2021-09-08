@@ -36,7 +36,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                 backgroundColor: 'rgb(238, 132, 132)',
                 borderColor: 'rgba(238, 132, 132, 0.2)',
                 yAxisID: 'y-axis-2',
-                tension: .3
+                
             },
         ],
     };
@@ -48,7 +48,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                 label: '# of Votes',
                 data: [dataFromDB.sum_of_income, dataFromDB.sum_of_expenses],
                 backgroundColor: [
-                    'rgb(152, 216, 158)',
+                    'rgb(155, 221, 124)',
                     'rgba(237, 132, 132)',
 
                 ],

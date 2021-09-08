@@ -15,23 +15,28 @@ import MyLink from "../../components/myLink/myLink";
 import Modal from "../../components/modal";
 import Label from "../../components/typography/label";
 
+
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import fetchIncome from "../../redux/action/income/getIncome";
+import fetchIncomeCSV from "../../redux/action/income/incomeCSV";
+
+import validate from "./validate";
+import { Formik } from "formik";
+import ErrorMsg from "../../components/typography/errorMsg";
 
 
-const IncomePage = ({ fetchIncome, incomeData }) => {
+const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV }) => {
     const graphLabel = []
     const graphInfo = []
-    const graphData = incomeData.data.income_per_source
+    const graphData = incomeData ? incomeData.data.income_per_source : []
 
-    for (let i = 0; i < graphData.length; i++){
+    for (let i = 0; i < graphData.length; i++) {
         graphLabel.push(graphData[i].source)
     }
-    for (let i = 0; i < graphData.length; i++){
+    for (let i = 0; i < graphData.length; i++) {
         graphInfo.push(graphData[i].source_total)
     }
-    
 
     useEffect(() => { fetchIncome() }, [fetchIncome])
     const [modalState, setmodalState] = useState(false)
@@ -56,20 +61,12 @@ const IncomePage = ({ fetchIncome, incomeData }) => {
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                 ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                ],
                 borderWidth: 0,
             },
         ],
     };
 
     const options = {
-        // responsive: true,
-        // maintainAspectRatio: false,
         scales: {
             yAxes: [
                 {
@@ -86,24 +83,73 @@ const IncomePage = ({ fetchIncome, incomeData }) => {
             title="Add income"
             display={modalState ? "flex" : "none"}
             close={closeModal}>
-            <FormContent>
-                <Label>Amount</Label>
-                <Input placeholder="amount" type="number" name="amount" width="100%" />
-            </FormContent>
-            <FormContent>
-                <Label>Source</Label>
-                <Input placeholder="Salary" type="text" name="category" width="100%" />
-            </FormContent>
-            <FormContent>
-                <Label>Description</Label>
-                <Input placeholder="Salary for the month of July" type="text" name="description" width="100%" />
-            </FormContent>
-            <FormContent>
-                <Label>Date</Label>
-                <Input type="date" name="expense_date" width="100%" />
-            </FormContent>
+            <Formik
+                validationSchema={validate}
+                initialValues={{
+                    amount:'',
+                    source:'',
+                    description:'',
+                    income_date:''
+                }}
+                onSubmit={ (values) => {
+                     console.log(values)
+                }}
+            >
+                {({handleSubmit, handleBlur, handleChange, values, errors, touched})=>(
+                    <form onSubmit={handleSubmit}>
+                        <FormContent>
+                            <Label>Amount</Label>
+                            <Input 
+                                value={values.amount} 
+                                onBlur={handleBlur} 
+                                onChange={handleChange}
+                                placeholder="amount" 
+                                type="number" 
+                                name="amount" 
+                                width="100%" />
+                            <ErrorMsg>{touched.amount && errors.amount ? errors.amount : null}</ErrorMsg>
+                        </FormContent>
+                        <FormContent>
+                            <Label>Source</Label>
+                            <Select value={values.source} background="#F5F5F5" width="100%" padding="15px">
+                                <option value="Gift">Gift</option>
+                                <option value="Royalty">Royalty</option>
+                                <option value="Profits">Profits</option>
+                                <option value="Interest">Interest</option>
+                                <option value="Dividend">Dividend</option>
+                                <option value="Allowance">Allowance</option>
+                                <option value="Commission">Commissions</option>
+                                <option value="Wages/salary">Wages/Salary</option>
+                                <option value="Others">Others</option>
+                            </Select>
+                        </FormContent>
+                        <FormContent>
+                            <Label>Description</Label>
+                            <Input 
+                                value={values.description}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                placeholder="Salary for the month of July" 
+                                type="text" 
+                                name="description" width="100%" />
+                            <ErrorMsg>{touched.description && errors.description ? errors.description : null}</ErrorMsg>
+                        </FormContent>
+                        <FormContent>
+                            <Label>Date</Label>
+                            <Input 
+                                value={values.date}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                type="date" 
+                                name="expense_date" 
+                                width="100%" />
+                            <ErrorMsg>{touched.income_date && errors.income_date ? errors.income_date : null}</ErrorMsg>
+                        </FormContent>
 
-            <Button>Submit</Button>
+                        <Button width="100%" type="submit">Submit</Button>
+                    </form>
+                )}
+            </Formik>
         </Modal>
         <SideBar />
 
@@ -112,6 +158,7 @@ const IncomePage = ({ fetchIncome, incomeData }) => {
                 <div>Income</div>
                 <TopDiv>
                     <Button
+                        onClick={() => fetchIncomeCSV()}
                         padding="10px 20px"
                         background="#62B161"
                         color="#fff"><i className="fas fa-cloud-download-alt"></i> </Button> &nbsp; &nbsp;
@@ -137,7 +184,7 @@ const IncomePage = ({ fetchIncome, incomeData }) => {
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
                         <Paragraph>Total Revenue</Paragraph>
-                        <H1>{incomeData.data.currency + ' '+ incomeData.data.total_income}</H1>
+                        <H1>{incomeData.data.currency + ' ' + incomeData.data.total_income}</H1>
                     </div>
                 </Box>
             </Div>
@@ -156,10 +203,10 @@ const IncomePage = ({ fetchIncome, incomeData }) => {
                             <Td>Date</Td>
                             <Td>Action</Td>
                         </Thead>
-                        {incomeData.data.income_per_month.map((income)=>(
+                        {incomeData.data.income_per_month.map((income) => (
 
                             <Tr>
-                                <Td>{incomeData.data.currency + ' '+ income.amount}</Td>
+                                <Td>{incomeData.data.currency + ' ' + income.amount}</Td>
                                 <Td>{income.source}</Td>
                                 <Td>{income.description}</Td>
                                 <Td>{income.income_date}</Td>
@@ -173,7 +220,7 @@ const IncomePage = ({ fetchIncome, incomeData }) => {
 
                             </Tr>
                         ))}
-                        
+
                     </Table>
                 </Box>
             </Div>
@@ -187,7 +234,8 @@ const mapStateToProps = (store) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchIncome: () => { dispatch(fetchIncome()) }
+    fetchIncome: () => { dispatch(fetchIncome()) },
+    fetchIncomeCSV: () => { dispatch(fetchIncomeCSV()) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(IncomePage)

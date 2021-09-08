@@ -21,3 +21,7 @@ export const BoxDiv = styled.div`
     padding:40px;
     align-items: center;
 `
+
+export const FormContent = styled.div`
+    margin-bottom: 10px;
+`

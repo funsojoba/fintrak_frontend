@@ -26,9 +26,6 @@ const register = payload =>{
         .then(res =>{
             toast.success('Success! Please check mail to confirm account')
             dispatch(registerSuccess(res))
-            setTimeout(()=>{
-                window.location ="/login"
-            }, 1500)
         }).catch(err =>{
             const error = Object.values(err.response.data.error)[0]
             toast.error(error[0])
