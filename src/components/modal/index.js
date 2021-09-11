@@ -7,7 +7,7 @@ const Modal = ({children, display, close, title})=>{
     return <MainBody display={display}>
         <Content>
             <Box>
-                <Paragraph>{title}</Paragraph>
+                <Paragraph align="center">{title}</Paragraph>
                 <CloseBtn onClick={close}><i className="fas fa-times"></i></CloseBtn>
                 {children}
             </Box>

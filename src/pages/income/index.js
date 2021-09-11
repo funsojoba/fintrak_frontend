@@ -20,16 +20,20 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import fetchIncome from "../../redux/action/income/getIncome";
 import fetchIncomeCSV from "../../redux/action/income/incomeCSV";
+import addIncome from "../../redux/action/income/addIncome";
 
 import validate from "./validate";
 import { Formik } from "formik";
 import ErrorMsg from "../../components/typography/errorMsg";
 
 
-const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV }) => {
+const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome }) => {
+    console.log(incomeData.data)
+    const {currency, total_income, income_per_source, income_per_month} = incomeData.data
+    console.log(currency)
     const graphLabel = []
     const graphInfo = []
-    const graphData = incomeData ? incomeData.data.income_per_source : []
+    const graphData = incomeData && incomeData.data ? income_per_source : []
 
     for (let i = 0; i < graphData.length; i++) {
         graphLabel.push(graphData[i].source)
@@ -48,6 +52,29 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV }) => {
     const openModal = () => {
         setmodalState(true)
     }
+
+    const selectDates = [
+        { key: "July", value: "July" },
+        { key: "June", value: "June" },
+        { key: "May", value: "May" },
+        { key: "April", value: "April" },
+        { key: "March", value: "March" },
+        { key: "February", value: "February" },
+        { key: "January", value: "January" },
+        { key: "others", value: "others" },
+]
+    const selectOptions = [
+        { key: "gift", value: "gift" },
+        { key: "royalty", value: "royalty" },
+        { key: "profits", value: "profits" },
+        { key: "interest", value: "interest" },
+        { key: "dividend", value: "dividend" },
+        { key: "allowance", value: "allowance" },
+        { key: "commission", value: "commission" },
+        { key: "wages/salary", value: "wages/salary" },
+        { key: "others", value: "others" },
+
+    ]
 
     const data = {
         labels: graphLabel,
@@ -91,9 +118,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV }) => {
                     description:'',
                     income_date:''
                 }}
-                onSubmit={ (values) => {
-                     console.log(values)
-                }}
+                onSubmit={ async (values) => await(addIncome(values)) }
             >
                 {({handleSubmit, handleBlur, handleChange, values, errors, touched})=>(
                     <form onSubmit={handleSubmit}>
@@ -111,16 +136,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV }) => {
                         </FormContent>
                         <FormContent>
                             <Label>Source</Label>
-                            <Select value={values.source} background="#F5F5F5" width="100%" padding="15px">
-                                <option value="Gift">Gift</option>
-                                <option value="Royalty">Royalty</option>
-                                <option value="Profits">Profits</option>
-                                <option value="Interest">Interest</option>
-                                <option value="Dividend">Dividend</option>
-                                <option value="Allowance">Allowance</option>
-                                <option value="Commission">Commissions</option>
-                                <option value="Wages/salary">Wages/Salary</option>
-                                <option value="Others">Others</option>
+                            <Select name="source" value={values.source} background="#F5F5F5" width="100%" padding="15px" options={selectOptions}>
                             </Select>
                         </FormContent>
                         <FormContent>
@@ -141,11 +157,10 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV }) => {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 type="date" 
-                                name="expense_date" 
+                                name="income_date"
                                 width="100%" />
                             <ErrorMsg>{touched.income_date && errors.income_date ? errors.income_date : null}</ErrorMsg>
                         </FormContent>
-
                         <Button width="100%" type="submit">Submit</Button>
                     </form>
                 )}
@@ -168,23 +183,20 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV }) => {
             <Div>
                 <Box flex="2" margin="3px">
                     <TopNav>
-                        <Select>
-                            <option>Aug. 2021</option>
-                            <option>July 2021</option>
-                            <option>June 2021</option>
-                            <option>May 2021</option>
-                            <option>Apr. 2021</option>
-                            <option>Mar. 2021</option>
-                            <option>Feb. 2021</option>
-                            <option>Jan. 2021</option>
-                        </Select>
+                        <form>
+                            <select>
+                                {selectDates.map(data=>(
+                                    <option key={data.key} value={data.key}>{data.key}</option>
+                                ))}
+                            </select>
+                        </form>
                     </TopNav>
                     <Bar data={data} options={options} />
                 </Box>
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
                         <Paragraph>Total Revenue</Paragraph>
-                        <H1>{incomeData.data.currency + ' ' + incomeData.data.total_income}</H1>
+                        <H1>{currency + ' ' + total_income}</H1>
                     </div>
                 </Box>
             </Div>
@@ -203,9 +215,8 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV }) => {
                             <Td>Date</Td>
                             <Td>Action</Td>
                         </Thead>
-                        {incomeData.data.income_per_month.map((income) => (
-
-                            <Tr>
+                        {incomeData && income_per_month ? (incomeData && income_per_month.map((income) => (
+                            <Tr key={income.id}>
                                 <Td>{incomeData.data.currency + ' ' + income.amount}</Td>
                                 <Td>{income.source}</Td>
                                 <Td>{income.description}</Td>
@@ -219,7 +230,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV }) => {
                                 </Td>
 
                             </Tr>
-                        ))}
+                        ))) : null}
 
                     </Table>
                 </Box>
@@ -235,7 +246,8 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchIncome: () => { dispatch(fetchIncome()) },
-    fetchIncomeCSV: () => { dispatch(fetchIncomeCSV()) }
+    fetchIncomeCSV: () => { dispatch(fetchIncomeCSV()) },
+    addIncome: (values)=>{dispatch(addIncome(values))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(IncomePage)

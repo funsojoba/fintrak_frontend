@@ -16,6 +16,12 @@ export const Parent = styled.div`
     display: flex;
     justify-content: ${props => props.justify ? props.justify : "center"};
     align-items: ${props => props.alignItems ? props.alignItems : "center"};
+
+    .hide{
+        @media only screen and (max-width:850px){
+            display: none;
+        }
+    }
 `
 
 export const ParentChild = styled.div`

@@ -146,7 +146,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                     </DashBoxDiv>
                     {dataFromDB && dataFromDB.top_income.map((income)=>{
                         return(
-                            <TransactionCard background="#EEFFF0">
+                            <TransactionCard key={income.id} background="#EEFFF0">
                                 <Paragraph> {income.description} </Paragraph>
                             <small>{dataFromDB.currency + ' '+ income.amount} |  {income.income_date}</small>
                         </TransactionCard>)

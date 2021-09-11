@@ -8,10 +8,43 @@ import H3 from "../../components/typography/h3";
 import Paragraph from "../../components/typography/p";
 import Small from "../../components/typography/small";
 import Label from "../../components/typography/label"
+import Select from "../../components/input/select";
+
+import { connect } from "react-redux";
+import { useEffect } from "react";
+import { Formik } from 'formik'
+import fetchIncomeDetail from "../../redux/action/income/incomeDetail";
 
 import { Container, Content, Parent, ParentChild, Category, FormDiv, FormChild } from "./style";
 
-const EditIncome = ()=>{
+const EditIncome = ({ fetchIncomeDetail, incomeData, match }) => {
+    let id = match.params.id
+    const selectOptions = [
+        {key:"gift", value:"gift"},
+        {key:"royalty", value:"royalty"},
+        {key:"profits", value:"profits"},
+        {key:"interest", value:"interest"},
+        {key:"dividend", value:"dividend"},
+        {key:"allowance", value:"allowance"},
+        {key:"commission", value:"commission"},
+        {key:"wages/salary", value:"wages/salary"},
+        {key:"others", value:"others"},
+    
+    ]
+
+    useEffect(() => {
+        fetchIncomeDetail(id)
+    }, [fetchIncomeDetail, id])
+
+    const data = incomeData.data ? incomeData.data : null
+    console.log('Income data---', incomeData)
+
+    // const { amount, description, income_date, source } = incomeData.data.data
+
+
+    const previous = () => {
+        window.history.back()
+    }
     return <Container>
         <SideBar />
 
@@ -22,40 +55,63 @@ const EditIncome = ()=>{
             </DashNav>
             <Box>
                 <Parent justify="space-between">
-                    <Button padding="10px 15px"><i className="fas fa-long-arrow-alt-left"></i></Button>
+                    <Button onClick={previous} padding="10px 15px"><i className="fas fa-long-arrow-alt-left"></i></Button>
                     <Button padding="10px 15px" background="#DB0069" color="#fff"> <i className="fas fa-trash"></i> Delete</Button>
                 </Parent>
 
                 <Parent>
                     <ParentChild flex="2">
-                        <FormDiv>
-                            <FormChild>
-                                <Label>Amount</Label>
-                                <Input width="100%" type="number" placeholder="$12 000" />
-                            </FormChild>
-                            <FormChild>
-                                <Label>Source</Label>
-                                <Input width="100%" type="text" placeholder="salary" />
-                            </FormChild>
-                            <FormChild>
-                                <Label>Description</Label>
-                                <Input width="100%" type="text" placeholder="Salary for the month of July" />
-                            </FormChild>
-                            <FormChild>
-                                <Label>Date</Label>
-                                <Input width="100%" type="date"/>
-                            </FormChild>
-                            <Button type="submit">Update</Button>
-                        </FormDiv>
+                        <Formik
+                            initialValues={{
+                                amount:'',
+                                income_date:'',
+                                source:'',
+                                description:''
+                            }}
+                            onSubmit={
+                                (values)=>console.log(values)
+                            }
+                        >
+                            {({ handleSubmit, handleBlur, handleChange, values, errors, touched, setFieldValue, setFieldTouched}) => (
+                                <FormDiv onSubmit={handleSubmit}>
+                                    <FormChild>
+                                        <Label>Amount</Label>
+                                        <Input name="amount" onChange={handleChange} width="100%" type="number" value={values.amount} />
+                                    </FormChild>
+                                    <FormChild>
+                                        <Label>Source</Label>
+                                        <Select name="source" 
+                                                onChange={(value) => setFieldValue('source', value)}
+                                                onBlur={() => setFieldTouched('source', true)}
+                                                background="#F5F5F5" 
+                                                width="100%" 
+                                                padding="15px" 
+                                                value={values.source}
+                                                options={selectOptions}>
+                                                
+                                        </Select>
+                                    </FormChild>
+                                    <FormChild>
+                                        <Label>Description</Label>
+                                        <Input name="description" onChange={handleChange} width="100%" type="text" value={values.description} />
+                                    </FormChild>
+                                    <FormChild>
+                                        <Label>Date</Label>
+                                        <Input name="income_date" onChange={handleChange} width="100%" type="date" value={values.income_date} />
+                                    </FormChild>
+                                    <Button type="submit">Update</Button>
+                                </FormDiv>
+                            )}
+                        </Formik>
                     </ParentChild>
-                    <ParentChild flex="1">
+                    <ParentChild flex="1" className="hide">
                         <Box background="#EFF1FF" displayFlex>
                             <div>
-                                <H3>$5 000</H3>
-                                <Category>Salary</Category>
-                                <Paragraph>Salary for the month of July</Paragraph>
+                                <H3>{data.currency + data.data.amount}</H3>
+                                <Category>{data.data.source}</Category>
+                                <Paragraph>{data.data.description}</Paragraph>
                                 <hr />
-                                <Small>09/12/2020</Small>
+                                <Small>{data.data.income_date}</Small> 
                             </div>
                         </Box>
                     </ParentChild>
@@ -67,4 +123,8 @@ const EditIncome = ()=>{
     </Container>
 }
 
-export default EditIncome
+const mapStateToProps = store => ({
+    incomeData: store.incomeDetailReducer
+})
+
+export default connect(mapStateToProps, { fetchIncomeDetail })(EditIncome)

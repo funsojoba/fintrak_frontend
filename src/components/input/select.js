@@ -1,23 +1,36 @@
 import styled from "styled-components";
+import { Field } from "formik";
 
-export const SelectDiv = styled.select`
-    background:${props => props.background ? props.background : 'none'};
-    border:${props => props.border ? props.border : "none"};
-    color:#858585;
-    width: ${props => props.width ? props.width : "auto"};
-    border-radius: 15px;
-    padding: ${props => props.padding ? props.padding : "none"};
+export const SelectDiv = styled.div`
+    select{
+        background:${props => props.background ? props.background : 'none'};
+        border:${props => props.border ? props.border : "none"};
+        color:#858585;
+        width: ${props => props.width ? props.width : "auto"};
+        border-radius: 15px;
+        padding: ${props => props.padding ? props.padding : "none"};
+    }
 `
 
 
-const Select = ({children, width, border, padding, name, value, background})=>{
-    return <SelectDiv 
-        width={width} 
-        border={border} 
+const Select = ({width, border, padding, name, value, background, options})=>{
+    return <SelectDiv width={width}
+        border={border}
         padding={padding}
-        value={value}
-        name={name}
-        background={background}>{children}</SelectDiv>
+        background={background}>
+            <Field
+                as="select" 
+                id={name}
+                value={value}
+                name={name}
+                >
+            {options.map(option =>{
+                return (
+                    <option key={option.value} value={option.value}>{option.value}</option>
+                )
+            })}
+            </Field>
+        </SelectDiv>
 }
 
 export default Select

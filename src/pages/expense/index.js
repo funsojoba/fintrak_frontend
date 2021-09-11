@@ -14,6 +14,7 @@ import Button from "../../components/button";
 import MyLink from "../../components/myLink/myLink";
 import Modal from "../../components/modal";
 import Label from "../../components/typography/label";
+import {Formik} from 'formik'
 
 import { useState } from "react";
 
@@ -28,6 +29,30 @@ const ExpensePage = ()=>{
         setmodalState(true)
     }
 
+    const selectOptions = [
+        { key: "gift", value: "gift" },
+        { key: "royalty", value: "royalty" },
+        { key: "profits", value: "profits" },
+        { key: "interest", value: "interest" },
+        { key: "dividend", value: "dividend" },
+        { key: "allowance", value: "allowance" },
+        { key: "commission", value: "commission" },
+        { key: "wages/salary", value: "wages/salary" },
+        { key: "others", value: "others" },
+
+    ]
+
+    const selectDates = [
+        { key: "July", value: "July" },
+        { key: "June", value: "June" },
+        { key: "May", value: "May" },
+        { key: "April", value: "April" },
+        { key: "March", value: "March" },
+        { key: "February", value: "February" },
+        { key: "January", value: "January" },
+        { key: "others", value: "others" },
+
+    ]
     
     const data = {
         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
@@ -63,22 +88,27 @@ const ExpensePage = ()=>{
             title="Add expense"
             display={modalState ? "flex" : "none"}
             close={closeModal}>
-            <FormContent>
-                <Label>Amount</Label>
-                <Input placeholder="amount" type="number" name="amount" width="100%" />
-            </FormContent>
-            <FormContent>
-                <Label>Category</Label>
-                <Input placeholder="Rent" type="text" name="category" width="100%" />
-            </FormContent>
-            <FormContent>
-                <Label>Description</Label>
-                <Input placeholder="Rent" type="text" name="description" width="100%" />
-            </FormContent>
-            <FormContent>
-                <Label>Date</Label>
-                <Input type="date" name="expense_date" width="100%" />
-            </FormContent>
+            <Formik>{()=>(
+                <form>
+                <FormContent>
+                    <Label>Amount</Label>
+                    <Input placeholder="amount" type="number" name="amount" width="100%" />
+                </FormContent>
+                <FormContent>
+                    <Label>Category</Label>
+                    <Select background="#f5f5f5" width="100%" padding="10px" options={selectOptions}></Select>
+
+                </FormContent>
+                <FormContent>
+                    <Label>Description</Label>
+                    <Input placeholder="Rent" type="text" name="description" width="100%" />
+                </FormContent>
+                <FormContent>
+                    <Label>Date</Label>
+                    <Input type="date" name="expense_date" width="100%" />
+                </FormContent>
+                </form>
+            )}</Formik>
 
             <Button>Submit</Button>
         </Modal>
@@ -99,16 +129,13 @@ const ExpensePage = ()=>{
             <Div>
                 <Box flex="2" margin="3px">
                     <TopNav>
-                        <Select>
-                            <option>Aug. 2021</option>
-                            <option>July 2021</option>
-                            <option>June 2021</option>
-                            <option>May 2021</option>
-                            <option>Apr. 2021</option>
-                            <option>Mar. 2021</option>
-                            <option>Feb. 2021</option>
-                            <option>Jan. 2021</option>
-                        </Select>
+                        <form>
+                            <select>
+                                {selectDates.map(data=>(
+                                    <option key={data.key} value={data.key}>{data.key}</option>
+                                ))}
+                            </select>
+                        </form>
                     </TopNav>
                     <Bar data={data} options={options} />
                 </Box>
