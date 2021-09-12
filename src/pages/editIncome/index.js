@@ -17,10 +17,11 @@ import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import { Formik } from 'formik'
 import fetchIncomeDetail from "../../redux/action/income/incomeDetail";
+import editIncome from "../../redux/action/income/editIncome"
 
 import { Container, Content, Parent, ParentChild, Category, FormDiv, FormChild } from "./style";
 
-const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , deleteIncomeData}) => {
+const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , deleteIncomeData, editIncome, editIncomeData}) => {
     let id = match.params.id
     const selectOptions = [
         {key:"gift", value:"gift"},
@@ -92,7 +93,10 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
                                 description:''
                             }}
                             onSubmit={
-                                (values)=>console.log(values)
+                                // (values)=>console.log(values)
+                                async (values)=>{
+                                    await editIncome(values, id)
+                                }
                             }
                         >
                             {({ handleSubmit, handleBlur, handleChange, values, errors, touched, setFieldValue, setFieldTouched}) => (
@@ -122,7 +126,7 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
                                         <Label>Date</Label>
                                         <Input name="income_date" onChange={handleChange} width="100%" type="date" value={values.income_date} />
                                     </FormChild>
-                                    <Button type="submit">Update</Button>
+                                    <Button type="submit">{editIncomeData.loading ? <Loader color="#FFF" /> : "Update"}</Button>
                                 </FormDiv>
                             )}
                         </Formik>
@@ -148,9 +152,10 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
 
 const mapStateToProps = store => ({
     incomeData: store.incomeDetailReducer,
-    deleteIncomeData: store.deleteIncomeReducer
+    deleteIncomeData: store.deleteIncomeReducer,
+    editIncomeData: store.editIncomeReducer
 })
 
 
 
-export default connect(mapStateToProps, { fetchIncomeDetail, deleteIncome})(EditIncome)
+export default connect(mapStateToProps, { fetchIncomeDetail, deleteIncome, editIncome})(EditIncome)
