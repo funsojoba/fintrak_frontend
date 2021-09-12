@@ -9,9 +9,10 @@ import Paragraph from "../../components/typography/p";
 import Small from "../../components/typography/small";
 import Label from "../../components/typography/label"
 import Select from "../../components/input/select";
-
+import Modal from '../../components/modal'
+ 
 import { connect } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Formik } from 'formik'
 import fetchIncomeDetail from "../../redux/action/income/incomeDetail";
 
@@ -40,12 +41,31 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match }) => {
     console.log('Income data---', incomeData)
 
     // const { amount, description, income_date, source } = incomeData.data.data
-
+    const [modalState, setModalState] = useState(false)
+    const openModal = () => {
+        setModalState(true)
+    }
+    const closeModal = () => {
+        setModalState(false)
+    }
 
     const previous = () => {
         window.history.back()
     }
     return <Container>
+        <Modal
+            close={closeModal}
+            display={modalState ? 'flex' : 'none'}
+        >
+            <Paragraph color="#AF0000" >Are you sure you want to delete this income?</Paragraph>
+            <hr />
+            <em><Paragraph>{data.data.description} | { data.currency+data.data.amount} | {data.data.source}</Paragraph></em>
+            <br />
+            <div>
+                <Button onClick={closeModal}>Cancle</Button> &nbsp;
+                <Button background="#AF0000" color="#fff">Delete Account</Button>
+            </div>
+        </Modal>
         <SideBar />
 
         <Content>
@@ -56,7 +76,7 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match }) => {
             <Box>
                 <Parent justify="space-between">
                     <Button onClick={previous} padding="10px 15px"><i className="fas fa-long-arrow-alt-left"></i></Button>
-                    <Button padding="10px 15px" background="#DB0069" color="#fff"> <i className="fas fa-trash"></i> Delete</Button>
+                    <Button onClick={openModal} padding="10px 15px" background="#DB0069" color="#fff"> <i className="fas fa-trash"></i> Delete</Button>
                 </Parent>
 
                 <Parent>

@@ -10,6 +10,9 @@ import dashboardReducer from "./dashboardReducer";
 
 import fetchIncomeReducer from "./income/fetchIncomeReducer";
 import incomeDetailReducer from "./income/incomeDetailReducer";
+import addIncomeReducer from "./income/addIncomeReducer";
+
+
 const persistConfig = {
     key: 'root',
     storage
@@ -21,7 +24,8 @@ const rootReducer = combineReducers({
     verifyAccountReducer,
     dashboardReducer,
     fetchIncomeReducer,
-    incomeDetailReducer
+    incomeDetailReducer,
+    addIncomeReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

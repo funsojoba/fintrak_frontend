@@ -6,7 +6,7 @@ import Input from "../../components/input";
 import Label from "../../components/typography/label";
 import Button from "../../components/button"
 import H5 from "../../components/typography/h5"
-import Select from "../../components/input/select";
+
 import Modal from "../../components/modal";
 import { Container, Content, BodyDiv, ProfileImage, ProfileForm, FormContent, ProfileImgContainer, ChildDiv } from "./style";
 import Paragraph from "../../components/typography/p";
@@ -127,11 +127,11 @@ const SettingsPage = ()=>{
                         <H5>Prefered Currency</H5>
                         <ProfileForm>
                             <FormContent>
-                                <Select width="100%" border="1px solid #585858" padding="15px">
+                                <select >
                                     {currency.map(item =>{
                                         return <option value={item.symbol}>{item.cc} - {item.name} - {item.symbol}</option>
                                     })}
-                                </Select>
+                                </select>
                             </FormContent>
                             
                             <Button>Update</Button>

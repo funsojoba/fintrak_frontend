@@ -25,7 +25,6 @@ const login = (payload)=>{
         .then(res =>{
             toast.success('Welcome back')
             dispatch(loginSuccessful(res))
-            console.log(payload)
             setInterval(function () {
                 window.location = "/dashboard";
             }, 2500);

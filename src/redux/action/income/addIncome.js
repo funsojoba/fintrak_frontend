@@ -25,10 +25,12 @@ const addIncomeSuccess = payload =>({
 const addIncome = payload =>{
     return function(dispatch){
         dispatch(startAdd())
-        axios.post(BASEURL+'income/add', headers(token))
+        axios.post(BASEURL+'income/add', payload, headers(token))
         .then(res =>{
             dispatch(addIncomeSuccess(res))
-            console.log(res)
+            setInterval(function () {
+                window.location = "/income";
+            }, 1500);
         })
         .catch(err =>{
             dispatch(addIncomeFailed(err))

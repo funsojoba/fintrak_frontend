@@ -83,14 +83,14 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                     title="Expense"
                     amount={`${dataFromDB.currency} ${dataFromDB.sum_of_expenses}`}
                     icon={<i class="fas fa-money-check-alt fa-lg"></i>}
-                    background="#F4ECDD"
+                    background="#EFDADA"
                 />
 
                 <InfoCard
                     title="Avaialable Balance"
                     amount={`${dataFromDB.currency} ${dataFromDB.available_balance}`}
                     icon={<i class="fas fa-balance-scale-right fa-lg"></i>}
-                    background="#EFDADA"
+                    background="#F4ECDD"
                 />
 
                 <InfoCard

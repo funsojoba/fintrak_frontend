@@ -14,6 +14,7 @@ import Button from "../../components/button";
 import MyLink from "../../components/myLink/myLink";
 import Modal from "../../components/modal";
 import Label from "../../components/typography/label";
+import ErrorMsg from "../../components/typography/errorMsg";
 
 
 import { useState, useEffect } from "react";
@@ -24,13 +25,13 @@ import addIncome from "../../redux/action/income/addIncome";
 
 import validate from "./validate";
 import { Formik } from "formik";
-import ErrorMsg from "../../components/typography/errorMsg";
+
+import Loader from 'react-spinners/SyncLoader'
 
 
-const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome }) => {
-    console.log(incomeData.data)
+const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addIncomeData }) => {
+    console.log("add income data ----", addIncomeData)
     const {currency, total_income, income_per_source, income_per_month} = incomeData.data
-    console.log(currency)
     const graphLabel = []
     const graphInfo = []
     const graphData = incomeData && incomeData.data ? income_per_source : []
@@ -76,6 +77,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome }) => {
 
     ]
 
+  
     const data = {
         labels: graphLabel,
         datasets: [
@@ -161,7 +163,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome }) => {
                                 width="100%" />
                             <ErrorMsg>{touched.income_date && errors.income_date ? errors.income_date : null}</ErrorMsg>
                         </FormContent>
-                        <Button width="100%" type="submit">Submit</Button>
+                        <Button width="100%" type="submit">{addIncomeData && addIncomeData.loading ? <Loader color="#fff" /> : 'Submit'}</Button>
                     </form>
                 )}
             </Formik>
@@ -219,7 +221,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome }) => {
                             <Tr key={income.id}>
                                 <Td>{incomeData.data.currency + ' ' + income.amount}</Td>
                                 <Td>{income.source}</Td>
-                                <Td>{income.description}</Td>
+                                <Td>{income.description.trim().length > 10 ? (income.description.substring(0,10)+'...') : income.description}</Td>
                                 <Td>{income.income_date}</Td>
                                 <Td>
                                     <MyLink
@@ -241,7 +243,8 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome }) => {
 }
 
 const mapStateToProps = (store) => ({
-    incomeData: store.fetchIncomeReducer
+    incomeData: store.fetchIncomeReducer,
+    addIncomeData: store.addIncomeReducer
 })
 
 const mapDispatchToProps = (dispatch) => ({
