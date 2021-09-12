@@ -36,6 +36,8 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
     const graphInfo = []
     const graphData = incomeData && incomeData.data ? income_per_source : []
 
+    console.log("TESTING***", incomeData.data)
+
     for (let i = 0; i < graphData.length; i++) {
         graphLabel.push(graphData[i].source)
     }

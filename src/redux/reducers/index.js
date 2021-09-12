@@ -14,6 +14,7 @@ import addIncomeReducer from "./income/addIncomeReducer";
 import deleteIncomeReducer from "./income/deleteIncomeReducer"
 import editIncomeReducer from "./income/editIncomeReducer";
 
+import fetchExpenseReducer from "./expense/fetchExpenseReducer";
 
 const persistConfig = {
     key: 'root',
@@ -29,7 +30,9 @@ const rootReducer = combineReducers({
     incomeDetailReducer,
     addIncomeReducer,
     deleteIncomeReducer,
-    editIncomeReducer
+    editIncomeReducer,
+
+    fetchExpenseReducer
     
 })
 

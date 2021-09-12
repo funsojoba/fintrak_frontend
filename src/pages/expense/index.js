@@ -14,30 +14,48 @@ import Button from "../../components/button";
 import MyLink from "../../components/myLink/myLink";
 import Modal from "../../components/modal";
 import Label from "../../components/typography/label";
-import {Formik} from 'formik'
+import { Formik } from 'formik'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import fetchExpense from "../../redux/action/expense/fetchExpense";
 
-const ExpensePage = ()=>{
+
+const ExpensePage = ({fetchExpense, expenseData}) => {
+    useEffect(()=> {fetchExpense()}, [fetchExpense])
     const [modalState, setmodalState] = useState(false)
-    
+
+    const result = expenseData.data && expenseData.data.data.data ? expenseData.data.data.data : null;
+    // console.log('----RESULT----', result)
+    const graphData = expenseData && expenseData.data ? result.expense_per_month : null
+
     const closeModal = () => {
         setmodalState(false)
     }
 
-    const openModal = ()=>{
+    const openModal = () => {
         setmodalState(true)
     }
 
+    const graphLabel = []
+    const graphInfo = []
+
+    for(let i = 0; i < graphData.length; i++){
+        graphLabel.push(graphData[i].category)
+    }
+    for(let i = 0; i < graphData.length; i++){
+        graphInfo.push(graphData[i].amount)
+    }
+
     const selectOptions = [
-        { key: "gift", value: "gift" },
-        { key: "royalty", value: "royalty" },
-        { key: "profits", value: "profits" },
-        { key: "interest", value: "interest" },
-        { key: "dividend", value: "dividend" },
-        { key: "allowance", value: "allowance" },
-        { key: "commission", value: "commission" },
-        { key: "wages/salary", value: "wages/salary" },
+        { key: "tax", value: "tax" },
+        { key: "transportation", value: "transportation" },
+        { key: "feeding", value: "feeding" },
+        { key: "rent", value: "rent" },
+        { key: "investment", value: "dividend" },
+        { key: "utilities", value: "utilities" },
+        { key: "clothing", value: "clothing" },
+        { key: "electronics", value: "electronics" },
         { key: "others", value: "others" },
 
     ]
@@ -53,13 +71,13 @@ const ExpensePage = ()=>{
         { key: "others", value: "others" },
 
     ]
-    
+
     const data = {
-        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        labels: graphLabel,
         datasets: [
             {
                 label: 'Expenses',
-                data: [12, 19, 3, 5],
+                data: graphInfo,
                 backgroundColor: [
                     'rgba(255, 156, 156, 0.2)',
                     'rgba(255, 156, 156, 0.2)',
@@ -88,25 +106,25 @@ const ExpensePage = ()=>{
             title="Add expense"
             display={modalState ? "flex" : "none"}
             close={closeModal}>
-            <Formik>{()=>(
+            <Formik>{() => (
                 <form>
-                <FormContent>
-                    <Label>Amount</Label>
-                    <Input placeholder="amount" type="number" name="amount" width="100%" />
-                </FormContent>
-                <FormContent>
-                    <Label>Category</Label>
-                    <Select background="#f5f5f5" width="100%" padding="10px" options={selectOptions}></Select>
+                    <FormContent>
+                        <Label>Amount</Label>
+                        <Input placeholder="amount" type="number" name="amount" width="100%" />
+                    </FormContent>
+                    <FormContent>
+                        <Label>Category</Label>
+                        <Select background="#f5f5f5" width="100%" padding="10px" options={selectOptions}></Select>
 
-                </FormContent>
-                <FormContent>
-                    <Label>Description</Label>
-                    <Input placeholder="Rent" type="text" name="description" width="100%" />
-                </FormContent>
-                <FormContent>
-                    <Label>Date</Label>
-                    <Input type="date" name="expense_date" width="100%" />
-                </FormContent>
+                    </FormContent>
+                    <FormContent>
+                        <Label>Description</Label>
+                        <Input placeholder="Rent" type="text" name="description" width="100%" />
+                    </FormContent>
+                    <FormContent>
+                        <Label>Date</Label>
+                        <Input type="date" name="expense_date" width="100%" />
+                    </FormContent>
                 </form>
             )}</Formik>
 
@@ -131,7 +149,7 @@ const ExpensePage = ()=>{
                     <TopNav>
                         <form>
                             <select>
-                                {selectDates.map(data=>(
+                                {selectDates.map(data => (
                                     <option key={data.key} value={data.key}>{data.key}</option>
                                 ))}
                             </select>
@@ -141,15 +159,15 @@ const ExpensePage = ()=>{
                 </Box>
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
-                    <Paragraph>Total Expenses</Paragraph>
-                    <H1>$13 000</H1>
+                        <Paragraph>Total Expenses</Paragraph>
+                        <H1>{result.currency + ' '+result.total_expense}</H1>
                     </div>
                 </Box>
             </Div>
 
             <Div>
                 <Box>
-                    <TopNav> 
+                    <TopNav>
                         <Input type="search" placeholder="Search" /> <br />
                         <Button onClick={openModal} ><i className="fas fa-plus"></i> Add</Button>
                     </TopNav>
@@ -161,34 +179,23 @@ const ExpensePage = ()=>{
                             <Td>Date</Td>
                             <Td>Action</Td>
                         </Thead>
-                        <Tr>
-                            <Td>$12 000</Td>
-                            <Td>Salary</Td>
-                            <Td>July salary</Td>
-                            <Td>07/01/2020</Td>
-                            <Td>
-                                <MyLink 
-                                    to="/edit-expense"
-                                    background="#62B161"
-                                    color="#fff"
-                                    padding="5px 20px" >Edit</MyLink>
-                            </Td>
-                            
-                        </Tr>
-                        <Tr>
-                            <Td>$12 000</Td>
-                            <Td>Salary</Td>
-                            <Td>July salary</Td>
-                            <Td>07/01/2020</Td>
-                            <Td>
-                                <MyLink 
-                                    to="/edit-expense"
-                                    background="#62B161"
-                                    color="#fff"
-                                    padding="5px 20px" >Edit</MyLink>
-                            </Td>
-                            
-                        </Tr>
+                        {result.expense_per_month.map(item =>(
+                            <Tr key={item.id}>
+                                <Td>{item.amount}</Td>
+                                <Td>{item.category}</Td>
+                                <Td>{item.description}</Td>
+                                <Td>{item.expense_date}</Td>
+                                <Td>
+                                    <MyLink
+                                        to={"/edit-expense/"+item.id}
+                                        background="#62B161"
+                                        color="#fff"
+                                        padding="5px 20px" >Edit</MyLink>
+                                </Td>
+
+                            </Tr>
+                        ))}
+                        
                     </Table>
                 </Box>
             </Div>
@@ -197,4 +204,8 @@ const ExpensePage = ()=>{
     </Container>
 }
 
-export default ExpensePage
+const mapStateToProps = (state) => ({
+    expenseData: state.fetchExpenseReducer
+})
+
+export default connect(mapStateToProps, { fetchExpense })(ExpensePage)
