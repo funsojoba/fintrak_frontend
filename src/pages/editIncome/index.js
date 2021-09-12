@@ -10,7 +10,9 @@ import Small from "../../components/typography/small";
 import Label from "../../components/typography/label"
 import Select from "../../components/input/select";
 import Modal from '../../components/modal'
+import deleteIncome from "../../redux/action/income/deleteIncome"
  
+import Loader from "react-spinners/SyncLoader";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import { Formik } from 'formik'
@@ -18,7 +20,7 @@ import fetchIncomeDetail from "../../redux/action/income/incomeDetail";
 
 import { Container, Content, Parent, ParentChild, Category, FormDiv, FormChild } from "./style";
 
-const EditIncome = ({ fetchIncomeDetail, incomeData, match }) => {
+const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , deleteIncomeData}) => {
     let id = match.params.id
     const selectOptions = [
         {key:"gift", value:"gift"},
@@ -59,11 +61,12 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match }) => {
         >
             <Paragraph color="#AF0000" >Are you sure you want to delete this income?</Paragraph>
             <hr />
-            <em><Paragraph>{data.data.description} | { data.currency+data.data.amount} | {data.data.source}</Paragraph></em>
+            <br />
+            <em><Paragraph>{data.data && data.data.description ? data.data.description : null} | {data.currency + data.data && data.data.amount ? data.data.amount : null} | {data.data && data.data.source ? data.data.source : null}</Paragraph></em>
             <br />
             <div>
                 <Button onClick={closeModal}>Cancle</Button> &nbsp;
-                <Button background="#AF0000" color="#fff">Delete Account</Button>
+                <Button onClick={() => deleteIncome(id)} background="#AF0000" color="#fff">{deleteIncomeData.loading ? <Loader color="#fff" /> : "Delete Account"}</Button>
             </div>
         </Modal>
         <SideBar />
@@ -127,11 +130,11 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match }) => {
                     <ParentChild flex="1" className="hide">
                         <Box background="#EFF1FF" displayFlex>
                             <div>
-                                <H3>{data.currency + data.data.amount}</H3>
-                                <Category>{data.data.source}</Category>
-                                <Paragraph>{data.data.description}</Paragraph>
+                                <H3>{(data && data.currency  ? data.currency : null) + (data.data && data.data.amount ? data.data.amount : null)}</H3>
+                                <Category>{data.data && data.data.source ? data.data.source : null}</Category>
+                                <Paragraph>{data.data && data.data.description ? data.data.description : null}</Paragraph>
                                 <hr />
-                                <Small>{data.data.income_date}</Small> 
+                                <Small>{data.data && data.data.income_date ? data.data.income_date : null}</Small>
                             </div>
                         </Box>
                     </ParentChild>
@@ -144,7 +147,10 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match }) => {
 }
 
 const mapStateToProps = store => ({
-    incomeData: store.incomeDetailReducer
+    incomeData: store.incomeDetailReducer,
+    deleteIncomeData: store.deleteIncomeReducer
 })
 
-export default connect(mapStateToProps, { fetchIncomeDetail })(EditIncome)
+
+
+export default connect(mapStateToProps, { fetchIncomeDetail, deleteIncome})(EditIncome)
