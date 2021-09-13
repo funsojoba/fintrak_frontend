@@ -17,12 +17,18 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
     const dataFromDB = dashboardData.data
     useEffect(() => { fetchDashboard() }, [fetchDashboard])
 
+    const sumOfIncome = dataFromDB && dataFromDB.sum_of_income ? dataFromDB.sum_of_income : 0;
+    const sumOfExpense = dataFromDB && dataFromDB.sum_of_expenses ? dataFromDB.sum_of_expenses : 0;
+    const currency = dataFromDB && dataFromDB.currency ? dataFromDB.currency : "$"
+    const availableBalance = dataFromDB && dataFromDB.available_balance ? dataFromDB.available_balance : 0
+    const totalTransaction = dataFromDB && dataFromDB.total_transaction ? dataFromDB.total_transaction : 0;
+    
     const data = {
-        labels: dataFromDB.days_label,
+        labels: dataFromDB && dataFromDB.days_label ? dataFromDB.days_label : [],
         datasets: [
             {
                 label: 'Income',
-                data: dataFromDB.income_graph_data,
+                data: dataFromDB && dataFromDB.income_graph_data ? dataFromDB.income_graph_data : [],
                 fill: false,
                 backgroundColor: 'rgb(152, 216, 158)',
                 borderColor: 'rgba(152, 216, 158, 0.2)',
@@ -31,7 +37,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
             },
             {
                 label: 'Expenditure',
-                data: dataFromDB.expense_graph_data,
+                data: dataFromDB && dataFromDB.expense_graph_data ? dataFromDB.expense_graph_data : [] ,
                 fill: false,
                 backgroundColor: 'rgb(238, 132, 132)',
                 borderColor: 'rgba(238, 132, 132, 0.2)',
@@ -46,7 +52,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
         datasets: [
             {
                 label: '# of Votes',
-                data: [dataFromDB.sum_of_income, dataFromDB.sum_of_expenses],
+                data: [sumOfIncome, sumOfExpense],
                 backgroundColor: [
                     'rgb(155, 221, 124)',
                     'rgba(237, 132, 132)',
@@ -75,27 +81,27 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
             <DashDiv>
                 <InfoCard
                     title="Income"
-                    amount={`${dataFromDB.currency} ${dataFromDB.sum_of_income}`}
+                    amount={`${currency} ${sumOfIncome}`}
                     icon={<i class="fas fa-hand-holding-usd fa-lg"></i>}
                 />
 
                 <InfoCard
                     title="Expense"
-                    amount={`${dataFromDB.currency} ${dataFromDB.sum_of_expenses}`}
+                    amount={`${currency} ${sumOfExpense}`}
                     icon={<i class="fas fa-money-check-alt fa-lg"></i>}
                     background="#EFDADA"
                 />
 
                 <InfoCard
                     title="Avaialable Balance"
-                    amount={`${dataFromDB.currency} ${dataFromDB.available_balance}`}
+                    amount={`${currency} ${availableBalance}`}
                     icon={<i class="fas fa-balance-scale-right fa-lg"></i>}
                     background="#F4ECDD"
                 />
 
                 <InfoCard
                     title="Total Transaction"
-                    amount={dataFromDB.total_transaction}
+                    amount={totalTransaction}
                     icon={<i class="fas fa-layer-group fa-lg"></i>}
                     background="#DEE0EF"
                 />
@@ -148,7 +154,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                         return(
                             <TransactionCard key={income.id} background="#EEFFF0">
                                 <Paragraph> {income.description} </Paragraph>
-                            <small>{dataFromDB.currency + ' '+ income.amount} |  {income.income_date}</small>
+                            <small>{currency + ' '+ income.amount} |  {income.income_date}</small>
                         </TransactionCard>)
                     })}
                 </Box>
