@@ -6,7 +6,7 @@ const ImgDiv = styled.img`
 `
 
 const Img = ({alt, src})=>{
-    return <ImgDiv alt={alt} src={src} />
+    return <ImgDiv alt={alt} src={src} loading="lazy" />
 }
 
 export default Img

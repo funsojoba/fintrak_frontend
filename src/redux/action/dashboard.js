@@ -1,9 +1,13 @@
-import { FETCH_DASHBOARD_SUCCESS, FETCH_DASHBOARD_FAILED,  } from "./types";
+import { FETCH_DASHBOARD, FETCH_DASHBOARD_SUCCESS, FETCH_DASHBOARD_FAILED,  } from "./types";
 import BASEURL from "../baseURL";
 import axios from "axios";
 import headers from "../request";
 
 const token = localStorage.getItem('token')
+
+const startFetchDashboard = ()=>({
+    type: FETCH_DASHBOARD
+})
 
 const fetchDashboardSuccess = (payload)=>({
     type: FETCH_DASHBOARD_SUCCESS,
@@ -22,6 +26,7 @@ const fetchDashboardFailed = (payload)=>{
 
 const fetchDashboard = ()=>{
     return function(dispatch){
+        dispatch(startFetchDashboard())
         axios.get(BASEURL +'dashboard', headers(token))
         .then(res =>{
             dispatch(fetchDashboardSuccess(res.data.data))

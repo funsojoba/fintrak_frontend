@@ -12,8 +12,10 @@ import { Pie } from 'react-chartjs-2';
 import { connect } from 'react-redux'
 import { useEffect } from 'react'
 import fetchDashboard from '../../redux/action/dashboard'
+import Loader from 'react-spinners/SyncLoader'
 
 const Dashboard = ({ dashboardData, fetchDashboard }) => {
+    console.log(dashboardData.loading)
     const dataFromDB = dashboardData.data
     useEffect(() => { fetchDashboard() }, [fetchDashboard])
 
@@ -81,27 +83,28 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
             <DashDiv>
                 <InfoCard
                     title="Income"
-                    amount={`${currency} ${sumOfIncome}`}
+                    amount={dashboardData.loading ? <Loader /> : `${currency} ${sumOfIncome}`}
                     icon={<i class="fas fa-hand-holding-usd fa-lg"></i>}
                 />
 
                 <InfoCard
                     title="Expense"
-                    amount={`${currency} ${sumOfExpense}`}
+                    amount={dashboardData.loading ? <Loader /> : `${currency} ${sumOfExpense}`}
                     icon={<i class="fas fa-money-check-alt fa-lg"></i>}
                     background="#EFDADA"
                 />
 
                 <InfoCard
                     title="Avaialable Balance"
-                    amount={`${currency} ${availableBalance}`}
+                    amount={dashboardData.loading ? <Loader /> : `${currency} ${availableBalance}`}
+
                     icon={<i class="fas fa-balance-scale-right fa-lg"></i>}
                     background="#F4ECDD"
                 />
 
                 <InfoCard
                     title="Total Transaction"
-                    amount={totalTransaction}
+                    amount={dashboardData.loading ? <Loader /> : totalTransaction}
                     icon={<i class="fas fa-layer-group fa-lg"></i>}
                     background="#DEE0EF"
                 />
