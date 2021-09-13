@@ -1,8 +1,9 @@
-import { INCOME_DETAIL_FAILED, INCOME_DETAIL_SUCCESS } from "../../action/types";
+import {INCOME_DETAIL, INCOME_DETAIL_FAILED, INCOME_DETAIL_SUCCESS } from "../../action/types";
 
 const initialState = {
     data: '',
-    error: ''
+    error: '',
+    loading: false
 }
 
 const incomeDetailReducer = (state=initialState, action)=>{
@@ -13,13 +14,20 @@ const incomeDetailReducer = (state=initialState, action)=>{
             return {
                 ...state,
                 data: payload.data,
-                error: null
+                error: null,
+                loading: false
             }
         case INCOME_DETAIL_FAILED:
             return {
                 ...state,
                 data: null,
-                error: payload
+                error: payload,
+                loading: false
+            }
+        case INCOME_DETAIL:
+            return{
+                ...state,
+                loading: true
             }
                         
         default:

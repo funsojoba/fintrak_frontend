@@ -1,9 +1,13 @@
-import { INCOME_DETAIL_FAILED, INCOME_DETAIL_SUCCESS } from "../types";
+import { INCOME_DETAIL, INCOME_DETAIL_FAILED, INCOME_DETAIL_SUCCESS } from "../types";
 import axios from "axios";
 import headers from "../../request";
 import BASEURL from "../../baseURL";
 const token = localStorage.getItem('token')
 
+
+const startIncomeDetail = ()=>({
+    type: INCOME_DETAIL
+})
 
 const incomeDetailFailed = payload=>({
     type: INCOME_DETAIL_FAILED,
@@ -17,6 +21,7 @@ const incomeDetailSuccess = payload =>({
 
 const fetchIncomeDetail = (id)=>{
     return function(dispatch){
+        dispatch(startIncomeDetail())
         axios.get(BASEURL+'income/detail/'+id, headers(token))
         .then(res =>{
             console.log(res.data)

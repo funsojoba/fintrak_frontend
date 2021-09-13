@@ -63,7 +63,7 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
             <Paragraph color="#AF0000" >Are you sure you want to delete this income?</Paragraph>
             <hr />
             <br />
-            <em><Paragraph>{data.data && data.data.description ? data.data.description : null} | {data.currency + data.data && data.data.amount ? data.data.amount : null} | {data.data && data.data.source ? data.data.source : null}</Paragraph></em>
+            <em><Paragraph>{incomeData.loading ? <Loader /> : (incomeData.data.data.description)} | { incomeData.loading ? <Loader /> : (incomeData.data.data.amount)} | {incomeData.loading ? <Loader /> : (incomeData.data.data.source)}</Paragraph></em>
             <br />
             <div>
                 <Button onClick={closeModal}>Cancle</Button> &nbsp;
@@ -85,7 +85,7 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
 
                 <Parent>
                     <ParentChild flex="2">
-                        <Formik
+                         <Formik
                             initialValues={{
                                 amount:'',
                                 income_date:'',
@@ -129,16 +129,17 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
                                     <Button type="submit">{editIncomeData.loading ? <Loader color="#FFF" /> : "Update"}</Button>
                                 </FormDiv>
                             )}
-                        </Formik>
+                        </Formik> 
                     </ParentChild>
                     <ParentChild flex="1" className="hide">
                         <Box background="#EFF1FF" displayFlex>
-                            <div>
-                                <H3>{(data && data.currency  ? data.currency : null) + (data.data && data.data.amount ? data.data.amount : null)}</H3>
-                                <Category>{data.data && data.data.source ? data.data.source : null}</Category>
-                                <Paragraph>{data.data && data.data.description ? data.data.description : null}</Paragraph>
-                                <hr />
-                                <Small>{data.data && data.data.income_date ? data.data.income_date : null}</Small>
+                         <div>
+                                <H3>{incomeData.loading  ? <Loader /> : (incomeData.data.currency + incomeData.data.data.amount) }</H3>
+                                <Category>{incomeData.loading ? <Loader />: (incomeData.data.data.source)}</Category>
+                                <Paragraph>{incomeData.loading ? <Loader /> : (incomeData.data.data.description)}</Paragraph>
+                                <hr/>
+                                <Small>{incomeData.loading ? <Loader /> : (incomeData.data.data.income_date)}</Small>
+                                
                             </div>
                         </Box>
                     </ParentChild>
