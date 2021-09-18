@@ -13,6 +13,7 @@ import { connect } from 'react-redux'
 import { useEffect } from 'react'
 import fetchDashboard from '../../redux/action/dashboard'
 import Loader from 'react-spinners/SyncLoader'
+import Skeleton from 'react-loading-skeleton';
 
 const Dashboard = ({ dashboardData, fetchDashboard }) => {
     console.log(dashboardData.loading)
@@ -33,7 +34,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                 data: dataFromDB && dataFromDB.income_graph_data ? dataFromDB.income_graph_data : [],
                 fill: false,
                 backgroundColor: 'rgb(152, 216, 158)',
-                borderColor: 'rgba(152, 216, 158, 0.2)',
+                borderColor: 'rgba(152, 216, 158, 0.8)',
                 yAxisID: 'y-axis-1',
                 tension: 0.3
             },
@@ -41,8 +42,8 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                 label: 'Expenditure',
                 data: dataFromDB && dataFromDB.expense_graph_data ? dataFromDB.expense_graph_data : [] ,
                 fill: false,
-                backgroundColor: 'rgb(238, 132, 132)',
-                borderColor: 'rgba(238, 132, 132, 0.2)',
+                backgroundColor: 'rgb(233, 160, 160)',
+                borderColor: 'rgba(233, 160, 160, 0.8)',
                 yAxisID: 'y-axis-2',
                 
             },
@@ -83,20 +84,20 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
             <DashDiv>
                 <InfoCard
                     title="Income"
-                    amount={dashboardData.loading ? <Loader /> : `${currency} ${sumOfIncome}`}
+                    amount={dashboardData.loading ? <Loader color="#fff"/> : (currency + sumOfIncome)}
                     icon={<i class="fas fa-hand-holding-usd fa-lg"></i>}
                 />
 
                 <InfoCard
                     title="Expense"
-                    amount={dashboardData.loading ? <Loader /> : `${currency} ${sumOfExpense}`}
+                    amount={dashboardData.loading ? <Loader color="#fff"/> : ( currency + sumOfExpense )}
                     icon={<i class="fas fa-money-check-alt fa-lg"></i>}
                     background="#EFDADA"
                 />
 
                 <InfoCard
                     title="Avaialable Balance"
-                    amount={dashboardData.loading ? <Loader /> : `${currency} ${availableBalance}`}
+                    amount={dashboardData.loading ? <Loader color="#fff"/> : (currency + availableBalance)}
 
                     icon={<i class="fas fa-balance-scale-right fa-lg"></i>}
                     background="#F4ECDD"
@@ -104,7 +105,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
 
                 <InfoCard
                     title="Total Transaction"
-                    amount={dashboardData.loading ? <Loader /> : totalTransaction}
+                    amount={dashboardData.loading ? <Loader color="#fff"/> : totalTransaction}
                     icon={<i class="fas fa-layer-group fa-lg"></i>}
                     background="#DEE0EF"
                 />
@@ -142,7 +143,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                         return(
                             <TransactionCard key={income.id} background="#EEFFF0">
                                 <Paragraph> {income.description} </Paragraph>
-                            <small>{currency + ' '+ income.amount} |  {income.income_date}</small>
+                            <small>{currency +  income.amount} |  {income.income_date}</small>
                         </TransactionCard>)
                     })}
                 </Box>
@@ -152,7 +153,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                         return (
                             <TransactionCard background="#FFF0F0">
                                 <Paragraph> {expense.description} </Paragraph>
-                                <small>{dataFromDB.currency + ' ' + expense.amount}  |  {expense.expense_date}</small>
+                                <small>{dataFromDB.currency +  expense.amount}  |  {expense.expense_date}</small>
                             </TransactionCard>)
                     })}
                 </Box>

@@ -2,7 +2,8 @@ import { EDIT_INCOME, EDIT_INCOME_FAILED, EDIT_INCOME_SUCCESS } from "../../acti
 
 const initialState = {
     data: '',
-    error: ''
+    error: '',
+    loading : false
 }
 
 const editIncomeReducer = (state=initialState, action)=>{

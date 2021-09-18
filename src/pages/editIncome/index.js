@@ -28,9 +28,10 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, delete
     const source = incomeData.data ? incomeData.data.data.source :''
     const description = incomeData ? incomeData.data.data.description : ''
     const income_date = incomeData? incomeData.data.data.income_date : ''
-    console.log("Data***", incomeData)
+
 
     const selectOptions = [
+        { key: "-----", value: "" },
         { key: "gift", value: "gift" },
         { key: "royalty", value: "royalty" },
         { key: "profits", value: "profits" },
@@ -40,7 +41,6 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, delete
         { key: "commission", value: "commission" },
         { key: "wages/salary", value: "wages/salary" },
         { key: "others", value: "others" },
-
     ]
 
     useEffect(() => {
@@ -135,7 +135,7 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, delete
                         </Formik>
                     </ParentChild>
                     <ParentChild flex="1">
-                        <Box background="#EFF1FF" displayFlex>
+                        <Box background="#DDEFE0" displayFlex>
                             <div>
                                 <H3>{incomeData.loading || incomeData.data === '' ? <Loader /> :(currency + amount)}</H3>
                                 <Category>{incomeData.loading || incomeData.data === '' ? <Loader /> : source}</Category>

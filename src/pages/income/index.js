@@ -204,7 +204,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
                         <Paragraph>Total Revenue</Paragraph>
-                        <H1>{currency + ' ' + total_income}</H1>
+                        <H1>{currency + total_income}</H1>
                     </div>
                 </Box>
             </Div>
