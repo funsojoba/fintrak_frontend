@@ -15,6 +15,7 @@ import MyLink from "../../components/myLink/myLink";
 import Modal from "../../components/modal";
 import Label from "../../components/typography/label";
 import { Formik } from 'formik'
+import Loader from "react-spinners/SyncLoader";
 
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
@@ -27,7 +28,12 @@ const ExpensePage = ({fetchExpense, expenseData}) => {
 
     const result = expenseData.data && expenseData.data.data.data ? expenseData.data.data.data : null;
     // console.log('----RESULT----', result)
-    const graphData = expenseData && expenseData.data ? result.expense_per_month : null
+
+    const graphData = expenseData && expenseData.data ? result.expense_per_month : []
+    const totalExpense = expenseData.data ? expenseData.data.data.data.total_expense : 0
+    const currency = expenseData.data ? expenseData.data.data.data.currency : '$'
+
+
 
     const closeModal = () => {
         setmodalState(false)
@@ -160,7 +166,7 @@ const ExpensePage = ({fetchExpense, expenseData}) => {
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
                         <Paragraph>Total Expenses</Paragraph>
-                        <H1>{result.currency + ' '+result.total_expense}</H1>
+                        <H1>{expenseData.loading ? <Loader /> : (currency+totalExpense)}</H1>
                     </div>
                 </Box>
             </Div>
@@ -179,7 +185,7 @@ const ExpensePage = ({fetchExpense, expenseData}) => {
                             <Td>Date</Td>
                             <Td>Action</Td>
                         </Thead>
-                        {result.expense_per_month.map(item =>(
+                        {expenseData.loading ? <Loader /> : (graphData.map(item => (
                             <Tr key={item.id}>
                                 <Td>{item.amount}</Td>
                                 <Td>{item.category}</Td>
@@ -187,14 +193,14 @@ const ExpensePage = ({fetchExpense, expenseData}) => {
                                 <Td>{item.expense_date}</Td>
                                 <Td>
                                     <MyLink
-                                        to={"/edit-expense/"+item.id}
+                                        to={"/edit-expense/" + item.id}
                                         background="#62B161"
                                         color="#fff"
                                         padding="5px 20px" >Edit</MyLink>
                                 </Td>
 
                             </Tr>
-                        ))}
+                        )))}
                         
                     </Table>
                 </Box>

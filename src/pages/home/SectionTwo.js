@@ -29,7 +29,6 @@ export const SecOneFlex = styled.div`
 
 export const SecOneText = styled.div`
     padding:30px 50px;
-    width:70%;
 
     @media only screen and (max-width:850px){
         width:90%;

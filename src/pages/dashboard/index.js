@@ -138,21 +138,6 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
 
             <DashDiv>
                 <Box flex="1" margin="5px" >
-                    <DashBoxDiv>
-                        <div> Income  </div>
-                        <div>
-                            <Select>
-                                <option>Aug. 2021</option>
-                                <option>July 2021</option>
-                                <option>June 2021</option>
-                                <option>May 2021</option>
-                                <option>Apr. 2021</option>
-                                <option>Mar. 2021</option>
-                                <option>Feb. 2021</option>
-                                <option>Jan. 2021</option>
-                            </Select>
-                        </div>
-                    </DashBoxDiv>
                     {dataFromDB && dataFromDB.top_income.map((income)=>{
                         return(
                             <TransactionCard key={income.id} background="#EEFFF0">
@@ -163,21 +148,6 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                 </Box>
 
                 <Box flex="1" margin="5px">
-                    <DashBoxDiv>
-                        <div>Expenses</div>
-                        <div>
-                            <Select>
-                                <option>Aug. 2021</option>
-                                <option>July 2021</option>
-                                <option>June 2021</option>
-                                <option>May 2021</option>
-                                <option>Apr. 2021</option>
-                                <option>Mar. 2021</option>
-                                <option>Feb. 2021</option>
-                                <option>Jan. 2021</option>
-                            </Select>
-                        </div>
-                    </DashBoxDiv>
                     {dataFromDB && dataFromDB.top_expense.map((expense) => {
                         return (
                             <TransactionCard background="#FFF0F0">
@@ -188,23 +158,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                 </Box>
 
                 <Box flex="1" margin="5px">
-                    <DashBoxDiv>
-                        <div> Transactions  </div>
-                        <div>
-                            <Select>
-                                <option>Aug. 2021</option>
-                                <option>July 2021</option>
-                                <option>June 2021</option>
-                                <option>May 2021</option>
-                                <option>Apr. 2021</option>
-                                <option>Mar. 2021</option>
-                                <option>Feb. 2021</option>
-                                <option>Jan. 2021</option>
-                            </Select>
-                        </div>
-                    </DashBoxDiv>
                     <Pie data={PieData} />
-
                 </Box>
             </DashDiv>
 

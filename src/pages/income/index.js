@@ -122,7 +122,11 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                     description:'',
                     income_date:''
                 }}
-                onSubmit={ async (values) => await(addIncome(values)) }
+                onSubmit={ async (values) => {
+                    await(addIncome(values))
+                    closeModal()
+                    } 
+                    }
             >
                 {({handleSubmit, handleBlur, handleChange, values, errors, touched})=>(
                     <form onSubmit={handleSubmit}>

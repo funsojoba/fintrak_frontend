@@ -15,7 +15,7 @@ const fetchDashboardSuccess = (payload)=>({
 })
 
 const fetchDashboardFailed = (payload)=>{
-    if(payload.response.status === "401"){
+    if(payload.response.status === 401){
         localStorage.clear()
     }
     return{
@@ -33,6 +33,9 @@ const fetchDashboard = ()=>{
             console.log(res)
         }).catch(err =>{
             dispatch(fetchDashboardFailed(err))
+            if(err.response.status === 401){
+                localStorage.clear()
+            }
             console.log(err.response.status)
 
         })

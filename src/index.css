@@ -2,12 +2,11 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-      font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
   background: #F5F5F5;
-  box-sizing: border-box;
 }
 
 select{

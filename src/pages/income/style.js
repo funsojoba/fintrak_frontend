@@ -5,7 +5,7 @@ export const Container = styled.div`
     display:flex;
     
     @media only screen and (max-width:850px){
-        padding:5px
+        padding:5px;
     }
 `
 

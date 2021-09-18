@@ -1,8 +1,12 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 export const Container = styled.div`
     padding:30px;
     display:flex;
+
+    @media only screen and (max-width:850px){
+        padding:5px;
+    }
 `
 
 export const Content = styled.div`
@@ -17,11 +21,13 @@ export const Parent = styled.div`
     justify-content: ${props => props.justify ? props.justify : "center"};
     align-items: ${props => props.alignItems ? props.alignItems : "center"};
 
-    .hide{
+      ${({ column }) => column && css`
         @media only screen and (max-width:850px){
-            display: none;
+            padding:10px 15px;
+        flex-direction: column-reverse;
         }
-    }
+    `};
+
 `
 
 export const ParentChild = styled.div`

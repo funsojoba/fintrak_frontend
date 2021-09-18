@@ -11,7 +11,7 @@ import Label from "../../components/typography/label"
 import Select from "../../components/input/select";
 import Modal from '../../components/modal'
 import deleteIncome from "../../redux/action/income/deleteIncome"
- 
+
 import Loader from "react-spinners/SyncLoader";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
@@ -21,29 +21,33 @@ import editIncome from "../../redux/action/income/editIncome"
 
 import { Container, Content, Parent, ParentChild, Category, FormDiv, FormChild } from "./style";
 
-const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , deleteIncomeData, editIncome, editIncomeData}) => {
+const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, deleteIncomeData, editIncome, editIncomeData }) => {
     let id = match.params.id
+    const amount = incomeData.data ? incomeData.data.data.amount : 0
+    const currency = incomeData.data ? incomeData.data.currency : '$'
+    const source = incomeData.data ? incomeData.data.data.source :''
+    const description = incomeData ? incomeData.data.data.description : ''
+    const income_date = incomeData? incomeData.data.data.income_date : ''
+    console.log("Data***", incomeData)
+
     const selectOptions = [
-        {key:"gift", value:"gift"},
-        {key:"royalty", value:"royalty"},
-        {key:"profits", value:"profits"},
-        {key:"interest", value:"interest"},
-        {key:"dividend", value:"dividend"},
-        {key:"allowance", value:"allowance"},
-        {key:"commission", value:"commission"},
-        {key:"wages/salary", value:"wages/salary"},
-        {key:"others", value:"others"},
-    
+        { key: "gift", value: "gift" },
+        { key: "royalty", value: "royalty" },
+        { key: "profits", value: "profits" },
+        { key: "interest", value: "interest" },
+        { key: "dividend", value: "dividend" },
+        { key: "allowance", value: "allowance" },
+        { key: "commission", value: "commission" },
+        { key: "wages/salary", value: "wages/salary" },
+        { key: "others", value: "others" },
+
     ]
 
     useEffect(() => {
         fetchIncomeDetail(id)
     }, [fetchIncomeDetail, id])
 
-    const data = incomeData.data ? incomeData.data : null
-    console.log('Income data---', incomeData)
 
-    // const { amount, description, income_date, source } = incomeData.data.data
     const [modalState, setModalState] = useState(false)
     const openModal = () => {
         setModalState(true)
@@ -63,7 +67,7 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
             <Paragraph color="#AF0000" >Are you sure you want to delete this income?</Paragraph>
             <hr />
             <br />
-            <em><Paragraph>{incomeData.loading ? <Loader /> : (incomeData.data.data.description)} | { incomeData.loading ? <Loader /> : (incomeData.data.data.amount)} | {incomeData.loading ? <Loader /> : (incomeData.data.data.source)}</Paragraph></em>
+            <em><Paragraph>{description +' | '+amount +' | '+ source}</Paragraph></em>
             <br />
             <div>
                 <Button onClick={closeModal}>Cancle</Button> &nbsp;
@@ -83,23 +87,22 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
                     <Button onClick={openModal} padding="10px 15px" background="#DB0069" color="#fff"> <i className="fas fa-trash"></i> Delete</Button>
                 </Parent>
 
-                <Parent>
+                <Parent column>
                     <ParentChild flex="2">
-                         <Formik
+                        <Formik
                             initialValues={{
-                                amount:'',
-                                income_date:'',
-                                source:'',
-                                description:''
+                                amount: '',
+                                income_date: '',
+                                source: '',
+                                description: ''
                             }}
                             onSubmit={
-                                // (values)=>console.log(values)
-                                async (values)=>{
+                                async (values) => {
                                     await editIncome(values, id)
                                 }
                             }
                         >
-                            {({ handleSubmit, handleBlur, handleChange, values, errors, touched, setFieldValue, setFieldTouched}) => (
+                            {({ handleSubmit, handleBlur, handleChange, values, errors, touched, setFieldValue, setFieldTouched }) => (
                                 <FormDiv onSubmit={handleSubmit}>
                                     <FormChild>
                                         <Label>Amount</Label>
@@ -107,15 +110,15 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
                                     </FormChild>
                                     <FormChild>
                                         <Label>Source</Label>
-                                        <Select name="source" 
-                                                onChange={(value) => setFieldValue('source', value)}
-                                                onBlur={() => setFieldTouched('source', true)}
-                                                background="#F5F5F5" 
-                                                width="100%" 
-                                                padding="15px" 
-                                                value={values.source}
-                                                options={selectOptions}>
-                                                
+                                        <Select name="source"
+                                            onChange={(value) => setFieldValue('source', value)}
+                                            onBlur={() => setFieldTouched('source', true)}
+                                            background="#F5F5F5"
+                                            width="100%"
+                                            padding="15px"
+                                            value={values.source}
+                                            options={selectOptions}>
+
                                         </Select>
                                     </FormChild>
                                     <FormChild>
@@ -129,16 +132,16 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome , delet
                                     <Button type="submit">{editIncomeData.loading ? <Loader color="#FFF" /> : "Update"}</Button>
                                 </FormDiv>
                             )}
-                        </Formik> 
+                        </Formik>
                     </ParentChild>
-                    <ParentChild flex="1" className="hide">
+                    <ParentChild flex="1">
                         <Box background="#EFF1FF" displayFlex>
-                         <div>
-                                <H3>{incomeData.loading  ? <Loader /> : (incomeData.data.currency + incomeData.data.data.amount) }</H3>
-                                <Category>{incomeData.loading ? <Loader />: (incomeData.data.data.source)}</Category>
-                                <Paragraph>{incomeData.loading ? <Loader /> : (incomeData.data.data.description)}</Paragraph>
+                            <div>
+                                <H3>{incomeData.loading || incomeData.data === '' ? <Loader /> :(currency + amount)}</H3>
+                                <Category>{incomeData.loading || incomeData.data === '' ? <Loader /> : source}</Category>
+                                <Paragraph>{incomeData.loading || incomeData.data === ''  ? <Loader /> : description}</Paragraph>
                                 <hr/>
-                                <Small>{incomeData.loading ? <Loader /> : (incomeData.data.data.income_date)}</Small>
+                                <Small>{incomeData.loading || incomeData.data === ''  ? <Loader /> : income_date}</Small>
                                 
                             </div>
                         </Box>
@@ -159,4 +162,4 @@ const mapStateToProps = store => ({
 
 
 
-export default connect(mapStateToProps, { fetchIncomeDetail, deleteIncome, editIncome})(EditIncome)
+export default connect(mapStateToProps, { fetchIncomeDetail, deleteIncome, editIncome })(EditIncome)

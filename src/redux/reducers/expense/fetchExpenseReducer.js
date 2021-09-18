@@ -1,8 +1,9 @@
-import { FETCH_EXPENSE_SUCCESS, FETCH_EXPENSE_FAILED } from "../../action/types";
+import { FETCH_EXPENSE, FETCH_EXPENSE_SUCCESS, FETCH_EXPENSE_FAILED } from "../../action/types";
 
 const initialState = {
     data: '',
-    error: ''
+    error: '',
+    loading: false
 }
 
 const fetchExpenseReducer = (state=initialState, action)=>{
@@ -13,15 +14,21 @@ const fetchExpenseReducer = (state=initialState, action)=>{
             return{
                 ...state,
                 data: null,
-                error: payload
+                error: payload,
+                loading: false
             }
         case FETCH_EXPENSE_SUCCESS:
             return{
                 ...state,
                 data: payload,
-                error: null
+                error: null,
+                loading: false
             }
-    
+        case FETCH_EXPENSE:
+            return{
+                ...state,
+                loading: true
+            }
         default:
             return state;
     }
