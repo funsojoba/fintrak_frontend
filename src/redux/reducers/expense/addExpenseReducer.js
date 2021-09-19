@@ -1,29 +1,28 @@
-import { DELETE_INCOME_FAILED, DELETE_INCOME_SUCCESS, DELETE_INCOME } from "../../action/types";
+import { ADD_EXPENSE, ADD_EXPENSE_SUCCESS, ADD_EXPENSE_FAILED } from "../../action/types";
 
 const initialState = {
+    loading:false,
     data: '',
-    error: '',
-    loading: false
+    error: ''
 }
 
-
-const deleteIncomeReducer = (state=initialState, action)=>{
+const addExpenseReducer = (state=initialState, action)=>{
     const {type, payload} = action
 
     switch (type) {
-        case DELETE_INCOME:
-            return {
+        case ADD_EXPENSE:
+            return{
                 ...state,
                 loading: true
             }
-        case DELETE_INCOME_SUCCESS:
-            return {
+        case ADD_EXPENSE_SUCCESS:
+            return{
                 ...state,
                 loading: false,
                 data: payload,
                 error: null
             }
-        case DELETE_INCOME_FAILED:
+        case ADD_EXPENSE_FAILED:
             return{
                 ...state,
                 loading: false,
@@ -31,8 +30,8 @@ const deleteIncomeReducer = (state=initialState, action)=>{
                 error: payload
             }
         default:
-            return state;
+            return state
     }
 }
 
-export default deleteIncomeReducer
+export default addExpenseReducer

@@ -16,7 +16,6 @@ import Modal from "../../components/modal";
 import Label from "../../components/typography/label";
 import ErrorMsg from "../../components/typography/errorMsg";
 
-
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import fetchIncome from "../../redux/action/income/getIncome";
@@ -30,13 +29,11 @@ import Loader from 'react-spinners/SyncLoader'
 
 
 const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addIncomeData }) => {
-    console.log("add income data ----", addIncomeData)
     const {currency, total_income, income_per_source, income_per_month} = incomeData.data
     const graphLabel = []
     const graphInfo = []
     const graphData = incomeData && incomeData.data ? income_per_source : []
 
-    console.log("TESTING***", incomeData.data)
 
     for (let i = 0; i < graphData.length; i++) {
         graphLabel.push(graphData[i].source)
@@ -67,6 +64,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
         { key: "others", value: "others" },
 ]
     const selectOptions = [
+        { key: "-----", value: "" },
         { key: "gift", value: "gift" },
         { key: "royalty", value: "royalty" },
         { key: "profits", value: "profits" },
@@ -76,7 +74,6 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
         { key: "commission", value: "commission" },
         { key: "wages/salary", value: "wages/salary" },
         { key: "others", value: "others" },
-
     ]
 
   

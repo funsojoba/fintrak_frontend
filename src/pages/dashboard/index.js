@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 import { useEffect } from 'react'
 import fetchDashboard from '../../redux/action/dashboard'
 import Loader from 'react-spinners/SyncLoader'
-import Skeleton from 'react-loading-skeleton';
+// import Skeleton from 'react-loading-skeleton';
 
 const Dashboard = ({ dashboardData, fetchDashboard }) => {
     console.log(dashboardData.loading)

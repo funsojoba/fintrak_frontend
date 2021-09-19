@@ -5,10 +5,11 @@ export const SelectDiv = styled.div`
     select{
         background:${props => props.background ? props.background : 'none'};
         border:${props => props.border ? props.border : "none"};
-        color:#858585;
+        color:#000;
         width: ${props => props.width ? props.width : "auto"};
         border-radius: 15px;
         padding: ${props => props.padding ? props.padding : "none"};
+        outline:none;
     }
 `
 

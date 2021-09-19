@@ -16,18 +16,21 @@ import Modal from "../../components/modal";
 import Label from "../../components/typography/label";
 import { Formik } from 'formik'
 import Loader from "react-spinners/SyncLoader";
+import ErrorMsg from "../../components/typography/errorMsg";
 
+import validate from './validate'
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import fetchExpense from "../../redux/action/expense/fetchExpense";
+import addExpense from "../../redux/action/expense/addExpense";
 
-
-const ExpensePage = ({fetchExpense, expenseData}) => {
+const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense, addExpenseData}) => {
     useEffect(()=> {fetchExpense()}, [fetchExpense])
     const [modalState, setmodalState] = useState(false)
+    console.log(addExpenseData)
 
     const result = expenseData.data && expenseData.data.data.data ? expenseData.data.data.data : null;
-    // console.log('----RESULT----', result)
+
 
     const graphData = expenseData && expenseData.data ? result.expense_per_month : []
     const totalExpense = expenseData.data ? expenseData.data.data.data.total_expense : 0
@@ -54,6 +57,7 @@ const ExpensePage = ({fetchExpense, expenseData}) => {
     }
 
     const selectOptions = [
+        { key: "-----", value: "" },
         { key: "tax", value: "tax" },
         { key: "transportation", value: "transportation" },
         { key: "feeding", value: "feeding" },
@@ -112,29 +116,73 @@ const ExpensePage = ({fetchExpense, expenseData}) => {
             title="Add expense"
             display={modalState ? "flex" : "none"}
             close={closeModal}>
-            <Formik>{() => (
-                <form>
+            <Formik
+                initialValues={{
+                    amount:'',
+                    category:'',
+                    description:'',
+                    expense_date:''
+                }}
+                validationSchema={validate}
+                onSubmit={ async (values)=>{
+                    await addExpense(values)
+                    closeModal()
+                }}
+            >{({handleSubmit, handleChange, values, errors, handleBlur, touched}) => (
+                <form onSubmit={handleSubmit}>
                     <FormContent>
                         <Label>Amount</Label>
-                        <Input placeholder="amount" type="number" name="amount" width="100%" />
+                        <Input 
+                            type="number" 
+                            name="amount" 
+                            width="100%"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.amount} />
+                        <ErrorMsg>{touched.amount&& errors.amount ? errors.amount : null}</ErrorMsg>
                     </FormContent>
+
                     <FormContent>
                         <Label>Category</Label>
-                        <Select background="#f5f5f5" width="100%" padding="10px" options={selectOptions}></Select>
+                        <Select 
+                            background="#f5f5f5" 
+                            width="100%" 
+                            padding="10px" 
+                            options={selectOptions}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.category}
+                            name="category" ></Select>
 
+                        <ErrorMsg>{touched.category&& errors.category ? errors.category : null}</ErrorMsg>
                     </FormContent>
                     <FormContent>
                         <Label>Description</Label>
-                        <Input placeholder="Rent" type="text" name="description" width="100%" />
+                        <Input 
+                            type="text" 
+                            name="description" 
+                            width="100%"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.description}  />
+                            <ErrorMsg>{touched.description && errors.description ? errors.description : null}</ErrorMsg>
                     </FormContent>
                     <FormContent>
                         <Label>Date</Label>
-                        <Input type="date" name="expense_date" width="100%" />
+                        <Input 
+                            type="date" 
+                            name="expense_date" 
+                            width="100%" 
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.expense_date}
+                            />
+                        <ErrorMsg>{touched.expense_date&& errors.expense_date ? errors.expense_date : null}</ErrorMsg>
                     </FormContent>
+                    <Button type="submit">Submit</Button>
                 </form>
             )}</Formik>
 
-            <Button>Submit</Button>
         </Modal>
         <SideBar />
 
@@ -211,7 +259,8 @@ const ExpensePage = ({fetchExpense, expenseData}) => {
 }
 
 const mapStateToProps = (state) => ({
-    expenseData: state.fetchExpenseReducer
+    expenseData: state.fetchExpenseReducer,
+    addExpenseData: state.addExpenseReducer
 })
 
-export default connect(mapStateToProps, { fetchExpense })(ExpensePage)
+export default connect(mapStateToProps, { fetchExpense, addExpense })(ExpensePage)

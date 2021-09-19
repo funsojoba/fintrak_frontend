@@ -19,9 +19,12 @@ import {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import fetchExpenseDetail from '../../redux/action/expense/expenseDetail'
 import editExpense from '../../redux/action/expense/editExpense'
+import deleteExpense from "../../redux/action/expense/deleteExpense";
+import addExpense from "../../redux/action/expense/addExpense";
 
 
-const EditExpense = ({expenseData, editExpenseData, fetchExpenseDetail, editExpense, match})=>{
+
+const EditExpense = ({ expenseData, editExpenseData, fetchExpenseDetail, editExpense, match, deleteExpenseData, addExpense})=>{
     const id = match.params.id
     const data = expenseData.data
     const [modalState, setModalState] = useState(false)
@@ -57,14 +60,14 @@ const EditExpense = ({expenseData, editExpenseData, fetchExpenseDetail, editExpe
             close={closeModal}
             display={modalState ? 'flex':'none'}
         >
-            <Paragraph color="#AF0000" >Are you sure you want to delete this income?</Paragraph>
+            <Paragraph color="#AF0000" >Are you sure you want to delete this expense?</Paragraph>
             <hr />
             <br />
-            {/* <em><Paragraph>{description + ' | ' + amount + ' | ' + source}</Paragraph></em> */}
+            {expenseData.data &&( <em><Paragraph>{data.description + ' | ' + data.amount + ' | ' + data.category}</Paragraph></em>)}
             <br />
             <div>
                 <Button onClick={closeModal}>Cancle</Button> &nbsp;
-                {/* <Button onClick={() => deleteIncome(id)} background="#AF0000" color="#fff">{deleteIncomeData.loading ? <Loader color="#fff" /> : "Delete Account"}</Button> */}
+                <Button onClick={() => deleteExpense(id)} background="#AF0000" color="#fff">{deleteExpenseData.loading ? <Loader color="#fff" /> : "Delete Account"}</Button>
             </div>
         </Modal>
         <SideBar />
@@ -93,7 +96,7 @@ const EditExpense = ({expenseData, editExpenseData, fetchExpenseDetail, editExpe
                                 await editExpense(values, id)
                             }}
                         >
-                            {({handleSubmit, handleChange, values, setFieldValue, setFieldTouched })=>(
+                            {({handleSubmit, handleChange, values, setFieldValue, setFieldTouched, deleteExpense })=>(
 
                                 <FormDiv onSubmit={handleSubmit}>
                                     <FormChild>
@@ -168,7 +171,9 @@ const EditExpense = ({expenseData, editExpenseData, fetchExpenseDetail, editExpe
 
 const mapStateToProps = store =>({
     expenseData : store.expenseDetailReducer,
-    editExpenseData : store.editExpenseReducer
+    editExpenseData : store.editExpenseReducer,
+    deleteExpenseData: store.deleteExpenseReducer,
+    addExpenseData : store.addExpenseReducer
 })
 
-export default connect(mapStateToProps, {fetchExpenseDetail, editExpense})(EditExpense)
+export default connect(mapStateToProps, { fetchExpenseDetail, editExpense, deleteExpense, addExpense})(EditExpense)
