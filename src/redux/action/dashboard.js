@@ -30,7 +30,6 @@ const fetchDashboard = ()=>{
         axios.get(BASEURL +'dashboard', headers(token))
         .then(res =>{
             dispatch(fetchDashboardSuccess(res.data.data))
-            console.log(res)
         }).catch(err =>{
             dispatch(fetchDashboardFailed(err))
             if(err.response.status === 401){

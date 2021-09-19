@@ -16,7 +16,6 @@ import Loader from 'react-spinners/SyncLoader'
 // import Skeleton from 'react-loading-skeleton';
 
 const Dashboard = ({ dashboardData, fetchDashboard }) => {
-    console.log(dashboardData.loading)
     const dataFromDB = dashboardData.data
     useEffect(() => { fetchDashboard() }, [fetchDashboard])
 

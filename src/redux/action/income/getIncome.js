@@ -23,6 +23,9 @@ const fetchIncome = ()=>{
             console.log(res.data.data)
         }).catch(err =>{
             dispatch(fetchIncomeFailed(err))
+            if (err.response.status === 401) {
+                localStorage.clear()
+            }
             console.log(err)
         })
     }

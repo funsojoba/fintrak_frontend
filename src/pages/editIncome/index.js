@@ -26,8 +26,8 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, delete
     const amount = incomeData.data ? incomeData.data.data.amount : 0
     const currency = incomeData.data ? incomeData.data.currency : '$'
     const source = incomeData.data ? incomeData.data.data.source :''
-    const description = incomeData ? incomeData.data.data.description : ''
-    const income_date = incomeData? incomeData.data.data.income_date : ''
+    const description = incomeData.data ? incomeData.data.data.description : ''
+    const income_date = incomeData.data ? incomeData.data.data.income_date : ''
 
 
     const selectOptions = [

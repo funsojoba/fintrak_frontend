@@ -34,6 +34,9 @@ const editIncome = (payload, id)=>{
             console.log(res)
         }).catch(err =>{
             dispatch(editIncomeFailed(err))
+            if (err.response.status === 401) {
+                localStorage.clear()
+            }
             console.log(err)
         })
     }

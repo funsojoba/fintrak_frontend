@@ -8,17 +8,32 @@ import Input from "../../components/input";
 import MyLink from "../../components/myLink/myLink";
 import { Table, Thead, Tr, Td } from "../../components/table";
 import { Container, Content, FlexDiv, Badge, BadgeWrapper, TopNav } from "./style";
-
 import { Pie } from 'react-chartjs-2';
+import Loader from "react-spinners/SyncLoader";
 
 
-const BudgetPage = ()=>{
+import { connect } from "react-redux";
+import { useEffect } from 'react'
+import fetchBudget from "../../redux/action/budget";
+
+
+const BudgetPage = ({ fetchBudget, budgetData }) => {
+    console.log('data ****:', budgetData)
+    const totalIncome = budgetData.data ? budgetData.data.total_income : 0
+    const totalExpense = budgetData.data ? budgetData.data.total_expense : 0
+    const totalBalance = budgetData.data ? budgetData.data.budget_balance : 0
+    const currency = budgetData.data ? budgetData.data.currency : '$'
+
+    useEffect(()=>{
+        fetchBudget()
+    }, [fetchBudget])
+
     const PieData = {
         labels: ['Income', 'Expenditure'],
         datasets: [
             {
                 label: '# of Votes',
-                data: [12, 19],
+                data: [totalIncome, totalExpense],
                 backgroundColor: [
                     'rgb(152, 216, 158)',
                     'rgba(237, 132, 132)',
@@ -44,21 +59,21 @@ const BudgetPage = ()=>{
                     <BadgeWrapper>
                         <Badge>
                             <Small>Estimated Revenue</Small>
-                            <Paragraph>$12 000</Paragraph>
+                            <Paragraph>{currency+totalIncome}</Paragraph>
                         </Badge>
                         <Badge background="#FFD6D6">
                             <Small>Estimated Expense</Small>
-                            <Paragraph>$10 000</Paragraph>
+                            <Paragraph>{currency+totalExpense}</Paragraph>
                         </Badge>
                         <Badge background="#EFF1FF">
                             <Small>Estimated Balance</Small>
-                            <Paragraph>$2 000</Paragraph>
+                            <Paragraph>{currency+totalBalance}</Paragraph>
                         </Badge>
                     </BadgeWrapper>
                 </Box>
 
                 <Box flex="1" margin="10px">
-                    <Pie data={PieData} />
+                    {budgetData.data ? <Pie data={PieData} /> : <Loader />}
                 </Box>
             </FlexDiv>
             <div>
@@ -110,4 +125,8 @@ const BudgetPage = ()=>{
     </Container>
 }
 
-export default BudgetPage
+const mapStateToProps = state => ({
+    budgetData: state.fetchBudgetReducer
+})
+
+export default connect(mapStateToProps, { fetchBudget })(BudgetPage)
