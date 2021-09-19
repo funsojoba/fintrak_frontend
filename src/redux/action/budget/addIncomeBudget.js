@@ -27,10 +27,11 @@ const addIncomeBudget =(payload=>{
         axios.post(BASEURL +'budget/income', payload, headers(token))
         .then(res =>{
             dispatch(addBudgetSuccess(res))
-            console.log(res)
+            setTimeout(()=>{
+                window.location = ''
+            }, 1000)
         }).catch(err =>{
             dispatch(addBudgetFailed(err))
-            console.log(err)
         })
     }
 })

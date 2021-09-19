@@ -108,7 +108,7 @@ const BudgetPage = ({ fetchBudget, budgetData }) => {
                         {allBudgets.map((item)=>(
 
                         <Tr key={item.id}>
-                                <Td>{months[item.month]}</Td>
+                            <Td>{months[item.month]}</Td>
                             <Td>{currency + item.total_budget_income}</Td>
                             <Td>{currency + item.total_budget_expense}</Td>
                             <Td>{currency + item.total}</Td>

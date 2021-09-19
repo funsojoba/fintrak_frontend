@@ -66,8 +66,8 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
         { key: "utilities", value: "utilities" },
         { key: "clothing", value: "clothing" },
         { key: "electronics", value: "electronics" },
+        { key: "shopping", value: "shopping" },
         { key: "others", value: "others" },
-
     ]
 
     const selectDates = [
