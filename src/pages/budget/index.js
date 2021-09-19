@@ -18,11 +18,25 @@ import fetchBudget from "../../redux/action/budget";
 
 
 const BudgetPage = ({ fetchBudget, budgetData }) => {
-    console.log('data ****:', budgetData)
     const totalIncome = budgetData.data ? budgetData.data.total_income : 0
     const totalExpense = budgetData.data ? budgetData.data.total_expense : 0
     const totalBalance = budgetData.data ? budgetData.data.budget_balance : 0
     const currency = budgetData.data ? budgetData.data.currency : '$'
+    const allBudgets = budgetData.data ? budgetData.data.all_budget : []
+    const months = {
+        '1':'Jan.',
+        '2':'Feb.',
+        '3':'Mar.',
+        '4':'April',
+        '5':'May',
+        '6':'June',
+        '7':'July',
+        '8':'Aug.',
+        '9':'Sep.',
+        '10':'Oct.',
+        '11':'Nov.',
+        '12':'Dec'
+    }
 
     useEffect(()=>{
         fetchBudget()
@@ -90,34 +104,24 @@ const BudgetPage = ({ fetchBudget, budgetData }) => {
                             <Td>Balance</Td>
                             <Td>Action</Td>
                         </Thead>
-                        <Tr>
-                            <Td>Jan.</Td>
-                            <Td>$ 30 000</Td>
-                            <Td>$ 12 000</Td>
-                            <Td>$ 18 000</Td>
+
+                        {allBudgets.map((item)=>(
+
+                        <Tr key={item.id}>
+                                <Td>{months[item.month]}</Td>
+                            <Td>{currency + item.total_budget_income}</Td>
+                            <Td>{currency + item.total_budget_expense}</Td>
+                            <Td>{currency + item.total}</Td>
                             <Td>
                                 <MyLink
                                     to="/edit-budget"
                                     background="#62B161"
                                     color="#fff"
-                                    padding="5px 20px" >Edit</MyLink>
+                                    padding="5px 20px">Edit</MyLink>
                             </Td>
 
                         </Tr>
-                        <Tr>
-                            <Td>Feb.</Td>
-                            <Td>$ 50 000</Td>
-                            <Td>$ 22 000</Td>
-                            <Td>$ 28 000</Td>
-                            <Td>
-                                <MyLink
-                                    to="/edit-budget"
-                                    background="#62B161"
-                                    color="#fff"
-                                    padding="5px 20px" >Edit</MyLink>
-                            </Td>
-
-                        </Tr>
+                        ))}
                     </Table>
                 </Box>
             </div>

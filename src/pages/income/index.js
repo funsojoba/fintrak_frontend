@@ -29,17 +29,20 @@ import Loader from 'react-spinners/SyncLoader'
 
 
 const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addIncomeData }) => {
-    const {currency, total_income, income_per_source, income_per_month} = incomeData.data
     const graphLabel = []
     const graphInfo = []
-    const graphData = incomeData && incomeData.data ? income_per_source : []
 
+    const totalIncome = incomeData.data ? incomeData.data.total_income : 0
+    const incomePerSource = incomeData.data ? incomeData.data.income_per_source : []
+    const incomePerMonth = incomeData.data ? incomeData.data.income_per_month : []
 
-    for (let i = 0; i < graphData.length; i++) {
-        graphLabel.push(graphData[i].source)
+    const currency = incomeData && incomeData.data ? incomeData.data.currency : '$'
+
+    for (let i = 0; i < incomePerSource.length; i++) {
+        graphLabel.push(incomePerSource[i].source)
     }
-    for (let i = 0; i < graphData.length; i++) {
-        graphInfo.push(graphData[i].source_total)
+    for (let i = 0; i < incomePerSource.length; i++) {
+        graphInfo.push(incomePerSource[i].source_total)
     }
 
     useEffect(() => { fetchIncome() }, [fetchIncome])
@@ -62,7 +65,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
         { key: "February", value: "February" },
         { key: "January", value: "January" },
         { key: "others", value: "others" },
-]
+    ]
     const selectOptions = [
         { key: "-----", value: "" },
         { key: "gift", value: "gift" },
@@ -76,7 +79,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
         { key: "others", value: "others" },
     ]
 
-  
+
     const data = {
         labels: graphLabel,
         datasets: [
@@ -114,28 +117,28 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
             <Formik
                 validationSchema={validate}
                 initialValues={{
-                    amount:'',
-                    source:'',
-                    description:'',
-                    income_date:''
+                    amount: '',
+                    source: '',
+                    description: '',
+                    income_date: ''
                 }}
-                onSubmit={ async (values) => {
-                    await(addIncome(values))
+                onSubmit={async (values) => {
+                    await (addIncome(values))
                     closeModal()
-                    } 
-                    }
+                }
+                }
             >
-                {({handleSubmit, handleBlur, handleChange, values, errors, touched})=>(
+                {({ handleSubmit, handleBlur, handleChange, values, errors, touched }) => (
                     <form onSubmit={handleSubmit}>
                         <FormContent>
                             <Label>Amount</Label>
-                            <Input 
-                                value={values.amount} 
-                                onBlur={handleBlur} 
+                            <Input
+                                value={values.amount}
+                                onBlur={handleBlur}
                                 onChange={handleChange}
-                                placeholder="amount" 
-                                type="number" 
-                                name="amount" 
+                                placeholder="amount"
+                                type="number"
+                                name="amount"
                                 width="100%" />
                             <ErrorMsg>{touched.amount && errors.amount ? errors.amount : null}</ErrorMsg>
                         </FormContent>
@@ -146,22 +149,22 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                         </FormContent>
                         <FormContent>
                             <Label>Description</Label>
-                            <Input 
+                            <Input
                                 value={values.description}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                placeholder="Salary for the month of July" 
-                                type="text" 
+                                placeholder="Salary for the month of July"
+                                type="text"
                                 name="description" width="100%" />
                             <ErrorMsg>{touched.description && errors.description ? errors.description : null}</ErrorMsg>
                         </FormContent>
                         <FormContent>
                             <Label>Date</Label>
-                            <Input 
+                            <Input
                                 value={values.date}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                type="date" 
+                                type="date"
                                 name="income_date"
                                 width="100%" />
                             <ErrorMsg>{touched.income_date && errors.income_date ? errors.income_date : null}</ErrorMsg>
@@ -190,7 +193,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                     <TopNav>
                         <form>
                             <select>
-                                {selectDates.map(data=>(
+                                {selectDates.map(data => (
                                     <option key={data.key} value={data.key}>{data.key}</option>
                                 ))}
                             </select>
@@ -201,7 +204,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
                         <Paragraph>Total Revenue</Paragraph>
-                        <H1>{currency + total_income}</H1>
+                        <H1>{currency + totalIncome}</H1>
                     </div>
                 </Box>
             </Div>
@@ -220,9 +223,9 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                             <Td>Date</Td>
                             <Td>Action</Td>
                         </Thead>
-                        {incomeData && income_per_month ? (incomeData && income_per_month.map((income) => (
+                        {incomeData && incomePerMonth ? (incomeData && incomePerMonth.map((income) => (
                             <Tr key={income.id}>
-                                <Td>{incomeData.data.currency + ' ' + income.amount}</Td>
+                                <Td>{incomeData.data.currency +  income.amount}</Td>
                                 <Td>{income.source}</Td>
                                 <Td>{income.description.trim().length > 10 ? (income.description.substring(0,10)+'...') : income.description}</Td>
                                 <Td>{income.income_date}</Td>
@@ -253,7 +256,7 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchIncome: () => { dispatch(fetchIncome()) },
     fetchIncomeCSV: () => { dispatch(fetchIncomeCSV()) },
-    addIncome: (values)=>{dispatch(addIncome(values))}
+    addIncome: (values) => { dispatch(addIncome(values)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(IncomePage)

@@ -20,7 +20,6 @@ const fetchIncome = ()=>{
         axios.get(BASEURL +'income/list', headers(token))
         .then(res =>{
             dispatch(fetchIncomeSuccess(res.data.data))
-            console.log(res.data.data)
         }).catch(err =>{
             dispatch(fetchIncomeFailed(err))
             if (err.response.status === 401) {
