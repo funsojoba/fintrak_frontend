@@ -13,10 +13,15 @@ import Paragraph from "../../components/typography/p";
 
 import { currency } from "../../components/currency";
 
-import { useState } from "react";
+import fetchUser from "../../redux/action/user"
+import {connect} from 'react-redux'
+import { useState, useEffect } from "react";
 
-const SettingsPage = ()=>{
-
+const SettingsPage = ({ fetchUser, userData})=>{
+    console.log(userData)
+    useEffect(() => {
+        fetchUser()
+    }, [fetchUser])
     const [modalState, setModalState] = useState(false)
     const openModal = ()=>{
         setModalState(true)
@@ -69,7 +74,7 @@ const SettingsPage = ()=>{
                 <ChildDiv>
                     <Box  margin="10px">
                         <ProfileImgContainer>
-                            <ProfileImage />
+                            <ProfileImage background={userData.data && userData.data.user.avatar} />
                             <Button
                                 onClick={openProfileModal}
                                 background="#fff"
@@ -80,17 +85,18 @@ const SettingsPage = ()=>{
                         </ProfileImgContainer>
                         <ProfileForm>
                             <FormContent>
-                                <Label>First Name</Label>
-                                <Input placeholder="John" type="text" width="100%" />
+                                <Input value={userData.data && userData.data.user.first_name} readonly width="100%" />
                             </FormContent>
                             <FormContent>
-                                <Label>Last Name</Label>
-                                <Input placeholder="Doe" type="text" width="100%" />
+                                <Input value={userData.data && userData.data.user.last_name} readonly width="100%" />
                             </FormContent>
                             <FormContent>
-                                <Label>Email</Label>
-                                <Input placeholder="Johndoe@email.com" type="email" width="100%" />
+                                <Input value={userData.data && userData.data.user.email} readonly width="100%" />
                             </FormContent>
+                        </ProfileForm>
+                    </Box>
+                    <Box  margin="10px">
+                        <ProfileForm>
                             <FormContent>
                                 <Label>Phone</Label>
                                 <Input placeholder="+1 2334 123" type="tel" width="100%"/>
@@ -157,4 +163,8 @@ const SettingsPage = ()=>{
     </Container>
 }
 
-export default SettingsPage
+const mapStateToProps = store => ({
+    userData: store.userReducer
+})
+
+export default connect(mapStateToProps, { fetchUser})(SettingsPage)

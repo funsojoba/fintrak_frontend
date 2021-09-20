@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import MyLink from "../myLink/myLink";
-import { useState } from "react";
 
+import { connect } from "react-redux";
+import { useEffect } from "react";
+import fetchUser from "../../redux/action/user";
 
 const DasImgDiv = styled.div`
     a{
@@ -24,16 +26,18 @@ const DasImgDiv = styled.div`
     }
 `
 
-const DashImage = ({background})=>{
-
-    const [showCard, setShowCard] = useState(false)
-    const handleShow = ()=>{
-        setShowCard(!showCard)
-    }
-    return<DasImgDiv background={background} onClick={handleShow}>
+const DashImage = ({ background, userData, fetchUser }) => {
+    useEffect(()=>{
+        fetchUser()
+    }, [fetchUser])
+    return <DasImgDiv background={userData.data ? userData.data.user.avatar : "https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinProfile_no9nb1.png"}>
         <MyLink to="/settings">
-                </MyLink> 
-        </DasImgDiv>
+        </MyLink>
+    </DasImgDiv>
 }
 
-export default DashImage
+const mapStateToProps = store => ({
+    userData: store.userReducer
+})
+
+export default connect(mapStateToProps, { fetchUser })(DashImage)

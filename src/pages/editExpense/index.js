@@ -26,7 +26,7 @@ import addExpense from "../../redux/action/expense/addExpense";
 
 const EditExpense = ({ expenseData, editExpenseData, fetchExpenseDetail, editExpense, match, deleteExpenseData, addExpense})=>{
     const id = match.params.id
-    const data = expenseData.data
+    const data = expenseData.data ? expenseData.data : {}
     const [modalState, setModalState] = useState(false)
     const closeModal = () => {
         setModalState(false)

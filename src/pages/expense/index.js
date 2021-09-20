@@ -27,11 +27,8 @@ import addExpense from "../../redux/action/expense/addExpense";
 const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense, addExpenseData}) => {
     useEffect(()=> {fetchExpense()}, [fetchExpense])
     const [modalState, setmodalState] = useState(false)
-    console.log(addExpenseData)
 
     const result = expenseData.data && expenseData.data.data.data ? expenseData.data.data.data : null;
-
-
     const graphData = expenseData && expenseData.data ? result.expense_per_month : []
     const totalExpense = expenseData.data ? expenseData.data.data.data.total_expense : 0
     const currency = expenseData.data ? expenseData.data.data.data.currency : '$'
@@ -235,7 +232,7 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
                         </Thead>
                         {expenseData.loading ? <Loader /> : (graphData.map(item => (
                             <Tr key={item.id}>
-                                <Td>{item.amount}</Td>
+                                <Td>{currency + item.amount}</Td>
                                 <Td>{item.category}</Td>
                                 <Td>{item.description}</Td>
                                 <Td>{item.expense_date}</Td>
