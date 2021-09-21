@@ -9,6 +9,5 @@ export const validateProfile = Yup.object({
 
 export const validatePassword = Yup.object({
     password: Yup.string().min(8, 'Password must be more than 8 characters').required("Please provide a valid password"),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null]).min(8, 'Password must be more than 8 characters'),
-
+    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
