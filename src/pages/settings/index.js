@@ -9,6 +9,7 @@ import H5 from "../../components/typography/h5"
 import Modal from "../../components/modal";
 import Paragraph from "../../components/typography/p";
 import Loader from "react-spinners/SyncLoader";
+import ErrorMsg from "../../components/typography/errorMsg"
 import { Container, Content, BodyDiv, ProfileImage, ProfileForm, FormContent, ProfileImgContainer, ChildDiv, InputSelect, DisplayInfo } from "./style";
 import { currency } from "../../components/currency";
 
@@ -19,13 +20,14 @@ import addAvatar from "../../redux/action/user/addAvatar"
 import { Formik } from "formik";
 import { connect } from 'react-redux'
 import { useState, useEffect } from "react";
+import { validatePassword } from './validate'
 
 
 const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, addAvatar, avatarData }) => {
     useEffect(() => {
         fetchUser()
     }, [fetchUser])
-    
+
     const [modalState, setModalState] = useState(false)
     const openModal = () => {
         setModalState(true)
@@ -42,11 +44,13 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
         setProfileModal(false)
     }
     return <Container>
+        
+        {/* DELETE ACCOUNT MODAL */}
         <Modal
             close={closeModal}
             display={modalState ? 'flex' : 'none'}
         >
-            <Paragraph color="#AF0000" >Are you sure you want to delete your account,<br /> note that you can't reverse this action</Paragraph>
+            <Paragraph color="#AF0000" >Are you sure you want to delete your <br/> account, note that you can't reverse this action</Paragraph>
             <br />
             <div>
                 <Button onClick={closeModal}>Cancle</Button> &nbsp;
@@ -54,6 +58,7 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
             </div>
         </Modal>
 
+        {/* UPLOAD AVATAR MODAL */}
         <Modal
             close={closeProfileModal}
             display={profileModal ? 'flex' : 'none'}
@@ -87,8 +92,10 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
             </Formik>
         </Modal>
 
-
+        {/* SIDE BAR */}
         <SideBar />
+
+        {/* MAIN CONTENT */}
         <Content>
             <DashNav>
                 Settings
@@ -118,20 +125,51 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
                             {userData.data.profile.prefered_currency && <DisplayInfo>Prefered Currency - {userData.data && userData.data.profile.prefered_currency} </DisplayInfo>}
                         </ProfileForm>
                     </Box>
+
                     <Box margin="10px">
-                        <H5 color="#AF0000">Danger Zone</H5>
-                        <br />
-                        <>
-                            <Button
-                                onClick={openModal}
-                                background="#fff"
-                                color="#AF0000"
-                                border="solid 1px #AF0000"
-                                width="100%"
-                            ><i className="fas fa-trash"></i> &nbsp;Delete my account</Button>
-                        </>
+                        <H5>Reset Password</H5>
+                        <Formik
+                            initialValues={{
+                                password: "",
+                                confirmPassword: ""
+                            }}
+                            validationSchema={validatePassword}
+                        >{({ handleSubmit, handleBlur, handleChange, touched, errors, values }) => (
+                            <ProfileForm onSubmit={handleSubmit}>
+                                <FormContent>
+                                    <Label>Current Password</Label>
+                                    <Input
+                                        id="password"
+                                        width="100%"
+                                        type="password"
+                                        name="password"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.password}
+                                    />
+                                    <ErrorMsg>{touched.password && errors.password ? errors.password : null}</ErrorMsg>
+                                </FormContent>
+                                <FormContent>
+                                    <Label>New Password</Label>
+                                    <Input
+                                        width="100%"
+                                        name="confirmPassword"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.confirmPassword}
+                                        type="password" />
+                                    <ErrorMsg>{touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : null}</ErrorMsg>
+                                </FormContent>
+
+                                <Button>Update</Button>
+                            </ProfileForm>
+                        )}
+                        </Formik>
                     </Box>
+
+
                 </ChildDiv>
+
                 <ChildDiv>
                     <Box margin="10px">
                         <Formik
@@ -194,22 +232,20 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
                             </ProfileForm>
                         )}</Formik>
                     </Box>
+                    
                     <Box margin="10px">
-                        <H5>Reset Password</H5>
-                        <ProfileForm>
-                            <FormContent>
-                                <Label>Current Password</Label>
-                                <Input width="100%" type="password" />
-                            </FormContent>
-                            <FormContent>
-                                <Label>New Password</Label>
-                                <Input width="100%" type="password" />
-                            </FormContent>
-
-                            <Button>Update</Button>
-                        </ProfileForm>
+                        <H5 color="#AF0000">Danger Zone</H5>
+                        <br />
+                        <>
+                            <Button
+                                onClick={openModal}
+                                background="#fff"
+                                color="#AF0000"
+                                border="solid 1px #AF0000"
+                                width="100%"
+                            ><i className="fas fa-trash"></i> &nbsp;Delete my account</Button>
+                        </>
                     </Box>
-
                 </ChildDiv>
             </BodyDiv>
 

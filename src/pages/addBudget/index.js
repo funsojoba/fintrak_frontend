@@ -68,7 +68,7 @@ const AddBudget = ({ fetchBudget, budgetData, addIncomeData, addIncomeBudget, ad
 
         <Content>
             <DashNav>
-                Add March budget
+                Add budget
                 <DashImage />
             </DashNav>
             <FlexDiv>            

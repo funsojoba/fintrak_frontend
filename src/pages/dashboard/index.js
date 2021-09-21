@@ -150,7 +150,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                 <Box flex="1" margin="5px">
                     {dataFromDB && dataFromDB.top_expense.map((expense) => {
                         return (
-                            <TransactionCard background="#FFF0F0">
+                            <TransactionCard key={expense.id} background="#FFF0F0">
                                 <Paragraph> {expense.description} </Paragraph>
                                 <small>{dataFromDB.currency +  expense.amount}  |  {expense.expense_date}</small>
                             </TransactionCard>)
