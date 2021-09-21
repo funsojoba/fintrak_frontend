@@ -6,18 +6,22 @@ import Input from "../../components/input";
 import Label from "../../components/typography/label";
 import Button from "../../components/button"
 import H5 from "../../components/typography/h5"
-
 import Modal from "../../components/modal";
-import { Container, Content, BodyDiv, ProfileImage, ProfileForm, FormContent, ProfileImgContainer, ChildDiv } from "./style";
 import Paragraph from "../../components/typography/p";
+
+import Loader from "react-spinners/SyncLoader";
+import { Container, Content, BodyDiv, ProfileImage, ProfileForm, FormContent, ProfileImgContainer, ChildDiv, InputSelect, DisplayInfo } from "./style";
 
 import { currency } from "../../components/currency";
 
+import { Formik } from "formik";
 import fetchUser from "../../redux/action/user"
+import addUserProfile from '../../redux/action/user/createProfile'
 import {connect} from 'react-redux'
 import { useState, useEffect } from "react";
 
-const SettingsPage = ({ fetchUser, userData})=>{
+
+const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData})=>{
     console.log(userData)
     useEffect(() => {
         fetchUser()
@@ -42,7 +46,7 @@ const SettingsPage = ({ fetchUser, userData})=>{
             close={closeModal}
             display={modalState ? 'flex' : 'none'}
         >
-            <Paragraph color="#AF0000" >Are you sure you want to delete your account, note that you can't reverse this action</Paragraph>
+            <Paragraph color="#AF0000" >Are you sure you want to delete your account,<br/> note that you can't reverse this action</Paragraph>
             <br/>
             <div>
             <Button onClick={closeModal}>Cancle</Button> &nbsp;
@@ -84,63 +88,13 @@ const SettingsPage = ({ fetchUser, userData})=>{
                             >Change</Button>
                         </ProfileImgContainer>
                         <ProfileForm>
-                            <FormContent>
-                                <Input value={userData.data && userData.data.user.first_name} readonly width="100%" />
-                            </FormContent>
-                            <FormContent>
-                                <Input value={userData.data && userData.data.user.last_name} readonly width="100%" />
-                            </FormContent>
-                            <FormContent>
-                                <Input value={userData.data && userData.data.user.email} readonly width="100%" />
-                            </FormContent>
-                        </ProfileForm>
-                    </Box>
-                    <Box  margin="10px">
-                        <ProfileForm>
-                            <FormContent>
-                                <Label>Phone</Label>
-                                <Input placeholder="+1 2334 123" type="tel" width="100%"/>
-                            </FormContent>
-                            <FormContent>
-                                <Label>Date of birth</Label>
-                                <Input width="100%" type="date"/>
-                            </FormContent>
-                            <FormContent>
-                                <Label>Address</Label>
-                                <Input placeholder="7. Wisconson Street, Houston, Texas" type="text" width="100%" />
-                            </FormContent>
-                            <Button>Update</Button>
-                        </ProfileForm>
-                    </Box>
-                </ChildDiv>
-                <ChildDiv>
-                    <Box margin="10px">
-                        <H5>Reset Password</H5>
-                        <ProfileForm>
-                            <FormContent>
-                                <Label>Current Password</Label>
-                                <Input width="100%" type="password" />
-                            </FormContent>
-                            <FormContent>
-                                <Label>New Password</Label>
-                                <Input width="100%" type="password" />
-                            </FormContent>
-                            
-                            <Button>Update</Button>
-                        </ProfileForm>
-                    </Box>
-                    <Box margin="10px">
-                        <H5>Prefered Currency</H5>
-                        <ProfileForm>
-                            <FormContent>
-                                <select >
-                                    {currency.map(item =>{
-                                        return <option value={item.symbol}>{item.cc} - {item.name} - {item.symbol}</option>
-                                    })}
-                                </select>
-                            </FormContent>
-                            
-                            <Button>Update</Button>
+                            {userData.data.user.first_name && <DisplayInfo>{userData.data && userData.data.user.first_name} </DisplayInfo>}
+                            {userData.data.user.last_name && <DisplayInfo>{userData.data && userData.data.user.last_name} </DisplayInfo>}
+                            {userData.data.user.email && <DisplayInfo>{userData.data && userData.data.user.email} </DisplayInfo>}
+                            {userData.data.profile.phone && <DisplayInfo>{userData.data && userData.data.profile.phone} </DisplayInfo>}
+                            {userData.data.profile.address && <DisplayInfo>{userData.data && userData.data.profile.address} </DisplayInfo>}
+                            {userData.data.profile.date_of_birth && <DisplayInfo>{userData.data && userData.data.profile.date_of_birth} </DisplayInfo>}
+                            {userData.data.profile.prefered_currency && <DisplayInfo>{userData.data && userData.data.profile.prefered_currency} </DisplayInfo>}
                         </ProfileForm>
                     </Box>
                     <Box margin="10px">
@@ -157,6 +111,85 @@ const SettingsPage = ({ fetchUser, userData})=>{
                         </>
                     </Box>
                 </ChildDiv>
+                <ChildDiv>
+                    <Box  margin="10px">
+                        <Formik
+                            initialValues={{
+                                phone:'',
+                                address:'',
+                                date_of_birth:'',
+                                prefered_currency:''
+                            }}
+                            onSubmit={async (values)=> addUserProfile(values)}
+                        >{({handleSubmit, handleBlur, handleChange, values, errors, touched})=>(
+                            <ProfileForm onSubmit={handleSubmit}>
+                                <FormContent>
+                                    <Label>Phone</Label>
+                                    <Input 
+                                        placeholder="+1 2334 123" 
+                                        type="tel" 
+                                        width="100%"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.phone}
+                                        name="phone"
+                                        />
+                                </FormContent>
+                                <FormContent>
+                                    <Label>Date of birth</Label>
+                                    <Input 
+                                        width="100%" 
+                                        type="date"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        name="date_of_birth"
+                                        value={values.date_of_birth}
+                                        />
+                                </FormContent>
+                                <FormContent>
+                                    <Label>Address</Label>
+                                    <Input 
+                                        placeholder="7. Wisconson Street, Houston, Texas" 
+                                        type="text" width="100%"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        name="address"
+                                        value={values.address} />
+                                </FormContent>
+                                <FormContent>
+                                    <Label>Prefered Currency</Label>
+                                    <InputSelect width='100%'
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={values.prefered_currency}
+                                            name="prefered_currency"
+                                     >
+                                        {currency.map(item =>{
+                                            return <option value={item.symbol}>{item.name} - {item.symbol}</option>
+                                        })}
+                                    </InputSelect>
+                                </FormContent>
+                                <Button type="submit">{addProfileData.loading ? <Loader color="#fff" /> : 'Update'}</Button>
+                            </ProfileForm>
+                        )}</Formik>
+                    </Box>
+                    <Box margin="10px">
+                        <H5>Reset Password</H5>
+                        <ProfileForm>
+                            <FormContent>
+                                <Label>Current Password</Label>
+                                <Input width="100%" type="password" />
+                            </FormContent>
+                            <FormContent>
+                                <Label>New Password</Label>
+                                <Input width="100%" type="password" />
+                            </FormContent>
+                            
+                            <Button>Update</Button>
+                        </ProfileForm>
+                    </Box>
+                    
+                </ChildDiv>
             </BodyDiv>
 
         </Content>
@@ -164,7 +197,8 @@ const SettingsPage = ({ fetchUser, userData})=>{
 }
 
 const mapStateToProps = store => ({
-    userData: store.userReducer
+    userData: store.userReducer,
+    addProfileData: store.userProfileReducer
 })
 
-export default connect(mapStateToProps, { fetchUser})(SettingsPage)
+export default connect(mapStateToProps, { fetchUser, addUserProfile})(SettingsPage)

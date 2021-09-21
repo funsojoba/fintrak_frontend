@@ -52,3 +52,23 @@ export const ChildDiv = styled.div`
     flex:1;
 
 `
+
+export const InputSelect = styled.select`
+    border:none;
+    width: ${props => props.width ? props.width : "auto"};
+    outline:none;
+    background:#f5f5f5;
+    color:#000;
+    padding:10px 15px;
+    border-radius: 10px;
+    `
+
+export const DisplayInfo = styled.div`
+    padding: 10px 20px;
+    background:#f5f5f5;
+    border-radius: 10px;
+    color:#000;
+    width: 100%;
+    margin-bottom: 10px;
+
+`
