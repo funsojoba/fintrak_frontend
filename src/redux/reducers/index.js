@@ -26,6 +26,8 @@ import addBudgetExpenseReducer from "./budget/addBudgetExpense";
 
 import userReducer from './user'
 import userProfileReducer from './user/userProfileReducer'
+import addAvatarReducer from "./user/addAvatarReducer";
+
 
 const persistConfig = {
     key: 'root',
@@ -54,7 +56,8 @@ const rootReducer = combineReducers({
     addBudgetExpenseReducer,
 
     userReducer,
-    userProfileReducer
+    userProfileReducer,
+    addAvatarReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -8,37 +8,37 @@ import Button from "../../components/button"
 import H5 from "../../components/typography/h5"
 import Modal from "../../components/modal";
 import Paragraph from "../../components/typography/p";
-
 import Loader from "react-spinners/SyncLoader";
 import { Container, Content, BodyDiv, ProfileImage, ProfileForm, FormContent, ProfileImgContainer, ChildDiv, InputSelect, DisplayInfo } from "./style";
-
 import { currency } from "../../components/currency";
 
-import { Formik } from "formik";
 import fetchUser from "../../redux/action/user"
 import addUserProfile from '../../redux/action/user/createProfile'
-import {connect} from 'react-redux'
+import addAvatar from "../../redux/action/user/addAvatar"
+
+import { Formik } from "formik";
+import { connect } from 'react-redux'
 import { useState, useEffect } from "react";
 
 
-const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData})=>{
-    console.log(userData)
+const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, addAvatar, avatarData }) => {
+    console.log(avatarData)
     useEffect(() => {
         fetchUser()
     }, [fetchUser])
     const [modalState, setModalState] = useState(false)
-    const openModal = ()=>{
+    const openModal = () => {
         setModalState(true)
     }
-    const closeModal = ()=>{
+    const closeModal = () => {
         setModalState(false)
     }
 
     const [profileModal, setProfileModal] = useState(false)
-    const openProfileModal = ()=>{
+    const openProfileModal = () => {
         setProfileModal(true)
     }
-    const closeProfileModal = ()=>{
+    const closeProfileModal = () => {
         setProfileModal(false)
     }
     return <Container>
@@ -46,24 +46,45 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData})=>{
             close={closeModal}
             display={modalState ? 'flex' : 'none'}
         >
-            <Paragraph color="#AF0000" >Are you sure you want to delete your account,<br/> note that you can't reverse this action</Paragraph>
-            <br/>
+            <Paragraph color="#AF0000" >Are you sure you want to delete your account,<br /> note that you can't reverse this action</Paragraph>
+            <br />
             <div>
-            <Button onClick={closeModal}>Cancle</Button> &nbsp;
-            <Button background="#AF0000" color="#fff">Delete Account</Button>
+                <Button onClick={closeModal}>Cancle</Button> &nbsp;
+                <Button background="#AF0000" color="#fff">Delete Account</Button>
             </div>
         </Modal>
-       
+
         <Modal
             close={closeProfileModal}
             display={profileModal ? 'flex' : 'none'}
         >
             <Paragraph>Select an image file</Paragraph>
-            <br/>
-            <form>
-            <Input type="file" name="profile_image"/> &nbsp;
-                <Button><i className="fas fa-cloud-upload-alt"></i> &nbsp; Upload</Button>
-            </form>
+            <br />
+            <Formik
+                initialValues = {{avatar:""}}
+                onSubmit={async (values)=>{
+                    let data = new FormData()
+                    const imageInput = document.querySelector("#avatar")
+                    data.append('avatar', imageInput.files[0])
+                    console.log(data)
+                    await addAvatar(data)
+                }}
+            >
+                {({handleSubmit, handleBlur, handleChange, values, touched})=>(
+                <form onSubmit={handleSubmit}>
+                    <Input 
+                        type="file" 
+                        name="avatar" 
+                        id="avatar"
+                        value={values.avatar}
+                        onChange={handleChange}
+                        onBlur={handleBlur} /> &nbsp;
+                        <Button type="submit" >
+                            {avatarData.loading ? <Loader color="#fff" /> : (<i className="fas fa-cloud-upload-alt"></i>)}
+                        </Button>
+                </form>
+                )}
+            </Formik>
         </Modal>
 
 
@@ -76,7 +97,7 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData})=>{
 
             <BodyDiv>
                 <ChildDiv>
-                    <Box  margin="10px">
+                    <Box margin="10px">
                         <ProfileImgContainer>
                             <ProfileImage background={userData.data && userData.data.user.avatar} />
                             <Button
@@ -94,7 +115,7 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData})=>{
                             {userData.data.profile.phone && <DisplayInfo>{userData.data && userData.data.profile.phone} </DisplayInfo>}
                             {userData.data.profile.address && <DisplayInfo>{userData.data && userData.data.profile.address} </DisplayInfo>}
                             {userData.data.profile.date_of_birth && <DisplayInfo>{userData.data && userData.data.profile.date_of_birth} </DisplayInfo>}
-                            {userData.data.profile.prefered_currency && <DisplayInfo>{userData.data && userData.data.profile.prefered_currency} </DisplayInfo>}
+                            {userData.data.profile.prefered_currency && <DisplayInfo>Prefered Currency - {userData.data && userData.data.profile.prefered_currency} </DisplayInfo>}
                         </ProfileForm>
                     </Box>
                     <Box margin="10px">
@@ -112,44 +133,44 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData})=>{
                     </Box>
                 </ChildDiv>
                 <ChildDiv>
-                    <Box  margin="10px">
+                    <Box margin="10px">
                         <Formik
                             initialValues={{
-                                phone:'',
-                                address:'',
-                                date_of_birth:'',
-                                prefered_currency:''
+                                phone: '',
+                                address: '',
+                                date_of_birth: '',
+                                prefered_currency: ''
                             }}
-                            onSubmit={async (values)=> addUserProfile(values)}
-                        >{({handleSubmit, handleBlur, handleChange, values, errors, touched})=>(
+                            onSubmit={async (values) => addUserProfile(values)}
+                        >{({ handleSubmit, handleBlur, handleChange, values, errors, touched }) => (
                             <ProfileForm onSubmit={handleSubmit}>
                                 <FormContent>
                                     <Label>Phone</Label>
-                                    <Input 
-                                        placeholder="+1 2334 123" 
-                                        type="tel" 
+                                    <Input
+                                        placeholder="+1 2334 123"
+                                        type="tel"
                                         width="100%"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={values.phone}
                                         name="phone"
-                                        />
+                                    />
                                 </FormContent>
                                 <FormContent>
                                     <Label>Date of birth</Label>
-                                    <Input 
-                                        width="100%" 
+                                    <Input
+                                        width="100%"
                                         type="date"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         name="date_of_birth"
                                         value={values.date_of_birth}
-                                        />
+                                    />
                                 </FormContent>
                                 <FormContent>
                                     <Label>Address</Label>
-                                    <Input 
-                                        placeholder="7. Wisconson Street, Houston, Texas" 
+                                    <Input
+                                        placeholder="7. Wisconson Street, Houston, Texas"
                                         type="text" width="100%"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -159,12 +180,12 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData})=>{
                                 <FormContent>
                                     <Label>Prefered Currency</Label>
                                     <InputSelect width='100%'
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.prefered_currency}
-                                            name="prefered_currency"
-                                     >
-                                        {currency.map(item =>{
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.prefered_currency}
+                                        name="prefered_currency"
+                                    >
+                                        {currency.map(item => {
                                             return <option value={item.symbol}>{item.name} - {item.symbol}</option>
                                         })}
                                     </InputSelect>
@@ -184,11 +205,11 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData})=>{
                                 <Label>New Password</Label>
                                 <Input width="100%" type="password" />
                             </FormContent>
-                            
+
                             <Button>Update</Button>
                         </ProfileForm>
                     </Box>
-                    
+
                 </ChildDiv>
             </BodyDiv>
 
@@ -198,7 +219,8 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData})=>{
 
 const mapStateToProps = store => ({
     userData: store.userReducer,
-    addProfileData: store.userProfileReducer
+    addProfileData: store.userProfileReducer,
+    avatarData : store.addAvatarReducer
 })
 
-export default connect(mapStateToProps, { fetchUser, addUserProfile})(SettingsPage)
+export default connect(mapStateToProps, { fetchUser, addUserProfile, addAvatar })(SettingsPage)
