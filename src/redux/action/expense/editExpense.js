@@ -30,11 +30,9 @@ const editExpense = (payload, id)=>{
             setTimeout(() => {
                 window.location = ''
             }, 1000);
-            console.log(res)
         })
         .catch(err =>{
             dispatch(editExpenseFailed(err))
-            console.log(err)
         })
     }
 }

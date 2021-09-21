@@ -27,7 +27,12 @@ const fetchUser = () =>{
         axios.get(BASEURL+'user', headers(token))
         .then(res =>{
             dispatch(fetchUserSuccess(res))
-        }).catch(err => dispatch(fetchUserFailed(err)))
+        }).catch(err => {
+            console.log(err.response)
+            if (err.response.status === 401) {
+                localStorage.clear()
+            }
+            dispatch(fetchUserFailed(err))})
     }
 }
 

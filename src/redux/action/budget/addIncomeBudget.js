@@ -31,6 +31,9 @@ const addIncomeBudget =(payload=>{
                 window.location = ''
             }, 1000)
         }).catch(err =>{
+            if (err.response.status === 401) {
+                localStorage.clear()
+            }
             dispatch(addBudgetFailed(err))
         })
     }

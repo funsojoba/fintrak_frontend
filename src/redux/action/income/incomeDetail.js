@@ -24,7 +24,6 @@ const fetchIncomeDetail = (id)=>{
         dispatch(startIncomeDetail())
         axios.get(BASEURL+'income/detail/'+id, headers(token))
         .then(res =>{
-            console.log(res.data)
             dispatch(incomeDetailSuccess(res.data))
         }).catch(err =>{
             console.log(err)

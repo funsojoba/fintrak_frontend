@@ -28,10 +28,8 @@ const addExpense = payload =>{
             setTimeout(()=>{
                 window.location='/expense'
             }, 1000)
-            console.log(res)
         }).catch(err =>{
             dispatch(addExpenseFailed(err))
-            console.log(err)
         })
     }
 }

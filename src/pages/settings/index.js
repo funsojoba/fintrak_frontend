@@ -22,10 +22,10 @@ import { useState, useEffect } from "react";
 
 
 const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, addAvatar, avatarData }) => {
-    console.log(avatarData)
     useEffect(() => {
         fetchUser()
     }, [fetchUser])
+    
     const [modalState, setModalState] = useState(false)
     const openModal = () => {
         setModalState(true)

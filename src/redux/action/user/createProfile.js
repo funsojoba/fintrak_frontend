@@ -30,7 +30,11 @@ const addUserProfile = (payload) => {
                 dispatch(addUserSuccess(res))
                 setTimeout(()=>{
                     window.location =''}, 1000)
-            }).catch(err => dispatch(addUserFailed(err)))
+            }).catch(err => {
+                if (err.response.status === 401) {
+                    localStorage.clear()
+                }
+                dispatch(addUserFailed(err))})
     }
 }
 

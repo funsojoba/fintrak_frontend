@@ -23,7 +23,6 @@ const fetchIncomeCSV = () => {
                 console.log(res)
             }).catch(err => {
                 dispatch(fetchIncomeCSVFailed(err))
-                console.log(err)
             })
     }
 }

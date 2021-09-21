@@ -28,6 +28,9 @@ const fetchExpense = () =>{
         .then(res =>{
             dispatch(fetchExpenseSuccess(res))
         }).catch(err =>{
+            if (err.response.status === 401) {
+                localStorage.clear()
+            }
             dispatch(fetchExpenseFailed(err))
         })
     }
