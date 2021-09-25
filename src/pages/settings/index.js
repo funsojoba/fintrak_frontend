@@ -12,10 +12,12 @@ import Loader from "react-spinners/SyncLoader";
 import ErrorMsg from "../../components/typography/errorMsg"
 import { Container, Content, BodyDiv, ProfileImage, ProfileForm, FormContent, ProfileImgContainer, ChildDiv, InputSelect, DisplayInfo } from "./style";
 import { currency } from "../../components/currency";
+import { ToastContainer } from 'react-toastify';
 
 import fetchUser from "../../redux/action/user"
 import addUserProfile from '../../redux/action/user/createProfile'
 import addAvatar from "../../redux/action/user/addAvatar"
+import changePassword from "../../redux/action/user/changePassword";
 
 import { Formik } from "formik";
 import { connect } from 'react-redux'
@@ -23,7 +25,7 @@ import { useState, useEffect } from "react";
 import { validatePassword } from './validate'
 
 
-const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, addAvatar, avatarData }) => {
+const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, addAvatar, avatarData, changePassword, changePasswrodData }) => {
     useEffect(() => {
         fetchUser()
     }, [fetchUser])
@@ -44,7 +46,7 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
         setProfileModal(false)
     }
     return <Container>
-        
+        <ToastContainer />
         {/* DELETE ACCOUNT MODAL */}
         <Modal
             close={closeModal}
@@ -116,24 +118,27 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
                             >Change</Button>
                         </ProfileImgContainer>
                         <ProfileForm>
-                            {userData.data.user.first_name && <DisplayInfo>{userData.data && userData.data.user.first_name} </DisplayInfo>}
-                            {userData.data.user.last_name && <DisplayInfo>{userData.data && userData.data.user.last_name} </DisplayInfo>}
-                            {userData.data.user.email && <DisplayInfo>{userData.data && userData.data.user.email} </DisplayInfo>}
-                            {userData.data.profile.phone && <DisplayInfo>{userData.data && userData.data.profile.phone} </DisplayInfo>}
-                            {userData.data.profile.address && <DisplayInfo>{userData.data && userData.data.profile.address} </DisplayInfo>}
-                            {userData.data.profile.date_of_birth && <DisplayInfo>{userData.data && userData.data.profile.date_of_birth} </DisplayInfo>}
-                            {userData.data.profile.prefered_currency && <DisplayInfo>Prefered Currency - {userData.data && userData.data.profile.prefered_currency} </DisplayInfo>}
+                            {userData.data.user.first_name && <DisplayInfo><i className="fas fa-user"></i> {userData.data &&userData.data.user.first_name} </DisplayInfo>}
+                            {userData.data.user.last_name && <DisplayInfo><i className="far fa-user"></i> {userData.data && userData.data.user.last_name} </DisplayInfo>}
+                            {userData.data.user.email && <DisplayInfo><i className="fas fa-envelope"></i> {userData.data &&userData.data.user.email} </DisplayInfo>}
+                            {userData.data.profile.phone && <DisplayInfo><i className="fas fa-phone-square-alt"></i> {userData.data && userData.data.profile.phone} </DisplayInfo>}
+                            {userData.data.profile.address && <DisplayInfo><i className="fas fa-map-marker-alt"></i> {userData.data && userData.data.profile.address} </DisplayInfo>}
+                            {userData.data.profile.date_of_birth && <DisplayInfo><i className="fas fa-calendar-alt"></i> {userData.data && userData.data.profile.date_of_birth} </DisplayInfo>}
+                            {userData.data.profile.prefered_currency && <DisplayInfo><i className="fas fa-money-bill-alt"></i> {userData.data && userData.data.profile.prefered_currency} </DisplayInfo>}
                         </ProfileForm>
                     </Box>
 
                     <Box margin="10px">
-                        <H5>Reset Password</H5>
+                        <H5 align="center">Change Password</H5>
                         <Formik
                             initialValues={{
-                                password: "",
-                                confirmPassword: ""
+                                current_password: "",
+                                new_password: ""
                             }}
                             validationSchema={validatePassword}
+                            onSubmit={async (values)=>{
+                                await changePassword(values)
+                            }}
                         >{({ handleSubmit, handleBlur, handleChange, touched, errors, values }) => (
                             <ProfileForm onSubmit={handleSubmit}>
                                 <FormContent>
@@ -142,26 +147,26 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
                                         id="password"
                                         width="100%"
                                         type="password"
-                                        name="password"
+                                        name="current_password"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={values.password}
+                                        value={values.current_password}
                                     />
-                                    <ErrorMsg>{touched.password && errors.password ? errors.password : null}</ErrorMsg>
+                                    <ErrorMsg>{touched.current_password && errors.current_password ? errors.current_password : null}</ErrorMsg>
                                 </FormContent>
                                 <FormContent>
                                     <Label>New Password</Label>
                                     <Input
                                         width="100%"
-                                        name="confirmPassword"
+                                        name="new_password"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={values.confirmPassword}
+                                        value={values.new_password}
                                         type="password" />
-                                    <ErrorMsg>{touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : null}</ErrorMsg>
+                                    <ErrorMsg>{touched.new_password && errors.new_password ? errors.new_password : null}</ErrorMsg>
                                 </FormContent>
 
-                                <Button>Update</Button>
+                                    <Button type="sumit">{changePasswrodData.loading ? <Loader color="#fff"/> : 'Change Password'}</Button>
                             </ProfileForm>
                         )}
                         </Formik>
@@ -234,7 +239,7 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
                     </Box>
                     
                     <Box margin="10px">
-                        <H5 color="#AF0000">Danger Zone</H5>
+                        <H5 color="#AF0000" align="center">Danger Zone</H5>
                         <br />
                         <>
                             <Button
@@ -256,7 +261,8 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
 const mapStateToProps = store => ({
     userData: store.userReducer,
     addProfileData: store.userProfileReducer,
-    avatarData : store.addAvatarReducer
+    avatarData : store.addAvatarReducer,
+    changePasswrodData: store.changePasswordReducer
 })
 
-export default connect(mapStateToProps, { fetchUser, addUserProfile, addAvatar })(SettingsPage)
+export default connect(mapStateToProps, { fetchUser, addUserProfile, addAvatar, changePassword })(SettingsPage)

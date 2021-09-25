@@ -4,9 +4,9 @@ export const Container = styled.div`
     padding:30px;
     display:flex;
     @media only screen and (max-width:850px){
-        padding:10px
+        padding:10px;
     }
-`
+    `
 
 export const Content = styled.div`
     width: 100%;
@@ -14,11 +14,14 @@ export const Content = styled.div`
     overflow: scroll;
     padding:20px;
     scrollbar-width: none;
-`
+    @media only screen and (max-width:850px){
+        padding:10px;
+    }
+    `
 
 export const BodyDiv = styled.div`
     display:flex;
-
+    
     @media only screen and (max-width:850px){
         flex-direction:column;
     }
@@ -43,14 +46,16 @@ export const ProfileImgContainer = styled.div`
 
 export const ProfileForm = styled.form`
     padding:20px;
-`
+    @media only screen and (max-width:850px){
+        padding:10px;
+    }
+    `
 export const FormContent = styled.div`
     margin-bottom: 10px;
 `
 
 export const ChildDiv = styled.div`
     flex:1;
-
 `
 
 export const InputSelect = styled.select`
@@ -70,5 +75,5 @@ export const DisplayInfo = styled.div`
     color:#000;
     width: 100%;
     margin-bottom: 10px;
-
+    overflow:scroll;
 `
