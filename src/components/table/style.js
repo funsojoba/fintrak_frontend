@@ -5,13 +5,18 @@ export const TableDiv  = styled.table`
     padding: 10px;
     width:100%;
     border:none;
+    width: 100%;
+
+    @media only screen and (max-width:1000px){
+        width: 600px;
+    }
     `
 
 export const TheadDiv = styled.thead`
     padding:5px;
     background: #666;
     color:#fff;
-    border-radius: 10px;
+    text-align: left;
     margin-bottom: 10px;
     border-radius: 15px;
     width:100%;

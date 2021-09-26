@@ -31,13 +31,11 @@ const editIncome = (payload, id)=>{
             setTimeout(() => {
                 window.location = ''
             }, 1000);
-            console.log(res)
         }).catch(err =>{
             dispatch(editIncomeFailed(err))
             if (err.response.status === 401) {
                 localStorage.clear()
             }
-            console.log(err)
         })
     }
 }

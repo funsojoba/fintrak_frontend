@@ -8,9 +8,11 @@ export const Table = ({children})=>{
 }
 
 export const Tr = ({children})=>{
-    return <TrDiv>
+    return <tbody>
+    <TrDiv>
         {children}
     </TrDiv>
+    </tbody>
 }
 
 export const Td = ({children})=>{

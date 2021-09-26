@@ -217,12 +217,15 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                     </TopNav>
                     <Table>
                         <Thead>
-                            <Td>Amount</Td>
-                            <Td>Source</Td>
-                            <Td>Description</Td>
-                            <Td>Date</Td>
-                            <Td>Action</Td>
+                        
+                            <Td align="left">Amount</Td>
+                            <Td align="left">Source</Td>
+                            <Td align="left">Description</Td>
+                            <Td align="left">Date</Td>
+                            <Td align="left">Action</Td>
+                            
                         </Thead>
+
                         {incomeData && incomePerMonth ? (incomeData && incomePerMonth.map((income) => (
                             <Tr key={income.id}>
                                 <Td>{incomeData.data.currency +  income.amount}</Td>

@@ -23,12 +23,14 @@ import addExpenseReducer from "./expense/addExpenseReducer";
 import fetchBudgetReducer from "./budget";
 import addBudgetIncomeReducer from "./budget/addBudget"
 import addBudgetExpenseReducer from "./budget/addBudgetExpense";
+import budgetDetailReducer from "./budget/budgetDetail";
+import editAddIncomeReducer from "./budget/editAddIncomeReducer";
+import editAddExpenseReducer from "./budget/editAddExpenseReducer"
 
 import userReducer from './user'
 import userProfileReducer from './user/userProfileReducer'
 import addAvatarReducer from "./user/addAvatarReducer";
 import changePasswordReducer from "./user/changePasswordReducer"
-
 
 const persistConfig = {
     key: 'root',
@@ -55,6 +57,9 @@ const rootReducer = combineReducers({
     fetchBudgetReducer,
     addBudgetIncomeReducer,
     addBudgetExpenseReducer,
+    budgetDetailReducer,
+    editAddIncomeReducer,
+    editAddExpenseReducer,
 
     userReducer,
     userProfileReducer,

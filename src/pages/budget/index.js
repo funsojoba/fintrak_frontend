@@ -18,11 +18,17 @@ import fetchBudget from "../../redux/action/budget";
 
 
 const BudgetPage = ({ fetchBudget, budgetData }) => {
+    useEffect(()=>{
+        fetchBudget()
+    }, [fetchBudget])
+    
     const totalIncome = budgetData.data ? budgetData.data.total_income : 0
     const totalExpense = budgetData.data ? budgetData.data.total_expense : 0
     const totalBalance = budgetData.data ? budgetData.data.budget_balance : 0
-    const currency = budgetData.data ? budgetData.data.currency : '$'
+    const currency = budgetData.data ? budgetData.data.currency : ''
     const allBudgets = budgetData.data ? budgetData.data.all_budget : []
+    const budgetExits = budgetData.data ? budgetData.data.budget_exists : false
+    
     const months = {
         '1':'Jan.',
         '2':'Feb.',
@@ -38,15 +44,11 @@ const BudgetPage = ({ fetchBudget, budgetData }) => {
         '12':'Dec'
     }
 
-    useEffect(()=>{
-        fetchBudget()
-    }, [fetchBudget])
 
     const PieData = {
         labels: ['Income', 'Expenditure'],
         datasets: [
             {
-                label: '# of Votes',
                 data: [totalIncome, totalExpense],
                 backgroundColor: [
                     'rgb(152, 216, 158)',
@@ -94,7 +96,7 @@ const BudgetPage = ({ fetchBudget, budgetData }) => {
                 <Box>
                     <TopNav>
                         <Input type="search" placeholder="Search" />
-                        <MyLink to="/add-budget"><i className="fas fa-plus"></i> Add</MyLink>
+                        {!budgetExits && <MyLink to="/add-budget"><i className="fas fa-plus"></i> Add</MyLink>}
                     </TopNav>
                     <Table>
                         <Thead>
@@ -114,7 +116,7 @@ const BudgetPage = ({ fetchBudget, budgetData }) => {
                             <Td>{currency + item.total}</Td>
                             <Td>
                                 <MyLink
-                                    to="/edit-budget"
+                                    to={"/edit-budget/"+item.id}
                                     background="#62B161"
                                     color="#fff"
                                     padding="5px 20px">Edit</MyLink>

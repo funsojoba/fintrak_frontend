@@ -35,10 +35,10 @@ export const BoxDiv = styled.div`
     @media only screen and (max-width:750px){
         padding:20px;
         border-radius: 15px;
-        width:400px;
+        width:350px;
     }
     @media only screen and (max-width:450px){
-        width:300px;
+        width:250px;
         padding:10px;
         margin-bottom: 15px;
     }

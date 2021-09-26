@@ -20,7 +20,6 @@ const fetchIncomeCSV = () => {
         axios.get(BASEURL + 'income/income-csv', headers(token))
             .then(res => {
                 dispatch(fetchIncomeCSVSuccess(res.data.data))
-                console.log(res)
             }).catch(err => {
                 dispatch(fetchIncomeCSVFailed(err))
             })
