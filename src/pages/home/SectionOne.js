@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import H1 from "../../components/typography/h1";
 import MyLink from "../../components/myLink/myLink";
 import Paragraph from "../../components/typography/p";
@@ -15,23 +15,27 @@ export const SectionOne = styled.div`
     position:relative;
     overflow: hidden;
 
-    .curve{
-        position:absolute;
-        bottom: -10px;
-        right: 0;
-        width: 30%;
-
-        @media only screen and (max-width:750px){
-            width: 100%;
-        }
-    }
-
     @media only screen and (max-width:850px){
         flex-direction: column;
         height: auto;
         padding:20px;
     }
 `
+
+const slideIn = keyframes`
+    0%{
+        transform: translateX(200px);
+        opacity: 0;
+    }
+    97%{
+        transform: translateX(-10px);
+    }
+    100%{
+        opacity:1;
+        transform:translateX(0)}
+`
+
+
 
 export const SecOneFlex = styled.div`
     flex:1;
@@ -42,6 +46,7 @@ export const SecOneFlex = styled.div`
 
 export const SecOneText = styled.div`
     padding:30px 50px;
+    animation: ${slideIn} 300ms linear;
 
     @media only screen and (max-width:850px){
         width:90%;
@@ -50,7 +55,7 @@ export const SecOneText = styled.div`
 `
 
 
-const SecOne = ({ loginData})=>{
+const SecOne = ({loginData})=>{
     return <SectionOne>
         <SecOneFlex>
             <SecOneText>
@@ -68,9 +73,6 @@ const SecOne = ({ loginData})=>{
                 <Img alt="Fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388905/fintrak/FinTrak_z1bzap.png" />
             </ImageBox>
         </SecOneFlex>
-        <div className="curve">
-            <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1630150497/fintrak/Vector_5_hgswb6.png" />
-        </div>
     </SectionOne>
 }
 
