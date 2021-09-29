@@ -26,6 +26,7 @@ import addBudgetExpenseReducer from "./budget/addBudgetExpense";
 import budgetDetailReducer from "./budget/budgetDetail";
 import editAddIncomeReducer from "./budget/editAddIncomeReducer";
 import editAddExpenseReducer from "./budget/editAddExpenseReducer"
+import deleteBudgetIncomeReducer from "./budget/deleteIncomeBudgetReducer";
 
 import userReducer from './user'
 import userProfileReducer from './user/userProfileReducer'
@@ -61,6 +62,7 @@ const rootReducer = combineReducers({
     budgetDetailReducer,
     editAddIncomeReducer,
     editAddExpenseReducer,
+    deleteBudgetIncomeReducer,
 
     userReducer,
     userProfileReducer,

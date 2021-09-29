@@ -61,4 +61,7 @@ export const TrashIcon = styled.div`
     &:hover{
         box-shadow: 5px 5px 30px rgba(0,0,0,.24)
     }
+    &:active{
+        transform:rotate(30deg);
+    }
 `

@@ -22,10 +22,11 @@ import { connect } from 'react-redux'
 import getBudgetDetail from "../../redux/action/budget/budgetDetail";
 import editAddIncome from "../../redux/action/budget/editAddIncome";
 import editAddExpense from "../../redux/action/budget/editAddExpense";
+import deleteBudgetIncome from "../../redux/action/budget/deleteIncomeBudget";
+import deleteBudgetExpense from "../../redux/action/budget/deleteExpenseBudget";
 
 
-const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAddIncomeData, editAddExpense, editAddExpenseData }) => {
-    console.log('data----', editAddIncomeData)
+const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAddIncomeData, editAddExpense, editAddExpenseData, deleteBudgetIncome, deleteBudgetExpense }) => {
 
     const id = match.params.id
     useEffect(()=>{
@@ -182,7 +183,7 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
 
                     {incomeList.map(item => (
                         <ListDiv key={item.id}>
-                            <TrashIcon> <i className="fas fa-trash"></i></TrashIcon>
+                            <TrashIcon onClick={() => deleteBudgetIncome(item.id)}> <i className="fas fa-trash"></i></TrashIcon>
                             <Small>{item.description}</Small>
                             <Paragraph>{currency + item.amount}</Paragraph>
                         </ListDiv>
@@ -192,7 +193,7 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
                     <Small color="#AF0000">Expected Expenditure</Small>
                     {expenseList.map(item =>(
                         <ListDiv key={item.id}>
-                            <TrashIcon> <i className="fas fa-trash"></i></TrashIcon>
+                            <TrashIcon onClick={() => deleteBudgetExpense(item.id)}> <i className="fas fa-trash"></i></TrashIcon>
                             <Small>{item.description}</Small>
                             <Paragraph>{currency + item.amount}</Paragraph>
                         </ListDiv>
@@ -206,7 +207,9 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
 const mapStateToProps = state => ({
     budgetData: state.budgetDetailReducer,
     editAddIncomeData: state.editAddIncomeReducer,
-    editAddExpenseData: state.editAddExpenseReducer
+    editAddExpenseData: state.editAddExpenseReducer,
+    deleteBudgetIncomeData: state.deleteBudgetIncomeReducer,
+    deleteBudgetExpenseData: state.deleteBudgetExpenseReducer
 })
 
-export default connect(mapStateToProps, { getBudgetDetail, editAddIncome, editAddExpense })(EditBudget)
+export default connect(mapStateToProps, { getBudgetDetail, editAddIncome, editAddExpense, deleteBudgetIncome, deleteBudgetExpense })(EditBudget)
