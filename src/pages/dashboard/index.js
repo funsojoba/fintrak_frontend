@@ -43,8 +43,6 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
     }
 
     let todaysDate = months[newDate.getMonth()+1] + ' ' + newDate.getDate()
-    
-
 
     const graphData = {
         labels: dataFromDB && dataFromDB.days_label ? dataFromDB.days_label : [],
@@ -95,7 +93,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
 
         <Content>
             <DashNav>
-                <div>Dashboard <br /> <Small>{todaysDate}</Small> </div>
+                <div>Dashboard <br /> <Small>{todaysDate }</Small> </div>
                 <div>
                     <DashImage />
                 </div>
