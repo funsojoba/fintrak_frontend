@@ -12,6 +12,7 @@ export const Container = styled.div`
 export const TopDiv = styled.div`
     display:flex;
     flex-wrap:wrap;
+    align-items:center;
     `
 
 export const Div = styled.div`

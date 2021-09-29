@@ -7,14 +7,14 @@ import Box from "../../components/box";
 import Small from "../../components/typography/small";
 import Label from "../../components/typography/label";
 import InfoCard from "../../components/infoCard";
-// import MyLink from "../../components/myLink/myLink";
+
 import Paragraph from "../../components/typography/p";
 import ErrorMsg from "../../components/typography/errorMsg";
 import Loader from "react-spinners/SyncLoader";
-import { Link } from 'react-router-dom'
+
 
 import { validateIncome, validateExpense } from "../addBudget/validate";
-import { Container, Content, FlexDiv, FormContent, ListDiv } from "./style";
+import { Container, Content, FlexDiv, FormContent, ListDiv, TrashIcon } from "./style";
 
 import {Formik} from 'formik'
 import { useEffect } from 'react'
@@ -182,10 +182,9 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
 
                     {incomeList.map(item => (
                         <ListDiv key={item.id}>
-                            <Link to={"edit-expense" + item.id}>
-                                <Small>{item.description}</Small>
-                                <Paragraph>{item.amount}</Paragraph>
-                            </Link>
+                            <TrashIcon> <i className="fas fa-trash"></i></TrashIcon>
+                            <Small>{item.description}</Small>
+                            <Paragraph>{currency + item.amount}</Paragraph>
                         </ListDiv>
                     ))}
                 </Box>
@@ -193,10 +192,9 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
                     <Small color="#AF0000">Expected Expenditure</Small>
                     {expenseList.map(item =>(
                         <ListDiv key={item.id}>
-                            <Link to={"edit-expense"+item.id}>
-                                <Small>{item.description}</Small>
-                                <Paragraph>{item.amount}</Paragraph>
-                            </Link>
+                            <TrashIcon> <i className="fas fa-trash"></i></TrashIcon>
+                            <Small>{item.description}</Small>
+                            <Paragraph>{currency + item.amount}</Paragraph>
                         </ListDiv>
                     ))}
                 </Box>

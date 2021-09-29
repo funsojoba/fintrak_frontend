@@ -6,6 +6,7 @@ import DashImage from '../../components/dashNav/dashImage'
 import InfoCard from '../../components/infoCard'
 import Box from '../../components/box'
 import Paragraph from '../../components/typography/p'
+import Small from '../../components/typography/small'
 import { Line } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 
@@ -25,7 +26,27 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
     const availableBalance = dataFromDB && dataFromDB.available_balance ? dataFromDB.available_balance : 0
     const totalTransaction = dataFromDB && dataFromDB.total_transaction ? dataFromDB.total_transaction : 0;
     
-    const data = {
+    let newDate = new Date();
+    const months = {
+        1:'Jan.',
+        2:'Feb.',
+        3:'March',
+        4:'April',
+        5:'May',
+        6:'June',
+        7:'July',
+        8:'Aug.',
+        9:'Sept.',
+        10:'Oct.',
+        11:'Nov.',
+        12:'Dec.'
+    }
+
+    let todaysDate = months[newDate.getMonth()+1] + ' ' + newDate.getDate()
+    
+
+
+    const graphData = {
         labels: dataFromDB && dataFromDB.days_label ? dataFromDB.days_label : [],
         datasets: [
             {
@@ -74,7 +95,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
 
         <Content>
             <DashNav>
-                <div>Dashboard</div>
+                <div>Dashboard <br /> <Small>{todaysDate}</Small> </div>
                 <div>
                     <DashImage />
                 </div>
@@ -130,7 +151,7 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                     </DashBoxDiv>
 
                     <DashBoxDiv>
-                        <Line data={data} />
+                        <Line data={graphData} />
                     </DashBoxDiv>
 
                 </Box>

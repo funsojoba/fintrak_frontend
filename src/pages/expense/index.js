@@ -188,7 +188,7 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
                 <div>Expenses</div>
                 <TopDiv>
                     <Button
-                        padding="5px 20px"
+                        padding="10px 15px"
                         background="#62B161"
                         color="#fff"><i className="fas fa-cloud-download-alt"></i></Button> &nbsp; &nbsp;
                     <DashImage />

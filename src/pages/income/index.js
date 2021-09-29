@@ -182,7 +182,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                 <TopDiv>
                     <Button
                         onClick={() => fetchIncomeCSV()}
-                        padding="10px 20px"
+                        padding="10px 15px"
                         background="#62B161"
                         color="#fff"><i className="fas fa-cloud-download-alt"></i> </Button> &nbsp; &nbsp;
                     <DashImage />

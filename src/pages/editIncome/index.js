@@ -71,7 +71,7 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, delete
             <br />
             <div>
                 <Button onClick={closeModal}>Cancle</Button> &nbsp;
-                <Button onClick={() => deleteIncome(id)} background="#AF0000" color="#fff">{deleteIncomeData.loading ? <Loader color="#fff" /> : "Delete Account"}</Button>
+                <Button onClick={() => deleteIncome(id)} background="#AF0000" color="#fff">{deleteIncomeData.loading ? <Loader color="#fff" /> : "Delete"}</Button>
             </div>
         </Modal>
         <SideBar />
