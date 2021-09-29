@@ -83,7 +83,7 @@ const EditExpense = ({ expenseData, editExpenseData, fetchExpenseDetail, editExp
                     <Button onClick={openModal} padding="10px 15px" background="#DB0069" color="#fff"> <i className="fas fa-trash"></i> Delete</Button>
                 </Parent>
 
-                <Parent>
+                <Parent column>
                     <ParentChild flex="2">
                         <Formik
                             initialValues={{

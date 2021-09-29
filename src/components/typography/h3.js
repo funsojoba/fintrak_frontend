@@ -8,7 +8,7 @@ const H3Div = styled.h3`
     text-align: ${props => props.align ? props.align : 'left'};
 
     @media only screen and (max-width:750px){
-        /* font-size:1em; */
+        font-size:1.5em;
     }
 `
 
