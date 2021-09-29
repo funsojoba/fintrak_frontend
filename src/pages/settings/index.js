@@ -18,6 +18,7 @@ import fetchUser from "../../redux/action/user"
 import addUserProfile from '../../redux/action/user/createProfile'
 import addAvatar from "../../redux/action/user/addAvatar"
 import changePassword from "../../redux/action/user/changePassword";
+import deleteUser from "../../redux/action/user/deleteUser";
 
 import { Formik } from "formik";
 import { connect } from 'react-redux'
@@ -25,7 +26,7 @@ import { useState, useEffect } from "react";
 import { validatePassword } from './validate'
 
 
-const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, addAvatar, avatarData, changePassword, changePasswrodData }) => {
+const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, addAvatar, avatarData, changePassword, changePasswrodData, deleteUser, deleteUserData }) => {
     useEffect(() => {
         fetchUser()
     }, [fetchUser])
@@ -56,7 +57,7 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
             <br />
             <div>
                 <Button onClick={closeModal}>Cancle</Button> &nbsp;
-                <Button background="#AF0000" color="#fff">Delete Account</Button>
+                <Button onClick={()=>deleteUser()} background="#AF0000" color="#fff">Delete Account</Button>
             </div>
         </Modal>
 
@@ -262,7 +263,8 @@ const mapStateToProps = store => ({
     userData: store.userReducer,
     addProfileData: store.userProfileReducer,
     avatarData : store.addAvatarReducer,
-    changePasswrodData: store.changePasswordReducer
+    changePasswrodData: store.changePasswordReducer,
+    deleteUserData: store.deleteUserReducer
 })
 
-export default connect(mapStateToProps, { fetchUser, addUserProfile, addAvatar, changePassword })(SettingsPage)
+export default connect(mapStateToProps, { fetchUser, addUserProfile, addAvatar, changePassword, deleteUser })(SettingsPage)

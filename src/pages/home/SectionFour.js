@@ -6,6 +6,8 @@ import ImageBox from "../../components/imageBox";
 import Img from "../../components/img/img";
 import Paragraph from "../../components/typography/p";
 
+// import { motion } from "framer-motion"
+
 export const SectionTwo = styled.div`
     background:#EEFFF0;
     padding:30px;
