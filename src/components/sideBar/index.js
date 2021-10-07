@@ -22,12 +22,12 @@ const SideBar = () => {
     return <SideBarDiv>
         <Link to="/">
             <SideLogoSm>
-                <Img alt="Fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
+                <Img alt="Fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1633035942/fintrak/White_Logo_t0nkfu.svg" />
             </SideLogoSm>
         </Link>
         <Link to="/">
             <SideLogo>
-                <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629750175/fintrak/FinTrackWhite_kilzmt.png" alt="Fintrak" />
+                <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1633035942/fintrak/White_long_Logo_dtql0g.svg" alt="Fintrak" />
             </SideLogo>
         </Link>
        

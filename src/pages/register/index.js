@@ -31,7 +31,7 @@ const Register = ({register, registerData}) => {
         >
             <ImageBox width='100px'>
                 <Link to="/">
-                    <Img alt="fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388876/fintrak/FinLogoW_wr40ic.png" />
+                    <Img alt="fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1633035942/fintrak/White_Logo_t0nkfu.svg" />
                 </Link></ImageBox>
         </ContainerContent>
 

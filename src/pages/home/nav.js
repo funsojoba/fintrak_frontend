@@ -25,7 +25,7 @@ const Nav = ({loginData})=>{
     }
     return <NavDiv>
         <NavImg>
-            <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1632933098/fintrak/FintrakLogo_ufjuo3.png" alt="FinTrak" />
+            <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1633035942/fintrak/blue_logo_long_be1bmj.svg" alt="FinTrak" />
         </NavImg>
 
         <div>
