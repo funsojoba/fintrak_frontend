@@ -24,6 +24,9 @@ import { connect } from "react-redux";
 import fetchExpense from "../../redux/action/expense/fetchExpense";
 import addExpense from "../../redux/action/expense/addExpense";
 
+import NumberFormat from "react-number-format";
+
+
 const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense, addExpenseData}) => {
     useEffect(()=> {fetchExpense()}, [fetchExpense])
     const [modalState, setmodalState] = useState(false)
@@ -211,7 +214,7 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
                         <Paragraph>Total Expenses</Paragraph>
-                        <H1>{expenseData.loading ? <Loader /> : (currency+totalExpense)}</H1>
+                        <H1>{expenseData.loading ? <Loader /> : <NumberFormat value={totalExpense} prefix={currency} thousandSeparator={true} displayType="text" />}</H1>
                     </div>
                 </Box>
             </Div>
@@ -232,7 +235,8 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
                         </Thead>
                         {expenseData.loading ? <Loader /> : (graphData.map(item => (
                             <Tr key={item.id}>
-                                <Td>{currency + item.amount}</Td>
+
+                                <Td><NumberFormat value={item.amount} prefix={currency} thousandSeparator={true} displayType="text" /></Td>
                                 <Td>{item.category}</Td>
                                 <Td>{item.description}</Td>
                                 <Td>{item.expense_date}</Td>

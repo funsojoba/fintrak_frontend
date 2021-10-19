@@ -24,6 +24,7 @@ import addIncome from "../../redux/action/income/addIncome";
 
 import validate from "./validate";
 import { Formik } from "formik";
+import NumberFormat from "react-number-format";
 
 import Loader from 'react-spinners/SyncLoader'
 
@@ -204,7 +205,14 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                 <Box flex="1" margin="3px" displayFlex>
                     <div>
                         <Paragraph>Total Revenue</Paragraph>
-                        <H1>{currency + totalIncome}</H1>
+                        <H1>
+                            <NumberFormat
+                                value={totalIncome}
+                                displayType="text"
+                                thousandSeparator={true}
+                                prefix={currency}
+                            />
+                        </H1>
                     </div>
                 </Box>
             </Div>
@@ -228,7 +236,12 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
 
                         {incomeData && incomePerMonth ? (incomeData && incomePerMonth.map((income) => (
                             <Tr key={income.id}>
-                                <Td>{incomeData.data.currency +  income.amount}</Td>
+                                <Td><NumberFormat
+                                    value={income.amount}
+                                    displayType="text"
+                                    thousandSeparator={true}
+                                    prefix={incomeData.data.currency}
+                                /> </Td>
                                 <Td>{income.source}</Td>
                                 <Td>{income.description.trim().length > 10 ? (income.description.substring(0,10)+'...') : income.description}</Td>
                                 <Td>{income.income_date}</Td>

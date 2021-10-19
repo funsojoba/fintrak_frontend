@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import { useEffect } from 'react'
 import fetchDashboard from '../../redux/action/dashboard'
 import Loader from 'react-spinners/SyncLoader'
+import NumberFormat from "react-number-format";
 // import Skeleton from 'react-loading-skeleton';
 
 const Dashboard = ({ dashboardData, fetchDashboard }) => {
@@ -102,21 +103,29 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
             <DashDiv>
                 <InfoCard
                     title="Income"
-                    amount={dashboardData.loading ? <Loader color="#fff"/> : (currency + sumOfIncome)}
+                    amount={dashboardData.loading ? <Loader color="#fff" /> : (<NumberFormat value={sumOfIncome}
+                        displayType="text"
+                        thousandSeparator={true}
+                        prefix={currency}/>)}
                     icon={<i class="fas fa-hand-holding-usd fa-lg"></i>}
                 />
 
                 <InfoCard
                     title="Expense"
-                    amount={dashboardData.loading ? <Loader color="#fff"/> : ( currency + sumOfExpense )}
+                    amount={dashboardData.loading ? <Loader color="#fff" /> : (<NumberFormat value={sumOfExpense}
+                        displayType="text"
+                        thousandSeparator={true}
+                        prefix={currency} />)}
                     icon={<i class="fas fa-money-check-alt fa-lg"></i>}
                     background="#EFDADA"
                 />
 
                 <InfoCard
                     title="Avaialable Balance"
-                    amount={dashboardData.loading ? <Loader color="#fff"/> : (currency + availableBalance)}
-
+                    amount={dashboardData.loading ? <Loader color="#fff" /> : (<NumberFormat value={availableBalance}
+                        displayType="text"
+                        thousandSeparator={true}
+                        prefix={currency} />)}
                     icon={<i class="fas fa-balance-scale-right fa-lg"></i>}
                     background="#F4ECDD"
                 />
@@ -161,7 +170,13 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                         return(
                             <TransactionCard key={income.id} background="#EEFFF0">
                                 <Paragraph> {income.description} </Paragraph>
-                            <small>{currency +  income.amount} |  {income.income_date}</small>
+                                <small><NumberFormat
+                                    value={income.amount}
+                                    displayType="text"
+                                    thousandSeparator={true}
+                                    prefix={dataFromDB.currency}
+                                />  |  {income.income_date}</small>
+
                         </TransactionCard>)
                     })}
                 </Box>
@@ -171,7 +186,13 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
                         return (
                             <TransactionCard key={expense.id} background="#FFF0F0">
                                 <Paragraph> {expense.description} </Paragraph>
-                                <small>{dataFromDB.currency +  expense.amount}  |  {expense.expense_date}</small>
+                                <small><NumberFormat
+                                    value={expense.amount}
+                                    displayType="text"
+                                    thousandSeparator={true}
+                                    prefix={dataFromDB.currency}
+                                />  |  {expense.expense_date}</small>
+
                             </TransactionCard>)
                     })}
                 </Box>

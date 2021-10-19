@@ -19,6 +19,8 @@ import { Formik } from 'formik'
 import fetchIncomeDetail from "../../redux/action/income/incomeDetail";
 import editIncome from "../../redux/action/income/editIncome"
 
+import NumberFormat from "react-number-format";
+
 import { Container, Content, Parent, ParentChild, Category, FormDiv, FormChild } from "./style";
 
 const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, deleteIncomeData, editIncome, editIncomeData }) => {
@@ -137,7 +139,12 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, delete
                     <ParentChild flex="1">
                         <Box background="#DDEFE0" displayFlex>
                             <div>
-                                <H3>{incomeData.loading || incomeData.data === '' ? <Loader /> :(currency + amount)}</H3>
+                                <H3>{incomeData.loading || incomeData.data === '' ? <Loader /> : <NumberFormat
+                                    value={amount}
+                                    displayType="text"
+                                    thousandSeparator={true}
+                                    prefix={currency}
+                                /> }</H3>
                                 <Category>{incomeData.loading || incomeData.data === '' ? <Loader /> : source}</Category>
                                 <Paragraph>{incomeData.loading || incomeData.data === ''  ? <Loader /> : description}</Paragraph>
                                 <hr/>

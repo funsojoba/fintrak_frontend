@@ -21,7 +21,7 @@ import fetchExpenseDetail from '../../redux/action/expense/expenseDetail'
 import editExpense from '../../redux/action/expense/editExpense'
 import deleteExpense from "../../redux/action/expense/deleteExpense";
 import addExpense from "../../redux/action/expense/addExpense";
-
+import NumberFormat from "react-number-format";
 
 
 const EditExpense = ({ expenseData, editExpenseData, fetchExpenseDetail, editExpense, match, deleteExpenseData, addExpense})=>{
@@ -152,7 +152,12 @@ const EditExpense = ({ expenseData, editExpenseData, fetchExpenseDetail, editExp
                                 <Skeleton />
                             </div>) :
                             <div>
-                                <H3>{expenseData && (data.currency +data.amount)}</H3>
+                                    <H3>{expenseData &&  <NumberFormat
+                                        value={data.amount}
+                                        displayType="text"
+                                        thousandSeparator={true}
+                                        prefix={data.currency}
+                                    />}</H3>
                                 <Category>{expenseData && data.category}</Category>
                                 <Paragraph>{expenseData && data.description}</Paragraph>
                                 <hr />
