@@ -10,6 +10,8 @@ import { Table, Thead, Tr, Td } from "../../components/table";
 import { Container, Content, FlexDiv, Badge, BadgeWrapper, TopNav } from "./style";
 import { Pie } from 'react-chartjs-2';
 import Loader from "react-spinners/SyncLoader";
+import NumberFormat from "react-number-format";
+
 
 
 import { connect } from "react-redux";
@@ -75,15 +77,15 @@ const BudgetPage = ({ fetchBudget, budgetData }) => {
                     <BadgeWrapper>
                         <Badge>
                             <Small>Estimated Revenue</Small>
-                            <Paragraph>{currency+totalIncome}</Paragraph>
+                            <Paragraph><NumberFormat prefix={currency} value={totalIncome} thousandSeparator={true} displayType="text" /></Paragraph>
                         </Badge>
                         <Badge background="#FFD6D6">
                             <Small>Estimated Expense</Small>
-                            <Paragraph>{currency+totalExpense}</Paragraph>
+                            <Paragraph><NumberFormat prefix={currency} value={totalExpense} thousandSeparator={true} displayType="text" /></Paragraph>
                         </Badge>
                         <Badge background="#EFF1FF">
                             <Small>Estimated Balance</Small>
-                            <Paragraph>{currency+totalBalance}</Paragraph>
+                            <Paragraph><NumberFormat prefix={currency} value={totalBalance} thousandSeparator={true} displayType="text" /></Paragraph>
                         </Badge>
                     </BadgeWrapper>
                 </Box>
@@ -111,9 +113,9 @@ const BudgetPage = ({ fetchBudget, budgetData }) => {
 
                         <Tr key={item.id}>
                             <Td>{months[item.month]}</Td>
-                            <Td>{currency + item.total_budget_income}</Td>
-                            <Td>{currency + item.total_budget_expense}</Td>
-                            <Td>{currency + item.total}</Td>
+                            <Td><NumberFormat prefix={currency} value={item.total_budget_income} thousandSeparator={true} displayType="text" /></Td>
+                            <Td><NumberFormat prefix={currency} value={item.total_budget_expense} thousandSeparator={true} displayType="text" /></Td>
+                            <Td><NumberFormat prefix={currency} value={item.total} thousandSeparator={true} displayType="text" /></Td>
                             <Td>
                                 <MyLink
                                     to={"/edit-budget/"+item.id}

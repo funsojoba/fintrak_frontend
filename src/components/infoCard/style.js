@@ -5,7 +5,7 @@ export const InfoCardDiv = styled.div`
     padding:20px;
     position: relative;
     border-radius: 20px;
-    width: 250px;
+    min-width: 250px;
     background: ${props => props.background ? props.background : '#DDEFE0'};
     margin:10px;
 

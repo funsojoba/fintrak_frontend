@@ -22,6 +22,8 @@ import { validateIncome, validateExpense} from './validate'
 
 import addIncomeBudget from "../../redux/action/budget/addIncomeBudget";
 import addBudgetExpense from "../../redux/action/budget/addBudgetExpense";
+import NumberFormat from "react-number-format";
+
 
 const AddBudget = ({ fetchBudget, budgetData, addIncomeData, addIncomeBudget, addBudgetExpense, addExpenseData})=>{
     useEffect(() => {
@@ -76,17 +78,17 @@ const AddBudget = ({ fetchBudget, budgetData, addIncomeData, addIncomeBudget, ad
                     <InfoCard
                         title="Estimated Revenue"
                         background="#D7FFC5"
-                        amount={budgetData.loading || !budgetData.data ? <Loader /> : (currency + totalIncome)}
+                        amount={budgetData.loading || !budgetData.data ? <Loader /> : <NumberFormat value={totalIncome} prefix={currency} thousandSepartor={true} displayType="text" />}
                     />
                     <InfoCard
                         title="Estimated Expenditure"
                         background="#FFD6D6"
-                        amount={budgetData.loading || !budgetData.data ? <Loader /> : (currency + totalExpense)}
+                        amount={budgetData.loading || !budgetData.data ? <Loader /> : <NumberFormat value={totalExpense} prefix={currency} thousandSepartor={true} displayType="text" />}
                     />
                     <InfoCard
                         title="Estimated Balance"
                         background="#EFF1FF"
-                        amount={budgetData.loading || !budgetData.data ? <Loader /> : (currency + totalBalance)}
+                        amount={budgetData.loading || !budgetData.data ? <Loader /> : <NumberFormat value={totalBalance} prefix={currency} thousandSepartor={true} displayType="text" />}
                     />
                 </Box>
             </FlexDiv>
@@ -216,7 +218,7 @@ const AddBudget = ({ fetchBudget, budgetData, addIncomeData, addIncomeBudget, ad
                     {budgetData.loading || !budgetData.data ? <Loader /> : income.map(item =>(
                         <ListDiv key={item.id}>
                             <Small>{item.description}</Small>
-                            <Paragraph>{currency + item.amount}</Paragraph>
+                            <Paragraph><NumberFormat value={item.amount} prefix={currency} thousandSepartor={true} displayType="text" /></Paragraph>
                         </ListDiv>
                     ))}
                 
@@ -226,7 +228,7 @@ const AddBudget = ({ fetchBudget, budgetData, addIncomeData, addIncomeBudget, ad
                     {budgetData.loading || !budgetData.data ? <Loader /> :  expense.map(item => (
                         <ListDiv key={item.id}>
                             <Small>{item.description}</Small>
-                            <Paragraph>{currency + item.amount}</Paragraph>
+                            <Paragraph><NumberFormat value={item.amount} prefix={currency} thousandSepartor={true} displayType="text" /></Paragraph>
                         </ListDiv>
                     ))}
                 </Box>

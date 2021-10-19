@@ -16,7 +16,7 @@ import Loader from "react-spinners/SyncLoader";
 import { validateIncome, validateExpense } from "../addBudget/validate";
 import { Container, Content, FlexDiv, FormContent, ListDiv, TrashIcon } from "./style";
 
-import {Formik} from 'formik'
+import { Formik } from 'formik'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import getBudgetDetail from "../../redux/action/budget/budgetDetail";
@@ -24,12 +24,13 @@ import editAddIncome from "../../redux/action/budget/editAddIncome";
 import editAddExpense from "../../redux/action/budget/editAddExpense";
 import deleteBudgetIncome from "../../redux/action/budget/deleteIncomeBudget";
 import deleteBudgetExpense from "../../redux/action/budget/deleteExpenseBudget";
+import NumberFormat from "react-number-format";
 
 
 const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAddIncomeData, editAddExpense, editAddExpenseData, deleteBudgetIncome, deleteBudgetExpense }) => {
 
     const id = match.params.id
-    useEffect(()=>{
+    useEffect(() => {
         getBudgetDetail(id)
     }, [getBudgetDetail, id])
 
@@ -53,42 +54,57 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
                     <InfoCard
                         title="Estimated Revenue"
                         background="#D7FFC5"
-                        amount={budgetData.loading && !budgetData.data ? <Loader color="#fff" /> : (currency + totalIncome)}
+                        amount={budgetData.loading && !budgetData.data ? <Loader color="#fff" /> : <NumberFormat
+                            value={totalIncome}
+                            displayType="text"
+                            thousandSeparator={true}
+                            prefix={currency}
+                        />}
                     />
                     <InfoCard
                         title="Estimated Expenditure"
                         background="#FFD6D6"
-                        amount={budgetData.loading && !budgetData.data ? <Loader color="#fff" /> : (currency + totalExpense)}
+                        amount={budgetData.loading && !budgetData.data ? <Loader color="#fff" /> : <NumberFormat
+                            value={totalExpense}
+                            displayType="text"
+                            thousandSeparator={true}
+                            prefix={currency}
+                        />}
                     />
                     <InfoCard
                         title="Estimated Balance"
                         background="#EFF1FF"
-                        amount={budgetData.loading && !budgetData.data ? <Loader color="#fff" /> : (currency + totalBalance)}
+                        amount={budgetData.loading && !budgetData.data ? <Loader color="#fff" /> : <NumberFormat
+                            value={totalBalance}
+                            displayType="text"
+                            thousandSeparator={true}
+                            prefix={currency}
+                        />}
                     />
                 </Box>
             </FlexDiv>
             <FlexDiv>
                 <Box flex="1" margin="10px">
                     <Small align='center' color="#0B480A">Add Revenue</Small>
-                    
+
                     <Formik
-                        initialValues ={{
-                            amount:'',
-                            source:'',
-                            description:''
+                        initialValues={{
+                            amount: '',
+                            source: '',
+                            description: ''
                         }}
                         validationSchema={validateIncome}
-                        onSubmit ={async (values)=>{
+                        onSubmit={async (values) => {
                             await editAddIncome(values, id)
                         }}
                     >
-                        {({handleSubmit, handleChange, handleBlur, values, touched, errors})=>(
+                        {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => (
                             <form onSubmit={handleSubmit} >
                                 <FormContent>
                                     <Label>Amount</Label>
-                                    <Input 
-                                        width="100%" 
-                                        type="number" 
+                                    <Input
+                                        width="100%"
+                                        type="number"
                                         name="amount"
                                         onChange={handleChange}
                                         values={values.amount}
@@ -97,9 +113,9 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
                                 </FormContent>
                                 <FormContent>
                                     <Label>Source</Label>
-                                    <Input 
-                                        width="100%" 
-                                        type="text" 
+                                    <Input
+                                        width="100%"
+                                        type="text"
                                         name="source"
                                         onChange={handleChange}
                                         values={values.source}
@@ -108,9 +124,9 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
                                 </FormContent>
                                 <FormContent>
                                     <Label>Short Description</Label>
-                                    <Input 
-                                        width="100%" 
-                                        type="text" 
+                                    <Input
+                                        width="100%"
+                                        type="text"
                                         name="description"
                                         onChange={handleChange}
                                         values={values.description}
@@ -126,54 +142,54 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
                     <Small color="#AF0000" align='center' >Add Expense</Small>
                     <Formik
                         initialValues={{
-                            amount:'',
-                            category:'',
-                            description:''
+                            amount: '',
+                            category: '',
+                            description: ''
                         }}
                         validationSchema={validateExpense}
-                        onSubmit={async (values)=>{
+                        onSubmit={async (values) => {
                             await editAddExpense(values, id)
                         }}
-                    >{({handleSubmit, handleChange, handleBlur, errors, values, touched})=>(
+                    >{({ handleSubmit, handleChange, handleBlur, errors, values, touched }) => (
                         <form onSubmit={handleSubmit} >
-                        <FormContent>
-                            <Label>Amount</Label>
-                            <Input 
-                                width="100%" 
-                                type="number" 
-                                name="amount"
-                                onChange={handleChange}
-                                values={values.amount}
-                                onBlur={handleBlur}
-                                 />
-                            <ErrorMsg>{touched.amount && errors.amount ? errors.amount : null}</ErrorMsg>
-                        </FormContent>
-                        <FormContent>
-                            <Label>Category</Label>
-                            <Input 
-                                width="100%" 
-                                type="text" 
-                                name="category"
-                                onChange={handleChange}
-                                values={values.category}
-                                onBlur={handleBlur}
-                                 />
-                            <ErrorMsg>{touched.category && errors.category ? errors.category : null}</ErrorMsg>
-                        </FormContent>
-                        <FormContent>
-                            <Label>Short Description</Label>
-                            <Input 
-                                width="100%" 
-                                type="text" 
-                                name="description"
-                                onChange={handleChange}
-                                values={values.description}
-                                onBlur={handleBlur}
-                                 />
-                            <ErrorMsg>{touched.description && errors.description ? errors.description : null}</ErrorMsg>
-                        </FormContent>
-                                <Button background="#AF0000">{editAddExpenseData.loading ? <Loader color="#fff" /> : 'Add Expense'}</Button>
-                    </form>
+                            <FormContent>
+                                <Label>Amount</Label>
+                                <Input
+                                    width="100%"
+                                    type="number"
+                                    name="amount"
+                                    onChange={handleChange}
+                                    values={values.amount}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMsg>{touched.amount && errors.amount ? errors.amount : null}</ErrorMsg>
+                            </FormContent>
+                            <FormContent>
+                                <Label>Category</Label>
+                                <Input
+                                    width="100%"
+                                    type="text"
+                                    name="category"
+                                    onChange={handleChange}
+                                    values={values.category}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMsg>{touched.category && errors.category ? errors.category : null}</ErrorMsg>
+                            </FormContent>
+                            <FormContent>
+                                <Label>Short Description</Label>
+                                <Input
+                                    width="100%"
+                                    type="text"
+                                    name="description"
+                                    onChange={handleChange}
+                                    values={values.description}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMsg>{touched.description && errors.description ? errors.description : null}</ErrorMsg>
+                            </FormContent>
+                            <Button background="#AF0000">{editAddExpenseData.loading ? <Loader color="#fff" /> : 'Add Expense'}</Button>
+                        </form>
                     )}</Formik>
                 </Box>
             </FlexDiv>
@@ -185,17 +201,27 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
                         <ListDiv key={item.id}>
                             <TrashIcon onClick={() => deleteBudgetIncome(item.id)}> <i className="fas fa-trash"></i></TrashIcon>
                             <Small>{item.description}</Small>
-                            <Paragraph>{currency + item.amount}</Paragraph>
+                            <Paragraph><NumberFormat
+                                value={item.amount}
+                                displayType="text"
+                                thousandSeparator={true}
+                                prefix={currency}
+                            /></Paragraph>
                         </ListDiv>
                     ))}
                 </Box>
                 <Box flex="1" margin="10px">
                     <Small color="#AF0000">Expected Expenditure</Small>
-                    {expenseList.map(item =>(
+                    {expenseList.map(item => (
                         <ListDiv key={item.id}>
                             <TrashIcon onClick={() => deleteBudgetExpense(item.id)}> <i className="fas fa-trash"></i></TrashIcon>
                             <Small>{item.description}</Small>
-                            <Paragraph>{currency + item.amount}</Paragraph>
+                            <Paragraph><NumberFormat
+                                value={item.amount}
+                                displayType="text"
+                                thousandSeparator={true}
+                                prefix={currency}
+                            /></Paragraph>
                         </ListDiv>
                     ))}
                 </Box>
