@@ -34,6 +34,8 @@ import addAvatarReducer from "./user/addAvatarReducer";
 import changePasswordReducer from "./user/changePasswordReducer"
 import deleteUserReducer from "./user/deleteUserReducer";
 
+import reportReducer from "./getReportReducer"
+
 const persistConfig = {
     key: 'root',
     storage
@@ -68,7 +70,9 @@ const rootReducer = combineReducers({
     userProfileReducer,
     addAvatarReducer,
     changePasswordReducer,
-    deleteUserReducer
+    deleteUserReducer,
+
+    reportReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -50,3 +50,9 @@ export const TransactionCard = styled.div`
     border-radius: 10px;
     margin-bottom: 10px;
 `
+
+export const TopDiv = styled.div`
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    `

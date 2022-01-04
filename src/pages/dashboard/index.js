@@ -1,6 +1,6 @@
 import SideBar from '../../components/sideBar/'
 
-import { Container, Content, DashDiv, DashBoxDiv, Select, TransactionCard } from './style'
+import { Container, Content, DashDiv, DashBoxDiv, Select, TransactionCard, TopDiv } from './style'
 import DashNav from '../../components/dashNav'
 import DashImage from '../../components/dashNav/dashImage'
 import InfoCard from '../../components/infoCard'
@@ -9,15 +9,17 @@ import Paragraph from '../../components/typography/p'
 import Small from '../../components/typography/small'
 import { Line } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
+import Button from '../../components/button'
 
 import { connect } from 'react-redux'
 import { useEffect } from 'react'
 import fetchDashboard from '../../redux/action/dashboard'
+import fetchReport from "../../redux/action/getReport"
 import Loader from 'react-spinners/SyncLoader'
 import NumberFormat from "react-number-format";
 // import Skeleton from 'react-loading-skeleton';
 
-const Dashboard = ({ dashboardData, fetchDashboard }) => {
+const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) => {
     const dataFromDB = dashboardData.data
     useEffect(() => { fetchDashboard() }, [fetchDashboard])
 
@@ -44,6 +46,11 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
     }
 
     let todaysDate = months[newDate.getMonth()+1] + ' ' + newDate.getDate()
+
+    const getReportData = ()=>{
+        fetchReport()
+        console.log(reportData)
+    }
 
     const graphData = {
         labels: dataFromDB && dataFromDB.days_label ? dataFromDB.days_label : [],
@@ -95,18 +102,24 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
         <Content>
             <DashNav>
                 <div>Dashboard <br /> <Small>{todaysDate }</Small> </div>
-                <div>
+                <TopDiv>
+                <Button
+                        onClick={getReportData}
+                        padding="10px 15px"
+                        background="#62B161"
+                        color="#fff">{reportData.loading ? <Loader color="#fff" /> :  <i className="fas fa-cloud-download-alt"></i>}
+                            </Button> &nbsp; &nbsp;
                     <DashImage />
-                </div>
+                </TopDiv>
             </DashNav>
 
             <DashDiv>
                 <InfoCard
                     title="Income"
                     amount={dashboardData.loading ? <Loader color="#fff" /> : (<NumberFormat value={sumOfIncome}
-                        displayType="text"
-                        thousandSeparator={true}
-                        prefix={currency}/>)}
+                    displayType="text"
+                    thousandSeparator={true}
+                    prefix={currency}/>)}
                     icon={<i class="fas fa-hand-holding-usd fa-lg"></i>}
                 />
 
@@ -207,11 +220,13 @@ const Dashboard = ({ dashboardData, fetchDashboard }) => {
 }
 
 const mapStateToProps = (store) => ({
-    dashboardData: store.dashboardReducer
+    dashboardData: store.dashboardReducer,
+    reportData: store.reportReducer
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchDashboard: () => dispatch(fetchDashboard())
+    fetchDashboard: () => dispatch(fetchDashboard()),
+    fetchReport: ()=> dispatch(fetchReport())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
