@@ -15,6 +15,7 @@ const fetchDashboardSuccess = (payload)=>({
 })
 
 const fetchDashboardFailed = (payload)=>{
+    console.log('====>',payload)
     if(payload.response.status === 401){
         localStorage.clear()
     }

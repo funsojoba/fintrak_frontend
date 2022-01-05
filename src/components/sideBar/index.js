@@ -70,7 +70,7 @@ const SideBar = () => {
             
             <Link to="/settings" >
                 <SideIcon>
-                    <i class="fas fa-user-cog"></i>
+                    <i className="fas fa-user-cog"></i>
                 </SideIcon>
                 <SideLink>
                     <p >Settings</p>

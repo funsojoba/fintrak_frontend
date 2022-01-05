@@ -120,7 +120,7 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
                     displayType="text"
                     thousandSeparator={true}
                     prefix={currency}/>)}
-                    icon={<i class="fas fa-hand-holding-usd fa-lg"></i>}
+                    icon={<i className="fas fa-hand-holding-usd fa-lg"></i>}
                 />
 
                 <InfoCard
@@ -129,7 +129,7 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
                         displayType="text"
                         thousandSeparator={true}
                         prefix={currency} />)}
-                    icon={<i class="fas fa-money-check-alt fa-lg"></i>}
+                    icon={<i className="fas fa-money-check-alt fa-lg"></i>}
                     background="#EFDADA"
                 />
 
@@ -139,14 +139,14 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
                         displayType="text"
                         thousandSeparator={true}
                         prefix={currency} />)}
-                    icon={<i class="fas fa-balance-scale-right fa-lg"></i>}
+                    icon={<i className="fas fa-balance-scale-right fa-lg"></i>}
                     background="#F4ECDD"
                 />
 
                 <InfoCard
                     title="Total Transaction"
                     amount={dashboardData.loading ? <Loader color="#fff"/> : totalTransaction}
-                    icon={<i class="fas fa-layer-group fa-lg"></i>}
+                    icon={<i className="fas fa-layer-group fa-lg"></i>}
                     background="#DEE0EF"
                 />
 
