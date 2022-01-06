@@ -7,4 +7,14 @@ const headers = token =>{
     }
 }
 
+export const fileHeader = token =>{
+    return {
+        headers:{
+            'Content-Type': 'application/octet-stream',
+            'Content-Disposition': 'attachment',
+            'Authorization': 'Bearer ' + token
+        }
+    }
+}
+
 export default headers
