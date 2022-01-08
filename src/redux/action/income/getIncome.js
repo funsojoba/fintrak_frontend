@@ -15,9 +15,9 @@ const fetchIncomeFailed = (payload)=>({
     payload
 })
 
-const fetchIncome = ()=>{
+const fetchIncome = (month)=>{
     return (dispatch)=>{
-        axios.get(BASEURL +'income/list', headers(token))
+        axios.get(BASEURL +'income/list/'+month, headers(token))
         .then(res =>{
             dispatch(fetchIncomeSuccess(res.data.data))
         }).catch(err =>{

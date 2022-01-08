@@ -28,7 +28,10 @@ import NumberFormat from "react-number-format";
 
 
 const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense, addExpenseData}) => {
-    useEffect(()=> {fetchExpense()}, [fetchExpense])
+    let newDate = new Date();
+    const [currentMonth, setCurrentMonth] = useState(()=>newDate.getMonth()+1)
+    
+    useEffect(()=> {fetchExpense(currentMonth)}, [fetchExpense, currentMonth])
     const [modalState, setmodalState] = useState(false)
 
     const result = expenseData.data && expenseData.data.data.data ? expenseData.data.data.data : null;
@@ -36,6 +39,61 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
     const totalExpense = expenseData.data ? expenseData.data.data.data.total_expense : 0
     const currency = expenseData.data ? expenseData.data.data.data.currency : '$'
 
+
+    const monthsName = [
+        {
+            "name":"Jan",
+            "number":1
+        },
+        {
+            "name":"Feb",
+            "number":2
+        },
+        {
+            "name":"March",
+            "number":3
+        },
+        {
+            "name":"April",
+            "number":4
+        },
+        {
+            "name":"May",
+            "number":5
+        },
+        {
+            "name":"June",
+            "number":6
+        },
+        {
+            "name":"July",
+            "number":7
+        },
+        {
+            "name":"August",
+            "number":8
+        },
+        {
+            "name":"Sept.",
+            "number":9
+        },
+        {
+            "name":"Oct.",
+            "number":10
+        },
+        {
+            "name":"Nov.",
+            "number":11
+        },
+        {
+            "name":"Dec.",
+            "number":12
+        },
+    ]
+
+    const changeSelect = (e)=>{
+        setCurrentMonth(e.target.value)
+    }
 
 
     const closeModal = () => {
@@ -70,17 +128,6 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
         { key: "others", value: "others" },
     ]
 
-    const selectDates = [
-        { key: "July", value: "July" },
-        { key: "June", value: "June" },
-        { key: "May", value: "May" },
-        { key: "April", value: "April" },
-        { key: "March", value: "March" },
-        { key: "February", value: "February" },
-        { key: "January", value: "January" },
-        { key: "others", value: "others" },
-
-    ]
 
     const data = {
         labels: graphLabel,
@@ -202,9 +249,9 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
                 <Box flex="2" margin="3px">
                     <TopNav>
                         <form>
-                            <select>
-                                {selectDates.map(data => (
-                                    <option key={data.key} value={data.key}>{data.key}</option>
+                            <select onChange={changeSelect}>
+                                {monthsName.map(data => (
+                                    <option key={data.number} value={data.number}>{data.name}</option>
                                 ))}
                             </select>
                         </form>

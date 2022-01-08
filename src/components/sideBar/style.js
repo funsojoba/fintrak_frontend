@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 export const SideBarDiv = styled.div`
     width:250px;
@@ -44,32 +44,44 @@ export const SideLinkContainer = styled.div`
 
     a{
         display: flex;
-    color:#fff;
-    align-items: center;
-    text-decoration:none;
-    position:relative;
-    transition: all 200ms ease-in;
-    margin-bottom: 20px;
+        color:#fff;
+        align-items: center;
+        text-decoration:none;
+        position:relative;
+        transition: all 200ms ease-in;
+        margin-bottom: 20px;
 
-    &:hover{
-        transform: translateX(10px);
-    }
+        &:hover{
+            transform: translateX(10px);
+        }
 
-    &:hover::after{
-        opacity:1;
-        transform: translateX(-10px);
-    }
+        &:hover::after{
+            opacity:1;
+            transform: translateX(-10px);
+        }
 
-    &::after{
-        opacity:0;
-        content:"";
-        position:absolute;
-        width:10px;
-        height: 10px;
-        background:rgb(154, 42, 243);
-        border-radius: 50%;
-        transition: all 300ms ease-in;
-    }
+        &::after{
+            opacity:0;
+            content:"";
+            position:absolute;
+            width:10px;
+            height: 10px;
+            background:rgb(154, 42, 243);
+            border-radius: 50%;
+            transition: all 300ms ease-in;
+        }
+
+        &.active{
+            transform: translateX(10px);
+            font-weight: bold;
+            &::after{
+                opacity:1;
+                transform: translateX(-10px);
+            }
+        }
+    
+        ${({ active }) => active && css`
+    `};
     }
 `
 

@@ -45,8 +45,11 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
     for (let i = 0; i < incomePerSource.length; i++) {
         graphInfo.push(incomePerSource[i].source_total)
     }
+    let newDate = new Date();
+    const [currentMonth, setCurrentMonth] = useState(()=>newDate.getMonth()+1)
+    
 
-    useEffect(() => { fetchIncome() }, [fetchIncome])
+    useEffect(() => { fetchIncome(currentMonth) }, [fetchIncome, currentMonth])
     const [modalState, setmodalState] = useState(false)
 
     const closeModal = () => {
@@ -56,17 +59,61 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
     const openModal = () => {
         setmodalState(true)
     }
+    const changeSelect = (e)=>{
+        setCurrentMonth(e.target.value)
+    }
 
-    const selectDates = [
-        { key: "July", value: "July" },
-        { key: "June", value: "June" },
-        { key: "May", value: "May" },
-        { key: "April", value: "April" },
-        { key: "March", value: "March" },
-        { key: "February", value: "February" },
-        { key: "January", value: "January" },
-        { key: "others", value: "others" },
+    const monthsName = [
+        {
+            "name":"Jan",
+            "number":1
+        },
+        {
+            "name":"Feb",
+            "number":2
+        },
+        {
+            "name":"March",
+            "number":3
+        },
+        {
+            "name":"April",
+            "number":4
+        },
+        {
+            "name":"May",
+            "number":5
+        },
+        {
+            "name":"June",
+            "number":6
+        },
+        {
+            "name":"July",
+            "number":7
+        },
+        {
+            "name":"August",
+            "number":8
+        },
+        {
+            "name":"Sept.",
+            "number":9
+        },
+        {
+            "name":"Oct.",
+            "number":10
+        },
+        {
+            "name":"Nov.",
+            "number":11
+        },
+        {
+            "name":"Dec.",
+            "number":12
+        },
     ]
+
     const selectOptions = [
         { key: "-----", value: "" },
         { key: "gift", value: "gift" },
@@ -193,9 +240,9 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                 <Box flex="2" margin="3px">
                     <TopNav>
                         <form>
-                            <select>
-                                {selectDates.map(data => (
-                                    <option key={data.key} value={data.key}>{data.key}</option>
+                            <select onChange={changeSelect}>
+                                {monthsName.map(data => (
+                                    <option key={data.number} value={data.number}>{data.name}</option>
                                 ))}
                             </select>
                         </form>
@@ -271,7 +318,7 @@ const mapStateToProps = (store) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchIncome: () => { dispatch(fetchIncome()) },
+    fetchIncome: (month_id) => { dispatch(fetchIncome(month_id)) },
     fetchIncomeCSV: () => { dispatch(fetchIncomeCSV()) },
     addIncome: (values) => { dispatch(addIncome(values)) }
 })

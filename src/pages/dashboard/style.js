@@ -39,9 +39,9 @@ export const DashBoxDiv = styled.div`
 `
 
 export const Select = styled.select`
-    background:none;
+    background:${props => props.background ? props.background : 'none'};
     border:none;
-    color:#858585;
+    color:${props => props.color ? props.color : "#858585"};
 `
 
 export const TransactionCard = styled.div`

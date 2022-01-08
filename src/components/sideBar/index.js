@@ -2,6 +2,7 @@ import Img from "../img/img";
 
 import { Link } from "react-router-dom";
 import Button from "../button";
+
 // import { Redirect } from "react-router-dom";
 
 import {
@@ -13,7 +14,8 @@ import {
     LogoutDivSmall} from './style'
 
 const SideBar = () => {
-    
+
+    const pathName = window.location.pathname
     const logOut = () => {
         localStorage.clear()
         console.log('loggin out...')
@@ -32,7 +34,7 @@ const SideBar = () => {
         </Link>
        
         <SideLinkContainer>
-            <Link to="/dashboard" >
+            <Link to="/dashboard" className={pathName === "/dashboard" && 'active'} >
                 <SideIcon>
                     <i className="fas fa-chart-pie"></i>
                 </SideIcon>
@@ -41,7 +43,7 @@ const SideBar = () => {
                 </SideLink>
             </Link>
             
-            <Link to="/income" >
+            <Link to="/income"  className={pathName === "/income" && 'active'}  >
                 <SideIcon>
                     <i className="fas fa-hand-holding-usd"></i>
                 </SideIcon>
@@ -50,7 +52,7 @@ const SideBar = () => {
                 </SideLink>
             </Link>
             
-            <Link to="/expense" >
+            <Link to="/expense"   className={pathName === "/expense" && 'active'}   >
                 <SideIcon>
                     <i className="fas fa-credit-card"></i>
                 </SideIcon>
@@ -59,7 +61,7 @@ const SideBar = () => {
                 </SideLink>
             </Link>
             
-            <Link to="/budget" >
+            <Link to="/budget"   className={pathName === "/budget" && 'active'}  >
                 <SideIcon>
                     <i className="fas fa-coins"></i>
                 </SideIcon>
@@ -68,7 +70,7 @@ const SideBar = () => {
                 </SideLink>
             </Link>
             
-            <Link to="/settings" >
+            <Link to="/settings" className={pathName === "/settings" && 'active'} >
                 <SideIcon>
                     <i className="fas fa-user-cog"></i>
                 </SideIcon>

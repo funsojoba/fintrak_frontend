@@ -21,10 +21,10 @@ const fetchExpenseFailed = payload =>({
 })
 
 
-const fetchExpense = () =>{
+const fetchExpense = (month) =>{
     return function(dispatch){
         dispatch(startFetch())
-        axios.get(BASEURL+'expense/list', headers(token))
+        axios.get(BASEURL+'expense/list/'+month, headers(token))
         .then(res =>{
             dispatch(fetchExpenseSuccess(res))
         }).catch(err =>{

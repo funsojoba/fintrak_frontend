@@ -1,7 +1,7 @@
 import {GET_REPORT, GET_REPORT_FAILED, GET_REPORT_SUCCESS} from './types'
 import BASE_URL from "../baseURL"
 import axios from 'axios'
-import headers, {fileHeader} from '../request';
+import {fileHeader} from '../request';
 
 const token = localStorage.getItem('token')
 

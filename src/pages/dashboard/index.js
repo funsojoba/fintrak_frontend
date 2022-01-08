@@ -48,11 +48,65 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
         12:'Dec.'
     }
 
-    let todaysDate = months[currentMonth+1] + ' ' + newDate.getDate()
+    const monthsName = [
+        {
+            "name":"Jan",
+            "number":1
+        },
+        {
+            "name":"Feb",
+            "number":2
+        },
+        {
+            "name":"March",
+            "number":3
+        },
+        {
+            "name":"April",
+            "number":4
+        },
+        {
+            "name":"May",
+            "number":5
+        },
+        {
+            "name":"June",
+            "number":6
+        },
+        {
+            "name":"July",
+            "number":7
+        },
+        {
+            "name":"August",
+            "number":8
+        },
+        {
+            "name":"Sept.",
+            "number":9
+        },
+        {
+            "name":"Oct.",
+            "number":10
+        },
+        {
+            "name":"Nov.",
+            "number":11
+        },
+        {
+            "name":"Dec.",
+            "number":12
+        },
+    ]
+
+    let todaysDate = months[currentMonth] + ' ' + newDate.getDate()
+    const changeSelect = (e)=>{
+        setCurrentMonth(e.target.value)
+    }
+
 
     const getReportData = ()=>{
         fetchReport()
-        console.log(reportData)
     }
 
     const graphData = {
@@ -106,12 +160,18 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
             <DashNav>
                 <div>Dashboard <br /> <Small>{todaysDate }</Small> </div>
                 <TopDiv>
-                <Button
+                    <Button
                         onClick={getReportData}
                         padding="10px 15px"
                         background="#62B161"
                         color="#fff">{reportData.loading ? <Loader color="#fff" /> :  <i className="fas fa-cloud-download-alt"></i>}
-                            </Button> &nbsp; &nbsp;
+                        </Button> &nbsp; &nbsp;
+                    
+                        <Select background="#fff" color="#c4c4c4" onChange={changeSelect}>
+                                {monthsName.map((month)=>{
+                                   return <option key={month.number} selected={monthsName.number === currentMonth } value={month.number}>{month.name}</option>
+                                })}
+                        </Select> &nbsp; &nbsp;
                     <DashImage />
                 </TopDiv>
             </DashNav>
@@ -159,18 +219,7 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
                 <Box>
                     <DashBoxDiv>
                         <div>Activities</div>
-                        <div>
-                            <Select>
-                                <option>Aug. 2021</option>
-                                <option>July 2021</option>
-                                <option>June 2021</option>
-                                <option>May 2021</option>
-                                <option>Apr. 2021</option>
-                                <option>Mar. 2021</option>
-                                <option>Feb. 2021</option>
-                                <option>Jan. 2021</option>
-                            </Select>
-                        </div>
+                        
                     </DashBoxDiv>
 
                     <DashBoxDiv>
