@@ -70,6 +70,14 @@ const SideBar = () => {
                 </SideLink>
             </Link>
             
+            <Link to="/report" className={pathName === "/report" && 'active'} >
+                <SideIcon>
+                <i className="far fa-chart-bar"></i>
+                </SideIcon>
+                <SideLink>
+                    <p >Reports</p>
+                </SideLink>
+            </Link>
             <Link to="/settings" className={pathName === "/settings" && 'active'} >
                 <SideIcon>
                     <i className="fas fa-user-cog"></i>

@@ -1,4 +1,4 @@
-import { TableDiv, TrDiv, TdDiv, TheadDiv } from "./style";
+import { TableDiv, TrDiv, TdDiv, TheadDiv, ThDiv } from "./style";
 
 
 export const Table = ({children})=>{
@@ -8,11 +8,11 @@ export const Table = ({children})=>{
 }
 
 export const Tr = ({children})=>{
-    return <tbody>
-    <TrDiv>
+
+   return <TrDiv>
         {children}
     </TrDiv>
-    </tbody>
+
 }
 
 export const Td = ({children})=>{
@@ -21,4 +21,7 @@ export const Td = ({children})=>{
 
 export const Thead = ({children})=>{
     return <TheadDiv>{children}</TheadDiv>
+}
+export const Th = ({children})=>{
+    return <ThDiv>{children}</ThDiv>
 }

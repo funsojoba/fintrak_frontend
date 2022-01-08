@@ -23,6 +23,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
 
 import getStore from './redux/store'
+import Report from './pages/report/index';
 
 export const { store, persistor } = getStore()
 
@@ -67,6 +68,7 @@ function App() {
             <ProtectedRoute path="/edit-budget/:id" exact component={EditBudget} />
             <ProtectedRoute path="/edit-income/:id" exact component={EditIncome} />
             <ProtectedRoute path="/edit-expense/:id" exact component={EditExpense} />
+            <ProtectedRoute path="/report" exact component={Report} />
           </Switch>
       </PersistGate>
       </Router>

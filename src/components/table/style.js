@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
 
-export const TableDiv  = styled.table`
-    padding: 10px;
-    width:100%;
-    border:none;
-    width: 100%;
+export const TableDiv  = styled.div`
+    overflow: auto;
+    
+    &table{
+        padding: 10px;
+        width:100%;
+        border:none;
+        width: 100%;
+    }
 
     @media only screen and (max-width:1000px){
         width: 600px;
@@ -43,6 +47,16 @@ export const TrDiv = styled.tr`
 `
 
 export const TdDiv = styled.td`
+    text-align:left;
+    padding: 5px 10px;
+    flex: 1;
+
+    @media only screen and (max-width:750px){
+        padding:5px;
+        font-size:.75em;
+    }
+`
+export const ThDiv = styled.th`
     text-align:left;
     padding: 5px 10px;
     flex: 1;

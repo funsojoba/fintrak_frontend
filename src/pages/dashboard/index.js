@@ -9,7 +9,6 @@ import Paragraph from '../../components/typography/p'
 import Small from '../../components/typography/small'
 import { Line } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
-import Button from '../../components/button'
 
 import { connect } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -17,9 +16,11 @@ import fetchDashboard from '../../redux/action/dashboard'
 import fetchReport from "../../redux/action/getReport"
 import Loader from 'react-spinners/SyncLoader'
 import NumberFormat from "react-number-format";
+
 // import Skeleton from 'react-loading-skeleton';
 
-const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) => {
+
+const Dashboard = ({ dashboardData, fetchDashboard, }) => {
     const dataFromDB = dashboardData.data
     let newDate = new Date();
     const [currentMonth, setCurrentMonth] = useState(()=>newDate.getMonth()+1)
@@ -104,11 +105,6 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
         setCurrentMonth(e.target.value)
     }
 
-
-    const getReportData = ()=>{
-        fetchReport()
-    }
-
     const graphData = {
         labels: dataFromDB && dataFromDB.days_label ? dataFromDB.days_label : [],
         datasets: [
@@ -160,14 +156,7 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
             <DashNav>
                 <div>Dashboard <br /> <Small>{todaysDate }</Small> </div>
                 <TopDiv>
-                    <Button
-                        onClick={getReportData}
-                        padding="10px 15px"
-                        background="#62B161"
-                        color="#fff">{reportData.loading ? <Loader color="#fff" /> :  <i className="fas fa-cloud-download-alt"></i>}
-                        </Button> &nbsp; &nbsp;
-                    
-                        <Select background="#fff" color="#c4c4c4" onChange={changeSelect}>
+                     <Select background="#fff" color="#c4c4c4" onChange={changeSelect}>
                                 {monthsName.map((month)=>{
                                    return <option key={month.number} selected={monthsName.number === currentMonth } value={month.number}>{month.name}</option>
                                 })}
