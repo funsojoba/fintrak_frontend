@@ -15,7 +15,6 @@ const fetchDashboardSuccess = (payload)=>({
 })
 
 const fetchDashboardFailed = (payload)=>{
-    console.log('====>',payload)
     if(payload.response.status === 401){
         localStorage.clear()
     }
@@ -25,10 +24,10 @@ const fetchDashboardFailed = (payload)=>{
     }
 }
 
-const fetchDashboard = ()=>{
+const fetchDashboard = (month)=>{
     return function(dispatch){
         dispatch(startFetchDashboard())
-        axios.get(BASEURL +'dashboard', headers(token))
+        axios.get(BASEURL +'dashboard/month/'+month, headers(token))
         .then(res =>{
             dispatch(fetchDashboardSuccess(res.data.data))
         }).catch(err =>{

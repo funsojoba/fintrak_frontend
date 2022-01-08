@@ -12,7 +12,7 @@ import { Pie } from 'react-chartjs-2';
 import Button from '../../components/button'
 
 import { connect } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import fetchDashboard from '../../redux/action/dashboard'
 import fetchReport from "../../redux/action/getReport"
 import Loader from 'react-spinners/SyncLoader'
@@ -21,7 +21,11 @@ import NumberFormat from "react-number-format";
 
 const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) => {
     const dataFromDB = dashboardData.data
-    useEffect(() => { fetchDashboard() }, [fetchDashboard])
+    let newDate = new Date();
+    const [currentMonth, setCurrentMonth] = useState(()=>newDate.getMonth()+1)
+    
+    useEffect(() => { fetchDashboard(currentMonth) }, [fetchDashboard, currentMonth])
+    
 
     const sumOfIncome = dataFromDB && dataFromDB.sum_of_income ? dataFromDB.sum_of_income : 0;
     const sumOfExpense = dataFromDB && dataFromDB.sum_of_expenses ? dataFromDB.sum_of_expenses : 0;
@@ -29,7 +33,6 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
     const availableBalance = dataFromDB && dataFromDB.available_balance ? dataFromDB.available_balance : 0
     const totalTransaction = dataFromDB && dataFromDB.total_transaction ? dataFromDB.total_transaction : 0;
     
-    let newDate = new Date();
     const months = {
         1:'Jan.',
         2:'Feb.',
@@ -45,7 +48,7 @@ const Dashboard = ({ dashboardData, fetchDashboard, reportData, fetchReport }) =
         12:'Dec.'
     }
 
-    let todaysDate = months[newDate.getMonth()+1] + ' ' + newDate.getDate()
+    let todaysDate = months[currentMonth+1] + ' ' + newDate.getDate()
 
     const getReportData = ()=>{
         fetchReport()
@@ -225,7 +228,7 @@ const mapStateToProps = (store) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchDashboard: () => dispatch(fetchDashboard()),
+    fetchDashboard: (month) => dispatch(fetchDashboard(month)),
     fetchReport: ()=> dispatch(fetchReport())
 })
 
