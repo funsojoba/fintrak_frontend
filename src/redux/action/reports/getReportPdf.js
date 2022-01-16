@@ -1,7 +1,7 @@
-import {GET_REPORT, GET_REPORT_FAILED, GET_REPORT_SUCCESS} from './types'
-import BASE_URL from "../baseURL"
+import {GET_REPORT, GET_REPORT_FAILED, GET_REPORT_SUCCESS} from '../types'
+import BASE_URL from "../../baseURL"
 import axios from 'axios'
-import {fileHeader} from '../request';
+import {fileHeader} from '../../request';
 
 const token = localStorage.getItem('token')
 
@@ -24,7 +24,7 @@ const fetchReportSuccess = payload =>({
     payload
 })
 
-const fetchReport = ()=>{
+const fetchReportPdf = ()=>{
     return function(dispatch){
         dispatch(startFetchReport())
         axios.get(BASE_URL + 'dashboard/report-pdf-two', fileHeader(token))
@@ -39,4 +39,4 @@ const fetchReport = ()=>{
     }
 }
 
-export default fetchReport
+export default fetchReportPdf

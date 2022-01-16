@@ -1,14 +1,27 @@
 import SideBar from '../../components/sideBar/'
 
+import { connect } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { Container, Flex } from './style';
 import Box from '../../components/box';
-
 import H3 from '../../components/typography/h3';
 
 import { Table, Tr, Td,Th } from '../../components/table';
 
+import fetchReport from "../../redux/action/reports/getReport"
 
-const Report = ()=>{
+
+const Report = ({fetchReport, reportData})=>{
+    let newDate = new Date();
+    const [currentMonth, setCurrentMonth] = useState(()=>newDate.getMonth()+1)
+    const [currentYear, setCurrentYear] = useState(()=>newDate.getFullYear())
+    
+    useEffect(()=>{
+        fetchReport(currentMonth, currentYear)
+    }, [fetchReport, currentMonth, currentYear])
+
+    console.log(currentMonth, currentYear)
+    console.log('---->',reportData)
     return <Container>
         <SideBar />
 
@@ -66,4 +79,13 @@ const Report = ()=>{
     </Container>
 }
 
-export default Report
+
+const mapDispatchToProps = dispatch => ({
+    fetchReport : (month, year) => dispatch(fetchReport(month, year))
+})
+
+const mapStateToProps = store =>({
+    reportData : store.reportReducer
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Report)

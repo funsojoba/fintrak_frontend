@@ -13,7 +13,7 @@ import { Pie } from 'react-chartjs-2';
 import { connect } from 'react-redux'
 import { useEffect, useState } from 'react'
 import fetchDashboard from '../../redux/action/dashboard'
-import fetchReport from "../../redux/action/getReport"
+import fetchReportPdf from "../../redux/action/reports/getReportPdf"
 import Loader from 'react-spinners/SyncLoader'
 import NumberFormat from "react-number-format";
 
@@ -267,7 +267,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchDashboard: (month) => dispatch(fetchDashboard(month)),
-    fetchReport: ()=> dispatch(fetchReport())
+    fetchReportPdf: ()=> dispatch(fetchReportPdf())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
