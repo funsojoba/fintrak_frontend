@@ -73,7 +73,7 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, delete
             <br />
             <div>
                 <Button onClick={closeModal}>Cancle</Button> &nbsp;
-                <Button onClick={() => deleteIncome(id)} background="#AF0000" color="#fff">{deleteIncomeData.loading ? <Loader color="#fff" /> : "Delete"}</Button>
+                <Button onClick={() => deleteIncome(id)} background="#AF0000" color="#fff" isLoading={deleteIncomeData.loading}>Delete</Button>
             </div>
         </Modal>
         <SideBar />
@@ -131,7 +131,7 @@ const EditIncome = ({ fetchIncomeDetail, incomeData, match, deleteIncome, delete
                                         <Label>Date</Label>
                                         <Input name="income_date" onChange={handleChange} width="100%" type="date" value={values.income_date} />
                                     </FormChild>
-                                    <Button type="submit">{editIncomeData.loading ? <Loader color="#FFF" /> : "Update"}</Button>
+                                    <Button type="submit" isLoading={editIncomeData.loading }>Update</Button>
                                 </FormDiv>
                             )}
                         </Formik>

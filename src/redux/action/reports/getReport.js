@@ -30,7 +30,6 @@ const fetchReport = (month, year)=>{
         axios.get(BASE_URL + 'dashboard/report/'+month+'/'+year, headers(token))
         .then(res =>{
             dispatch(fetchReportSuccess(res.data))
-            console.log(res)
         }).catch(err =>{
             dispatch(fetchReportFailed(err))
             console.log("ERROR++>", err)

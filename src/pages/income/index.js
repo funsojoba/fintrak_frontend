@@ -26,7 +26,6 @@ import validate from "./validate";
 import { Formik } from "formik";
 import NumberFormat from "react-number-format";
 
-import Loader from 'react-spinners/SyncLoader'
 
 
 const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addIncomeData }) => {
@@ -217,7 +216,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                                 width="100%" />
                             <ErrorMsg>{touched.income_date && errors.income_date ? errors.income_date : null}</ErrorMsg>
                         </FormContent>
-                        <Button width="100%" type="submit">{addIncomeData && addIncomeData.loading ? <Loader color="#fff" /> : 'Submit'}</Button>
+                        <Button width="100%" type="submit" isLoading={addIncomeData && addIncomeData.loading}>Submit</Button>
                     </form>
                 )}
             </Formik>

@@ -144,10 +144,11 @@ const AddBudget = ({ fetchBudget, budgetData, addIncomeData, addIncomeBudget, ad
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={values.description}
+                                        isLoading={addIncomeData.loading}
                                         />
                                     <ErrorMsg>{touched.description && errors.description ? errors.description : null}</ErrorMsg>
                                 </FormContent>
-                                <Button type="submit" background="#0B480A">{addIncomeData.loading ? <Loader color="#F4ECDD"/> :'Add Revenue'}</Button>
+                                <Button type="submit" background="#0B480A">Add Revenue</Button>
                             </form>
                         )}
                     </Formik>
@@ -203,10 +204,11 @@ const AddBudget = ({ fetchBudget, budgetData, addIncomeData, addIncomeBudget, ad
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={values.description}
+                                        isLoading={addExpenseData.loading}
                                     />
                                     <ErrorMsg>{touched.description && errors.description ? errors.description : null}</ErrorMsg>
                                 </FormContent>
-                                <Button type="submit" disabled={!income} background="#AF0000">{addExpenseData.loading ? <Loader color="#F4ECDD" /> : 'Add Expense'}</Button>
+                                <Button type="submit" disabled={!income} background="#AF0000">Add Expense</Button>
                             </form>
                         )}
                     </Formik>

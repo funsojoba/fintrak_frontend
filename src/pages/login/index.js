@@ -17,7 +17,6 @@ import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
 
-import Loader from 'react-spinners/SyncLoader'
 import { Container, ContainerContent, FormDiv, Label, FormContent } from './style'
 
 const LogIn = ({ login, loginData }) => {
@@ -76,8 +75,8 @@ const LogIn = ({ login, loginData }) => {
 
                             <Small mb="10px"> <Link to="/forgot-password" >Forgot Password?</Link> </Small>
                             <FormContent>
-                                <Button type="submit" width="100%" >
-                                    {loginData && loginData.loading ? <Loader size="10px" color="#F4ECDD" /> : 'Log in'}
+                                <Button type="submit" width="100%" isLoading={loginData && loginData.loading}>
+                                    Log In
                                 </Button>
                             </FormContent>
                             <Small align="center" color="#666" >Don't have an account? <Link to="/register">Register</Link></Small>

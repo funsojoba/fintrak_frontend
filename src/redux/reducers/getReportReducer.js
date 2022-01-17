@@ -26,7 +26,7 @@ const reportReducer = (state=initialState, action)=>{
         case GET_REPORT_SUCCESS:
             return{
                 ...state,
-                data:payload,
+                data:payload.data,
                 error:null,
                 loading: false
             }

@@ -11,7 +11,6 @@ import Label from "../../components/typography/label"
 import Select from "../../components/input/select";
 import Modal from "../../components/modal"
 
-import Loader from "react-spinners/SyncLoader";
 import { Container, Content, Parent, ParentChild, Category, FormDiv, FormChild } from "./style";
 import Skeleton from 'react-loading-skeleton';
 import { Formik } from "formik";
@@ -67,7 +66,7 @@ const EditExpense = ({ expenseData, editExpenseData, fetchExpenseDetail, editExp
             <br />
             <div>
                 <Button onClick={closeModal}>Cancle</Button> &nbsp;
-                <Button onClick={() => deleteExpense(id)} background="#AF0000" color="#fff">{deleteExpenseData.loading ? <Loader color="#fff" /> : "Delete Account"}</Button>
+                <Button onClick={() => deleteExpense(id)} background="#AF0000" color="#fff" isLoading={deleteExpenseData.loading}> Delete Account</Button>
             </div>
         </Modal>
         <SideBar />
@@ -140,7 +139,7 @@ const EditExpense = ({ expenseData, editExpenseData, fetchExpenseDetail, editExp
                                             name="expense_date"
                                             onChange={handleChange} />
                                     </FormChild>
-                                    <Button type="submit">{editExpenseData.loading ? <Loader /> : 'Update'}</Button>
+                                    <Button type="submit" isLoading={editExpenseData.loading}>Update</Button>
                                 </FormDiv>
                             )}
                         </Formik>

@@ -133,7 +133,7 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
                                         onBlur={handleBlur} />
                                     <ErrorMsg>{touched.description && errors.description ? errors.description : null}</ErrorMsg>
                                 </FormContent>
-                                <Button background="#0B480A" type="submit">{editAddIncomeData.loading ? <Loader color="#fff" /> : 'Add Revenue'}</Button>
+                                <Button background="#0B480A" type="submit" isLoading={editAddIncomeData.loading}>Add Revenue</Button>
                             </form>
                         )}
                     </Formik>
@@ -188,7 +188,7 @@ const EditBudget = ({ match, budgetData, getBudgetDetail, editAddIncome, editAdd
                                 />
                                 <ErrorMsg>{touched.description && errors.description ? errors.description : null}</ErrorMsg>
                             </FormContent>
-                            <Button background="#AF0000">{editAddExpenseData.loading ? <Loader color="#fff" /> : 'Add Expense'}</Button>
+                            <Button background="#AF0000" isLoading={editAddExpenseData.loading}>Add Expense</Button>
                         </form>
                     )}</Formik>
                 </Box>

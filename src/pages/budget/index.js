@@ -100,6 +100,7 @@ const BudgetPage = ({ fetchBudget, budgetData }) => {
                         <Input type="search" placeholder="Search" />
                         {!budgetExits && <MyLink to="/add-budget"><i className="fas fa-plus"></i> Add</MyLink>}
                     </TopNav>
+                    <br />
                     <Table>
                         <Thead>
                             <Td>Month</Td>

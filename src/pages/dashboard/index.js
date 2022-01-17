@@ -17,6 +17,7 @@ import fetchReportPdf from "../../redux/action/reports/getReportPdf"
 import Loader from 'react-spinners/SyncLoader'
 import NumberFormat from "react-number-format";
 
+import {monthsName} from "../../utils/months"
 // import Skeleton from 'react-loading-skeleton';
 
 
@@ -49,56 +50,6 @@ const Dashboard = ({ dashboardData, fetchDashboard, }) => {
         12:'Dec.'
     }
 
-    const monthsName = [
-        {
-            "name":"Jan",
-            "number":1
-        },
-        {
-            "name":"Feb",
-            "number":2
-        },
-        {
-            "name":"March",
-            "number":3
-        },
-        {
-            "name":"April",
-            "number":4
-        },
-        {
-            "name":"May",
-            "number":5
-        },
-        {
-            "name":"June",
-            "number":6
-        },
-        {
-            "name":"July",
-            "number":7
-        },
-        {
-            "name":"August",
-            "number":8
-        },
-        {
-            "name":"Sept.",
-            "number":9
-        },
-        {
-            "name":"Oct.",
-            "number":10
-        },
-        {
-            "name":"Nov.",
-            "number":11
-        },
-        {
-            "name":"Dec.",
-            "number":12
-        },
-    ]
 
     let todaysDate = months[currentMonth] + ' ' + newDate.getDate()
     const changeSelect = (e)=>{

@@ -9,7 +9,7 @@ import Small from "../../components/typography/small";
 import ErrorMsg from "../../components/typography/errorMsg"
 
 // import BarLoader from 'react-spinners/BarLoader'
-import Loader from 'react-spinners/SyncLoader'
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -116,7 +116,8 @@ const Register = ({register, registerData}) => {
                             </FormContent>
 
                             <FormContent>
-                                {registerData && registerData.loading ? <Button width="100%" type="submit"><Loader size="10px" color="#F4ECDD" /></Button> : <Button width="100%" type="submit" >Register</Button>}
+                                <Button width="100%" type="submit" isLoading={registerData.loading}> Register</Button>
+
                             </FormContent>
                             <Small align="center" color="#666" >Already have an account? <Link to='/login'>Log In</Link></Small>
                         </FormDiv>
