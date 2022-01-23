@@ -26,6 +26,8 @@ import addExpense from "../../redux/action/expense/addExpense";
 
 import NumberFormat from "react-number-format";
 
+import { monthsName } from '../../utils/months';
+
 
 const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense, addExpenseData}) => {
     let newDate = new Date();
@@ -38,58 +40,6 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
     const graphData = expenseData && expenseData.data ? result.expense_per_month : []
     const totalExpense = expenseData.data ? expenseData.data.data.data.total_expense : 0
     const currency = expenseData.data ? expenseData.data.data.data.currency : '$'
-
-
-    const monthsName = [
-        {
-            "name":"Jan",
-            "number":1
-        },
-        {
-            "name":"Feb",
-            "number":2
-        },
-        {
-            "name":"March",
-            "number":3
-        },
-        {
-            "name":"April",
-            "number":4
-        },
-        {
-            "name":"May",
-            "number":5
-        },
-        {
-            "name":"June",
-            "number":6
-        },
-        {
-            "name":"July",
-            "number":7
-        },
-        {
-            "name":"August",
-            "number":8
-        },
-        {
-            "name":"Sept.",
-            "number":9
-        },
-        {
-            "name":"Oct.",
-            "number":10
-        },
-        {
-            "name":"Nov.",
-            "number":11
-        },
-        {
-            "name":"Dec.",
-            "number":12
-        },
-    ]
 
     const changeSelect = (e)=>{
         setCurrentMonth(e.target.value)
@@ -272,6 +222,7 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
                         <Input type="search" placeholder="Search" /> <br />
                         <Button onClick={openModal} ><i className="fas fa-plus"></i> Add</Button>
                     </TopNav>
+                    <br />
                     <Table>
                         <Thead>
                             <Td>Amount</Td>

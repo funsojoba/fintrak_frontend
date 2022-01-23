@@ -25,6 +25,7 @@ import addIncome from "../../redux/action/income/addIncome";
 import validate from "./validate";
 import { Formik } from "formik";
 import NumberFormat from "react-number-format";
+import { monthsName } from '../../utils/months';
 
 
 
@@ -62,56 +63,6 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
         setCurrentMonth(e.target.value)
     }
 
-    const monthsName = [
-        {
-            "name":"Jan",
-            "number":1
-        },
-        {
-            "name":"Feb",
-            "number":2
-        },
-        {
-            "name":"March",
-            "number":3
-        },
-        {
-            "name":"April",
-            "number":4
-        },
-        {
-            "name":"May",
-            "number":5
-        },
-        {
-            "name":"June",
-            "number":6
-        },
-        {
-            "name":"July",
-            "number":7
-        },
-        {
-            "name":"August",
-            "number":8
-        },
-        {
-            "name":"Sept.",
-            "number":9
-        },
-        {
-            "name":"Oct.",
-            "number":10
-        },
-        {
-            "name":"Nov.",
-            "number":11
-        },
-        {
-            "name":"Dec.",
-            "number":12
-        },
-    ]
 
     const selectOptions = [
         { key: "-----", value: "" },
@@ -269,6 +220,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                         <Input type="search" placeholder="Search" /> <br />
                         <Button sm onClick={openModal}><i className="fas fa-plus"></i> Add</Button>
                     </TopNav>
+                    <br />
                     <Table>
                         <Thead>
 
