@@ -7,9 +7,9 @@ export const Table = ({children})=>{
     </TableDiv>
 }
 
-export const Tr = ({children})=>{
+export const Tr = ({children, header})=>{
 
-   return <TrDiv>
+   return <TrDiv header={header}>
         {children}
     </TrDiv>
 

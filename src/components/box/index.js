@@ -1,7 +1,7 @@
 import { BoxDiv } from "./style";
 
 
-const Box = ({children, width, flex, margin, displayFlex, background, flexOnly, flexStart, flexBetween})=>{
+const Box = ({children, width, flex, margin, displayFlex, background, flexOnly, flexStart, flexBetween, ...rest})=>{
     return <BoxDiv 
             width={width} 
             flex={flex}
@@ -10,7 +10,8 @@ const Box = ({children, width, flex, margin, displayFlex, background, flexOnly, 
             background={background}
             flexStart={flexStart}
             flexOnly={flexOnly}
-            flexBetween={flexBetween}>
+            flexBetween={flexBetween}
+            {...rest}>
         {children}
     </BoxDiv>
 }

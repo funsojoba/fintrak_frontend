@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 
 export const TableDiv  = styled.div`
@@ -44,6 +44,14 @@ export const TrDiv = styled.tr`
     &:hover{
         background:#EDEDED;
     }
+    
+    ${({header})=> header && css`
+    background:#C4C4C4;
+    &:hover{
+        background:#C4C4C4;
+    }
+    `}
+    
 `
 
 export const TdDiv = styled.td`

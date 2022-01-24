@@ -2,9 +2,9 @@ import SideBar from '../../components/sideBar/'
 
 import { connect } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { Container, Flex, Headers, Body } from './style';
+import { Container, Flex, Headers, Body, TabDiv, TabDivChild } from './style';
 import Box from '../../components/box';
-import H3 from '../../components/typography/h3';
+import H4 from '../../components/typography/h4'
 import Paragraph from '../../components/typography/p';
 import NumberFormat from "react-number-format";
 
@@ -35,28 +35,61 @@ const Report = ({fetchReport, reportData})=>{
         yearList.push(i)
     }
 
+    const [tabToggle, setTabToggle] = useState(false)
+
+    const setTabTrue = ()=>{
+        setTabToggle(true)
+    }
+    const setTabFalse = ()=>{
+        setTabToggle(false)
+    }
     
     const { all_expense, all_income, currency, total_income, total_expense, full_month_name, year, available_balance } = reportData.data
-    console.log(reportData.data)
 
 
+    const fixedStyle = {
+        position:'sticky',
+        top:0,
+        right:0,
+        width:'100%',
+        zIndex:10,
+        boxShadow:'0 10px 30px rgba(0,0,0,.05)'
+    }
 
     return (
     <Body>
         <SideBar />
         <Container>
+            <Box flex="1" flexBetween style={fixedStyle} >
+                <div>
+                    <H4>{full_month_name +' ' + year}'s Report</H4>
+                </div>
+
+                <div>
+                    <select onChange={handleChangeMonth}>
+                        {monthsName.map(month =>(
+                            <option key={month.number} value={month.number}>{month.name}</option>
+                            ))}
+                    </select>
+                    &nbsp;
+                    <select onChange={handleChangeYear}>
+                        {yearList.map(year => (
+                            <option value={year} key={year} selected={currentYear === year}>{year}</option>
+                        ))}
+                    </select>
+                </div>
+
+            </Box>
             <Flex>
                 <Box flex="2" margin="2.5px">
-                    <div>
-                        <H3>{full_month_name +' ' + year}'s Report</H3>
-                    </div>
-                    <Headers>
-                        <Paragraph color="#D7FFC5" align="center" >
-                            income
-                        </Paragraph>
-                    </Headers>
+                    <TabDiv>
+                        <TabDivChild className={tabToggle ? "active" : ''} onClick={setTabTrue}>Income ({all_income.length})</TabDivChild>
+                        <TabDivChild className={!tabToggle ? "active" : ''} onClick={setTabFalse}>Expense ({all_expense.length})</TabDivChild>
+                    </TabDiv>
+                    
+                    {tabToggle && 
                     <Table>
-                        <Tr>
+                        <Tr header>
                             <Th>Date</Th>
                             <Th>Description</Th>
                             <Th>Source</Th>
@@ -77,7 +110,7 @@ const Report = ({fetchReport, reportData})=>{
                                 </Td>
                             </Tr>
                         ))}
-                        <Tr>
+                        <Tr header>
                             <Td>Total Income</Td>
                             <Td></Td>
                             <Td></Td>
@@ -90,13 +123,11 @@ const Report = ({fetchReport, reportData})=>{
                             </Td>
                         </Tr>
                     </Table>
-                    <Headers>
-                        <Paragraph color="#FF9C9C" align="center" >
-                            expense
-                        </Paragraph>
-                    </Headers>
+                    }
+                    
+                    {!tabToggle && 
                     <Table>
-                        <Tr>
+                        <Tr header>
                             <Th>Date</Th>
                             <Th>Description</Th>
                             <Th>Category</Th>
@@ -108,7 +139,7 @@ const Report = ({fetchReport, reportData})=>{
                             <Tr>
                                 <Td>{expense.expense_date}</Td>
                                 <Td>{expense.description}</Td>
-                                <Td>{expense.source}</Td>
+                                <Td>{expense.category}</Td>
                                 <Td>
                                     <NumberFormat value={expense.amount}
                                         displayType="text"
@@ -118,7 +149,7 @@ const Report = ({fetchReport, reportData})=>{
                             </Tr>
 
                         ))}
-                        <Tr>
+                        <Tr header>
                             <Td>Total Expenses</Td>
                             <Td></Td>
                             <Td></Td>
@@ -131,11 +162,12 @@ const Report = ({fetchReport, reportData})=>{
                             </Td>
                         </Tr>
                     </Table>
+                    }
                     
                     <Headers>
                         <Flex justify="space-between">
-                            <Paragraph color="#A4E9FF">Available balance</Paragraph>
-                            <Paragraph color="#A4E9FF">
+                            <Paragraph color="#EFF1FF">Available balance</Paragraph>
+                            <Paragraph color="#EFF1FF">
                                 <NumberFormat value={available_balance}
                                         displayType="text"
                                         thousandSeparator={true}
@@ -148,33 +180,6 @@ const Report = ({fetchReport, reportData})=>{
                 
             </Flex>
             
-            {/* change month */}
-            <Flex column flex="1">
-                <Box flex="1" margin="2.5px 0">
-                    <Flex>
-                        <div style={{padding:"5px"}}>
-                            Month
-                        </div>
-                        <select onChange={handleChangeMonth}>
-                        {monthsName.map(month =>(
-                            <option key={month.number} value={month.number}>{month.name}</option>
-                            ))}
-                        </select>
-                    </Flex>
-                    <Flex>
-                        <div style={{padding:"5px"}}>
-                            Year
-                        </div>
-                        <select onChange={handleChangeYear}>
-                            {yearList.map(year => (
-                                <option value={year} key={year} selected={currentYear === year}>{year}</option>
-                            ))}
-                        </select>
-                    </Flex>
-                </Box>
-
-                
-            </Flex>
         </Container>
     </Body>)
 }
