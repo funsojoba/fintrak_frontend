@@ -83,8 +83,8 @@ const Report = ({fetchReport, reportData})=>{
             <Flex>
                 <Box flex="2" margin="2.5px">
                     <TabDiv>
-                        <TabDivChild className={tabToggle ? "active" : ''} onClick={setTabTrue}>Income ({all_income.length})</TabDivChild>
-                        <TabDivChild className={!tabToggle ? "active" : ''} onClick={setTabFalse}>Expense ({all_expense.length})</TabDivChild>
+                        <TabDivChild className={tabToggle ? "active" : ''} onClick={setTabTrue}>Income ({all_income && all_income.length})</TabDivChild>
+                        <TabDivChild className={!tabToggle ? "active" : ''} onClick={setTabFalse}>Expense ({all_expense && all_expense.length})</TabDivChild>
                     </TabDiv>
                     
                     {tabToggle && 
@@ -96,7 +96,7 @@ const Report = ({fetchReport, reportData})=>{
                             <Th>Amount</Th>
                         </Tr>
 
-                        {all_income.map(income => (
+                        {all_income && all_income.map(income => (
 
                             <Tr>
                                 <Td>{income.income_date}</Td>
@@ -134,7 +134,7 @@ const Report = ({fetchReport, reportData})=>{
                             <Th>Amount</Th>
                         </Tr>
 
-                        {all_expense.map(expense => (
+                        {all_expense && all_expense.map(expense => (
 
                             <Tr>
                                 <Td>{expense.expense_date}</Td>

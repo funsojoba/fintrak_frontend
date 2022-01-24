@@ -35,6 +35,7 @@ import changePasswordReducer from "./user/changePasswordReducer"
 import deleteUserReducer from "./user/deleteUserReducer";
 
 import reportReducer from "./getReportReducer"
+import forgotPasswordReducer from "./forgotPassword"
 
 const persistConfig = {
     key: 'root',
@@ -45,6 +46,8 @@ const rootReducer = combineReducers({
     loginReducer,
     registerReducer,
     verifyAccountReducer,
+    forgotPasswordReducer,
+    
     dashboardReducer,
     fetchIncomeReducer,
     incomeDetailReducer,
