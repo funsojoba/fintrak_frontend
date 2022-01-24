@@ -1,9 +1,10 @@
-import styled, {keyframes} from "styled-components";
+import styled from "styled-components";
 import H1 from "../../components/typography/h1";
 import MyLink from "../../components/myLink/myLink";
 import Paragraph from "../../components/typography/p";
 import Img from "../../components/img/img";
 import ImageBox from "../../components/imageBox";
+import ScrollAnimation from 'react-animate-on-scroll';
 
 import { connect } from "react-redux";
 
@@ -22,18 +23,18 @@ export const SectionOne = styled.div`
     }
 `
 
-const slideIn = keyframes`
-    0%{
-        transform: translateX(200px);
-        opacity: 0;
-    }
-    97%{
-        transform: translateX(-10px);
-    }
-    100%{
-        opacity:1;
-        transform:translateX(0)}
-`
+// const slideIn = keyframes`
+//     0%{
+//         transform: translateX(200px);
+//         opacity: 0;
+//     }
+//     97%{
+//         transform: translateX(-10px);
+//     }
+//     100%{
+//         opacity:1;
+//         transform:translateX(0)}
+// `
 
 
 
@@ -46,7 +47,6 @@ export const SecOneFlex = styled.div`
 
 export const SecOneText = styled.div`
     padding:30px 50px;
-    animation: ${slideIn} 300ms linear;
 
     @media only screen and (max-width:850px){
         width:90%;
@@ -59,19 +59,23 @@ const SecOne = ({loginData})=>{
     return <SectionOne>
         <SecOneFlex>
             <SecOneText>
+            <ScrollAnimation animateIn="fadeInRight"  animateOut='fadeOut'>
                 <H1>Track your income and expenses</H1>
                 <Paragraph>Fintrak helps you keep track
                     of your income and expenditure
                     to make better financial decisions</Paragraph>
                 <br></br>
                 {loginData.token ? <MyLink to="/dashboard" >Dashboard</MyLink> : <MyLink to="/register" >Sign Up</MyLink>}
+            </ScrollAnimation>
             </SecOneText>
         </SecOneFlex>
 
         <SecOneFlex>
-            <ImageBox width="300px">
-                <Img alt="Fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388905/fintrak/FinTrak_z1bzap.png" />
-            </ImageBox>
+            <ScrollAnimation animateIn='fadeIn'  animateOut='fadeOut'>
+                <ImageBox width="300px">
+                    <Img alt="Fintrak" src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388905/fintrak/FinTrak_z1bzap.png" />
+                </ImageBox>
+            </ScrollAnimation>
         </SecOneFlex>
     </SectionOne>
 }

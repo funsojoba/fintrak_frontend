@@ -242,7 +242,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                                     prefix={incomeData.data.currency}
                                 /> </Td>
                                 <Td>{income.source}</Td>
-                                <Td>{income.description.trim().length > 10 ? (income.description.substring(0,10)+'...') : income.description}</Td>
+                                <Td>{income.description}</Td>
                                 <Td>{income.income_date}</Td>
                                 <Td>
                                     <MyLink

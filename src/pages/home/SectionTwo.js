@@ -5,6 +5,8 @@ import MyLink from "../../components/myLink/myLink";
 import ImageBox from "../../components/imageBox";
 import Img from "../../components/img/img";
 
+import ScrollAnimation from 'react-animate-on-scroll';
+
 export const SectionTwo = styled.div`
     background:#D8E2FF;
     padding:30px;
@@ -41,16 +43,20 @@ const SecTwo = ()=>{
     return <SectionTwo>
         <SecOneFlex>
             <SecOneText>
-                <H1>Get report on all your transactions</H1>
-                <br></br>
-                <MyLink to="/register">Get started</MyLink>
+                <ScrollAnimation animateIn="fadeInRight">
+                    <H1>Get report on all your transactions</H1>
+                    <br></br>
+                    <MyLink to="/register">Get started</MyLink>
+                </ScrollAnimation>
             </SecOneText>
         </SecOneFlex>
 
         <SecOneFlex>
-            <ImageBox>
-                <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388981/fintrak/Dashes_llnwzo.png" />
-            </ImageBox>
+            <ScrollAnimation animateIn="fadeInLeft">
+                <ImageBox>
+                    <Img src="https://res.cloudinary.com/ddl2pf4qh/image/upload/v1629388981/fintrak/Dashes_llnwzo.png" />
+                </ImageBox>
+            </ScrollAnimation>
 
         </SecOneFlex>
     </SectionTwo>
