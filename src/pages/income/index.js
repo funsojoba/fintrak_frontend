@@ -192,7 +192,7 @@ const IncomePage = ({ fetchIncome, incomeData, fetchIncomeCSV, addIncome, addInc
                         <form>
                             <select onChange={changeSelect}>
                                 {monthsName.map(data => (
-                                    <option key={data.number} value={data.number}>{data.name}</option>
+                                    <option key={data.number} value={data.number} selected={data.number === newDate.getMonth()+1}>{data.name}</option>
                                 ))}
                             </select>
                         </form>

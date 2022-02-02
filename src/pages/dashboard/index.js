@@ -109,7 +109,7 @@ const Dashboard = ({ dashboardData, fetchDashboard, }) => {
                 <TopDiv>
                      <Select background="#fff" color="#c4c4c4" onChange={changeSelect}>
                                 {monthsName.map((month)=>{
-                                   return <option key={month.number} selected={monthsName.number === currentMonth } value={month.number}>{month.name}</option>
+                                   return <option key={month.number} selected={month.number === currentMonth } value={month.number}>{month.name }</option>
                                 })}
                         </Select> &nbsp; &nbsp;
                     <DashImage />

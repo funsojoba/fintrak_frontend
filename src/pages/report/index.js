@@ -68,7 +68,7 @@ const Report = ({fetchReport, reportData})=>{
                 <div>
                     <select onChange={handleChangeMonth}>
                         {monthsName.map(month =>(
-                            <option key={month.number} value={month.number}>{month.name}</option>
+                            <option key={month.number} value={month.number} selected={month.number === newDate.getDate()}>{month.name}</option>
                             ))}
                     </select>
                     &nbsp;
