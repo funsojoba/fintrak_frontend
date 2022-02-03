@@ -19,6 +19,7 @@ export const ContainerContent = styled.div`
     background: url(${props => props.background ? props.background : 'none'});
     background-size: cover;
     background-position: center;
+    overflow: scroll;
 
     @media only screen and (max-width:750px){
         display: ${props => props.smDisplay ? props.smDisplay : 'flex'}
