@@ -37,9 +37,12 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
     const [modalState, setmodalState] = useState(false)
 
     const result = expenseData.data && expenseData.data.data.data ? expenseData.data.data.data : null;
-    const graphData = expenseData && expenseData.data ? result.expense_per_month : []
+
+    const graphData = expenseData && expenseData.data ? result.expense_by_category : []
     const totalExpense = expenseData.data ? expenseData.data.data.data.total_expense : 0
     const currency = expenseData.data ? expenseData.data.data.data.currency : '$'
+
+    const {expense_per_month} = result
 
     const changeSelect = (e)=>{
         setCurrentMonth(e.target.value)
@@ -57,11 +60,12 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
     const graphLabel = []
     const graphInfo = []
 
+
     for(let i = 0; i < graphData.length; i++){
         graphLabel.push(graphData[i].category)
     }
     for(let i = 0; i < graphData.length; i++){
-        graphInfo.push(graphData[i].amount)
+        graphInfo.push(graphData[i].category_total)
     }
 
     const selectOptions = [
@@ -231,7 +235,7 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
                             <Td>Date</Td>
                             <Td>Action</Td>
                         </Thead>
-                        {expenseData.loading ? <Loader /> : (graphData.map(item => (
+                        {expenseData.loading ? <Loader /> : (expense_per_month.map(item => (
                             <Tr key={item.id}>
 
                                 <Td><NumberFormat value={item.amount} prefix={currency} thousandSeparator={true} displayType="text" /></Td>
