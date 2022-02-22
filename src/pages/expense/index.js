@@ -42,7 +42,7 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
     const totalExpense = expenseData.data ? expenseData.data.data.data.total_expense : 0
     const currency = expenseData.data ? expenseData.data.data.data.currency : '$'
 
-    const expense_per_month = result ? result.expense_per_month : {}
+    const expense_per_month = result ? result.expense_per_month : []
 
     const changeSelect = (e)=>{
         setCurrentMonth(e.target.value)
@@ -235,7 +235,7 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
                             <Td>Date</Td>
                             <Td>Action</Td>
                         </Thead>
-                         {expenseData.loading ? <Loader /> : (expense_per_month.map(item => (
+                         {expenseData.loading ? <Loader /> : (expense_per_month && expense_per_month.map(item => (
                             <Tr key={item.id}>
 
                                 <Td><NumberFormat value={item.amount} prefix={currency} thousandSeparator={true} displayType="text" /></Td>
