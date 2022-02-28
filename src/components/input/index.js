@@ -1,7 +1,8 @@
 import { InputDiv } from "./style";
 
 
-const Input = ({onChange, type, name, value, placeholder, onBlur, width, mb, readOnly, id})=>{
+const Input = (props)=>{
+    const {onChange, type, name, value, placeholder, onBlur, width, mb, readOnly, id, min, max} = props
     return <InputDiv 
             onChange={onChange}
             type={type}
@@ -11,6 +12,8 @@ const Input = ({onChange, type, name, value, placeholder, onBlur, width, mb, rea
             onBlur={onBlur}
             width={width}
             mb={mb}
+            min={min}
+            max={max}
             readOnly={readOnly}
             id={id}>
 

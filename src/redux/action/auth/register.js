@@ -27,9 +27,10 @@ const register = payload =>{
             toast.success('Success! Please check mail to confirm account')
             dispatch(registerSuccess(res))
         }).catch(err =>{
-            const error = Object.values(err.response.data.error)[0]
+            const error = err.response ? Object.values(err.response.data.errors)[0] : []
             toast.error(error[0])
             dispatch(registerFailed(err))
+            // console.log("****>>>", error)
         })
     }
 }
