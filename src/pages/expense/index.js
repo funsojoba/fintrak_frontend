@@ -31,6 +31,10 @@ import { monthsName } from '../../utils/months';
 
 const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense, addExpenseData}) => {
     let newDate = new Date();
+    let day = newDate.getDay()
+    let month = newDate.getMonth()+1
+    let year = newDate.getFullYear()
+    let today = year + '-' + month + '-' + day;
     const [currentMonth, setCurrentMonth] = useState(()=>newDate.getMonth()+1)
     useEffect(()=> {fetchExpense(currentMonth)}, [fetchExpense, currentMonth])
     
@@ -177,6 +181,7 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.expense_date}
+                            max={today}
                             />
                         <ErrorMsg>{touched.expense_date&& errors.expense_date ? errors.expense_date : null}</ErrorMsg>
                     </FormContent>

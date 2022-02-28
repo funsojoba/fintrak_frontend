@@ -8,7 +8,6 @@ import Button from "../../components/button";
 import Small from "../../components/typography/small";
 import ErrorMsg from "../../components/typography/errorMsg"
 
-// import BarLoader from 'react-spinners/BarLoader'
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -99,6 +98,7 @@ const Register = ({register, registerData}) => {
                                     name='password'
                                     onBlur={handleBlur}
                                     onChange={handleChange}
+                                    password
                                 />
                                 <ErrorMsg>{touched.password && errors.password ? errors.password : null}</ErrorMsg>
                             </FormContent>
@@ -111,6 +111,7 @@ const Register = ({register, registerData}) => {
                                     name='confirm_password'
                                     onBlur={handleBlur}
                                     onChange={handleChange}
+                                    password
                                 />
                                 <ErrorMsg>{touched.confirm_password && errors.confirm_password ? errors.confirm_password : null}</ErrorMsg>
                             </FormContent>

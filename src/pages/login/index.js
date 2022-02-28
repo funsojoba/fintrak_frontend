@@ -69,7 +69,7 @@ const LogIn = ({ login, loginData }) => {
                                     placeholder='**********'
                                     type='password'
                                     name='password'
-                                    value={values.password} />
+                                    value={values.password} password />
                                 <ErrorMsg>{touched.password && errors.password ? (errors.password) : (null)}</ErrorMsg>
                             </FormContent>
 
