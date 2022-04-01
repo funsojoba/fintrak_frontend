@@ -18,7 +18,6 @@ const SideBar = () => {
     const pathName = window.location.pathname
     const logOut = () => {
         localStorage.clear()
-        console.log('loggin out...')
         window.location = "/";
     }
     return <SideBarDiv>
