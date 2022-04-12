@@ -64,6 +64,13 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
     const graphLabel = []
     const graphInfo = []
 
+    // TODO: fix this, it doesn't work
+    const searchExpense = (e)=>{
+        result.expense_by_category.filter(item=>{
+            return item.category.toLowerCase().includes(e.target.value.toLowerCase())
+        })
+    }
+
 
     for(let i = 0; i < graphData.length; i++){
         graphLabel.push(graphData[i].category)
@@ -228,7 +235,7 @@ const ExpensePage = ({ fetchExpense, expenseData, addExpenseReducer, addExpense,
             <Div>
                 <Box>
                     <TopNav>
-                        <Input type="search" placeholder="Search" /> <br />
+                        <Input type="search" placeholder="Search" onChange={(e)=>searchExpense(e)} /> <br />
                         <Button onClick={openModal} ><i className="fas fa-plus"></i> Add</Button>
                     </TopNav>
                     <br />
