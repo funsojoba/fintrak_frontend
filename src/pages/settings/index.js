@@ -145,6 +145,7 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
                                 <FormContent>
                                     <Label>Current Password</Label>
                                     <Input
+                                        password
                                         id="password"
                                         width="100%"
                                         type="password"
@@ -158,6 +159,7 @@ const SettingsPage = ({ fetchUser, userData, addUserProfile, addProfileData, add
                                 <FormContent>
                                     <Label>New Password</Label>
                                     <Input
+                                        password
                                         width="100%"
                                         name="new_password"
                                         onChange={handleChange}
