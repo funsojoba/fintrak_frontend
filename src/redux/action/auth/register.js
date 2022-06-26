@@ -24,13 +24,15 @@ const register = payload =>{
         dispatch(registerStart())
         axios.post(BASEURL + 'auth/register', payload)
         .then(res =>{
-            toast.success('Success! Please check mail to confirm account')
+            toast.success('Sign up successful')
             dispatch(registerSuccess(res))
+            setInterval(function () {
+                window.location = "/login";
+            }, 2500);
         }).catch(err =>{
             const error = err.response ? Object.values(err.response.data.errors)[0] : []
             toast.error(error[0])
             dispatch(registerFailed(err))
-            // console.log("****>>>", error)
         })
     }
 }

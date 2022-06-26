@@ -21,17 +21,17 @@ const loginSuccessful = (payload)=>({
 const login = (payload)=>{
     return function(dispatch){
         dispatch(loginStart())
-        axios.post(BASEURL +'auth/api/token/', payload)
+        axios.post(BASEURL +'auth/login', payload)
         .then(res =>{
-            toast.success('Welcome back')
+            toast.success('Welcome back ' + res.data.data.user.first_name)
             dispatch(loginSuccessful(res))
             setInterval(function () {
                 window.location = "/dashboard";
             }, 2500);
         }).catch(err => {
-            const errorMessage = err.response ? err.response.data.detail : null;
+            const errorMessage = err.response ? err.response.data.errors.error : null;
             toast.error(errorMessage)
-            dispatch(loginFailed(err))
+            dispatch(loginFailed(err.response))
         })
     }
 }
