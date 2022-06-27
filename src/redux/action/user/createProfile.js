@@ -25,12 +25,14 @@ const addUserFailed = payload => ({
 const addUserProfile = (payload) => {
     return function (dispatch) {
         dispatch(startAddUser())
-        axios.post(BASEURL + 'user/create', payload, headers(token))
-            .then(res => {
+        axios.patch(BASEURL + 'user/update', payload, headers(token))
+        .then(res => {
+                console.log("RESPONSE",res)
                 dispatch(addUserSuccess(res))
                 setTimeout(()=>{
                     window.location =''}, 1000)
             }).catch(err => {
+                console.log("ERROR",err.response)
                 if (err.response.status === 401) {
                     localStorage.clear()
                 }
