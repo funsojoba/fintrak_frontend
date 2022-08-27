@@ -24,7 +24,7 @@ const editExpenseFailed = payload =>({
 const editExpense = (payload, id)=>{
     return function(dispatch){
         dispatch(startEdit())
-        axios.put(BASEURL+'expense/edit/'+id, payload, headers(token))
+        axios.patch(BASEURL+'expense/edit/'+id, payload, headers(token))
         .then((res) => {
             dispatch(editExpenseSuccess(res))
             setTimeout(() => {
